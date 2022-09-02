@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import 'contact_info.dart';
@@ -5,7 +6,7 @@ import 'contact_info.dart';
 class Company extends Equatable {
   final String id;
   final String name;
-  final DateTime establishmentDate;
+  final Timestamp establishmentDate;
   final String summary;
   final Map<String, List<ContactInfo>> contactAddressInfo;
 
@@ -18,8 +19,7 @@ class Company extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         id,
         name,
         establishmentDate,

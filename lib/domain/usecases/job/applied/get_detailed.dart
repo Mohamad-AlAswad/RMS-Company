@@ -1,15 +1,19 @@
-import 'package:dartz/dartz.dart';
+import 'package:rms_company/domain/repositories/job/applied_repo.dart';
 
-import '../../../../core/errors/failures/failure.dart';
-import '../../../entities/job/applied_job.dart';
-import '../../../repositories/job/applied_repo.dart';
+import '../../../../injection_container.dart';
+import '../../../entities/job/evaluated/full_evaluated_job.dart';
 
-class GetDetailed {
+class GetDetailedApplied {
   final AppliedRepo appliedRepo;
 
-  GetDetailed(this.appliedRepo);
+  GetDetailedApplied() : appliedRepo = sl();
 
-  Future<Either<Failure, AppliedJob>> call({required String id}) async {
-    return await appliedRepo.detailed(id: id);
+  Future<FullEvaluatedJob> call({required String id}) async {
+    FullEvaluatedJob? result;
+    (await appliedRepo.detailed(id: id)).fold(
+      (failure) => print(failure.message),
+      (data) => result = data,
+    );
+    return result!;
   }
 }

@@ -3,11 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'evaluated_description/evaluated_description.dart';
 
 class EvaluatedJob extends Equatable {
-  final String id;
-  final String title;
+  final String fullName;
+  final String appliedId;
+  final String userId;
   final String summary;
-  final String companyName;
-  final Timestamp publishedTime;
+  final Timestamp appliedTime;
+  final String state;
   final List<EvSkillDescription> skills;
   final List<EvEduQualificationDescription> eduQualifications;
   final List<EvExperienceDescription> experiences;
@@ -15,29 +16,31 @@ class EvaluatedJob extends Equatable {
   final num score;
 
   const EvaluatedJob({
-    required this.id,
-    required this.title,
+    required this.appliedId,
+    required this.fullName,
+    required this.userId,
+    required this.appliedTime,
     required this.summary,
-    required this.companyName,
-    required this.publishedTime,
     required this.skills,
     required this.eduQualifications,
     required this.experiences,
     required this.languages,
     required this.score,
+    required this.state,
   });
 
   @override
   List<Object?> get props => [
-        id,
-        title,
+        appliedId,
+        fullName,
+        userId,
+        appliedTime,
         summary,
-        companyName,
-        publishedTime,
         skills,
         eduQualifications,
         experiences,
         languages,
         score,
+        state,
       ];
 }

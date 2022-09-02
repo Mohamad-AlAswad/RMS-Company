@@ -1,15 +1,21 @@
-import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failures/failure.dart';
-import '../../../entities/job/applied_job.dart';
-import '../../../repositories/job/applied_repo.dart';
+import 'package:rms_company/domain/repositories/job/applied_repo.dart';
 
-class FetchMore {
+import '../../../../injection_container.dart';
+import '../../../entities/job/evaluated/evaluated_job.dart';
+
+class FetchMoreApplied {
   final AppliedRepo appliedRepo;
 
-  FetchMore(this.appliedRepo);
+  FetchMoreApplied() : appliedRepo = sl();
 
-  Future<Either<Failure, List<AppliedJob>>> call(
-      {required int skip, required int limit}) async {
-    return await appliedRepo.fetch(limit: limit);
+  Future<List<EvaluatedJob>> call({required int limit}) async {
+    List<EvaluatedJob> result = [];
+    (await appliedRepo.fetch(limit: limit)).fold(
+      (failure) => print(failure.message),
+      (data) => result = data,
+    );
+    return result;
   }
+
+  void refresh() => appliedRepo.refresh();
 }
