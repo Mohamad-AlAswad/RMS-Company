@@ -67,7 +67,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   user_ent.UserInfo? get connectedUser => authenticationRemote.connectedUser;
 
   @override
-  String? get companyId => authenticationRemote.companyId;
+  String? get companyName => authenticationRemote.companyId;
 
   @override
   Company? get connectedCompany => authenticationRemote.connectedCompany;

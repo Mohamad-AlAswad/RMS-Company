@@ -18,7 +18,7 @@ abstract class AuthenticationRepo {
 
   String? get userId;
 
-  String? get companyId;
+  String? get companyName;
 
   UserInfo? get connectedUser;
 

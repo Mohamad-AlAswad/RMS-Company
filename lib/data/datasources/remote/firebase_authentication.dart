@@ -110,7 +110,7 @@ class FirebaseAuthentication extends AuthenticationRemote {
 
   @override
   // TODO: implement companyId
-  String? get companyId => throw UnimplementedError();
+  String? get companyId => 'throw UnimplementedError()';
 
   @override
   // TODO: implement connectedCompany

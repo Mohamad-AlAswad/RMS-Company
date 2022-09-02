@@ -43,12 +43,16 @@ class JobModel extends Job {
     }
   }
 
-  static Map<String, dynamic> toSnapshot(Job job) {
+  static Map<String, dynamic> toSnapshot({
+    required Job job,
+    required String companyName,
+  }) {
     return {
       'title': job.title,
       'summary': job.summary,
       'published-time': job.publishedTime,
       'status': job.status,
+      'company-name': companyName,
       'skills': SkillDescriptionFieldModel.listToSnapshot(job.skills),
       'edu-qualifications':
           EduQualificationDescriptionFieldModel.listToSnapshot(

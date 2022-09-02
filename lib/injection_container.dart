@@ -5,8 +5,6 @@ import 'data/datasources/remote/autocomplete_substring_api.dart';
 import 'data/datasources/remote/evaluator_api.dart';
 import 'data/datasources/remote/firebase_authentication.dart';
 import 'data/repositories/authentication_repo.dart';
-import 'data/repositories/job/recommended_repo_imp.dart';
-import 'data/repositories/job/unavailable_repo_imp.dart';
 import 'data/repositories/keywords/keywords_degree_edu_repo_substring.dart';
 import 'data/repositories/keywords/keywords_field_edu_repo_substring.dart';
 import 'data/repositories/keywords/keywords_job_titles_repo_substring.dart';
@@ -15,8 +13,6 @@ import 'data/repositories/keywords/keywords_skills_repo_substring.dart';
 import 'data/repositories/keywords/keywords_universities_repo_substring.dart';
 import 'data/repositories/user_info_repo_imp.dart';
 import 'domain/repositories/authentication_repo.dart';
-import 'domain/repositories/job/recommended_repo.dart';
-import 'domain/repositories/job/unavailable_repo.dart';
 import 'domain/repositories/keywords/keywords_degree_edu_repo.dart';
 import 'domain/repositories/keywords/keywords_field_edu_repo.dart';
 import 'domain/repositories/keywords/keywords_job_titles_repo.dart';
@@ -28,10 +24,6 @@ import 'domain/usecases/authentication/get_connected_user.dart';
 import 'domain/usecases/authentication/log_out.dart';
 import 'domain/usecases/authentication/sign_in_email_password.dart';
 import 'domain/usecases/authentication/sign_up_email_password.dart';
-import 'domain/usecases/job/recommended/fetch_more.dart';
-import 'domain/usecases/job/recommended/get_detailed.dart';
-import 'domain/usecases/job/unavailable/fetch_more.dart';
-import 'domain/usecases/job/unavailable/get_detailed.dart';
 import 'domain/usecases/user/get_profile_user.dart';
 import 'domain/usecases/user/update_profile_user.dart';
 
@@ -66,22 +58,6 @@ void initData() {
       firebaseFirestore: sl(),
     ),
   );
-  sl.registerFactory<RecommendedRepo>(
-    () => RecommendedRepoImp(
-      firebaseFirestore: sl(),
-      evaluatorApi: sl(),
-      userId: 'KNvVSQq2xSUaxUNsEbHCu5VvHWv2',
-      // userId: GetConnectedUser(sl()).userId!,
-    ),
-  );
-  sl.registerFactory<UnavailableRepo>(
-    () => UnavailableRepoImp(
-      firebaseFirestore: sl(),
-      evaluatorApi: sl(),
-      userId: 'KNvVSQq2xSUaxUNsEbHCu5VvHWv2',
-      // userId: GetConnectedUser(sl()).userId!,
-    ),
-  );
   sl.registerFactory<KeywordsSkillsRepo>(
     () => KeywordsSkillsRepoSubstring(),
   );
@@ -108,13 +84,6 @@ void initUseCases() {
   sl.registerLazySingleton(() => LogOut(sl()));
   sl.registerLazySingleton(() => SignInEmailAndPassword(sl()));
   sl.registerLazySingleton(() => SignUpEmailPassword(sl()));
-
-  // job - recommended
-  sl.registerSingleton(FetchMoreRecommended());
-  sl.registerSingleton(GetDetailedRecommended());
-  // job - unavailable
-  sl.registerSingleton(FetchMoreUnavailable());
-  sl.registerSingleton(GetDetailedUnavailable());
 
   // user
   sl.registerSingleton(GetProfileUser());

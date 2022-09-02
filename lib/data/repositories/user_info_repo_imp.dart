@@ -12,7 +12,7 @@ class UserInfoRepoImp implements UserInfoRepo {
 
   UserInfoRepoImp({
     required this.firebaseFirestore,
-  }) : collection = firebaseFirestore.collection('user-info');
+  }) : collection = firebaseFirestore.collection('user-info-company');
 
   @override
   Future<Either<Failure, UserInfo>> getUserInfo(
