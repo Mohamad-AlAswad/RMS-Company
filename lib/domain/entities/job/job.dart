@@ -6,7 +6,6 @@ class Job extends Equatable {
   final String id;
   final String title;
   final String summary;
-  final String companyName;
   final Timestamp publishedTime;
   final List<SkillDescriptionField> skills;
   final List<EduQualificationDescriptionField> eduQualifications;
@@ -18,7 +17,6 @@ class Job extends Equatable {
     required this.id,
     required this.title,
     required this.summary,
-    required this.companyName,
     required this.publishedTime,
     required this.skills,
     required this.eduQualifications,
@@ -32,7 +30,6 @@ class Job extends Equatable {
         id,
         title,
         summary,
-        companyName,
         publishedTime,
         skills,
         eduQualifications,

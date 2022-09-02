@@ -1,10 +1,10 @@
-part of 'evaluated_description.dart';
+part of 'applied_description.dart';
 
-class EvEduQualificationDescription extends EvaluatedDescription {
+class ApEduQualificationDescription extends AppliedDescription {
   final String degree;
   final String field;
 
-  const EvEduQualificationDescription({
+  const ApEduQualificationDescription({
     required this.degree,
     required this.field,
     required super.isSatisfied,

@@ -36,7 +36,9 @@ class AutocompleteSubstringApiImp implements AutocompleteSubstringApi {
         (query2.isNotEmpty ? query2 : '');
     final response = await http.get(Uri.parse('$uriApi/$type/$word$query'));
     return Future<List<String>>.value(
-      CustomConverter().toListString(list: jsonDecode(response.body)),
+      CustomConverter.toListString(
+        jsonDecode(response.body),
+      ),
     );
   }
 }

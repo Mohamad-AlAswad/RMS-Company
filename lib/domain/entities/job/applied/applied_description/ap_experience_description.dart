@@ -1,10 +1,12 @@
-part of 'evaluated_description.dart';
+part of 'applied_description.dart';
 
-class EvSkillDescription extends EvaluatedDescription {
+class ApExperienceDescription extends AppliedDescription {
   final String title;
+  final num period;
 
-  const EvSkillDescription({
+  const ApExperienceDescription({
     required this.title,
+    required this.period,
     required super.isSatisfied,
     required super.isRequired,
   });
@@ -12,6 +14,7 @@ class EvSkillDescription extends EvaluatedDescription {
   @override
   List<Object?> get props => [
         title,
+        period,
         isSatisfied,
         isRequired,
       ];

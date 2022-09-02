@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:rms_company/domain/entities/company.dart';
 import '../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../core/errors/failures/failure.dart';
 import '../../domain/repositories/authentication_repo.dart';
@@ -64,4 +65,10 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
 
   @override
   user_ent.UserInfo? get connectedUser => authenticationRemote.connectedUser;
+
+  @override
+  String? get companyId => authenticationRemote.companyId;
+
+  @override
+  Company? get connectedCompany => authenticationRemote.connectedCompany;
 }

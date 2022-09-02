@@ -1,4 +1,4 @@
 class CustomConverter {
-  List<String> toListString({required List<dynamic> list}) =>
+  static List<String> toListString(List<dynamic> list) =>
       list.map((e) => e as String).toList();
 }

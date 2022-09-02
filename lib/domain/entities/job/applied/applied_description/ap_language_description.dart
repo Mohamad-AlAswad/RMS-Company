@@ -1,9 +1,9 @@
-part of 'evaluated_description.dart';
+part of 'applied_description.dart';
 
-class EvLanguageDescription extends EvaluatedDescription {
+class ApLanguageDescription extends AppliedDescription {
   final String title;
 
-  const EvLanguageDescription({
+  const ApLanguageDescription({
     required this.title,
     required super.isSatisfied,
     required super.isRequired,

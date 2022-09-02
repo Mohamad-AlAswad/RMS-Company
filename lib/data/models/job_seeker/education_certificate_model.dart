@@ -1,4 +1,5 @@
-import '../../../domain/entities/user/user_info.dart';
+
+import '../../../domain/entities/job_seeker/job_seeker_info.dart';
 
 class EducationCertificateModel extends EducationCertificate {
   const EducationCertificateModel({

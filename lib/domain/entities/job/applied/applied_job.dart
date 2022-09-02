@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'evaluated_description/evaluated_description.dart';
+import 'package:rms_company/domain/entities/job/applied/applied_description/applied_description.dart';
 
-class EvaluatedJob extends Equatable {
+class AppliedJob extends Equatable {
   final String fullName;
   final String appliedId;
-  final String userId;
+  final String jobSeekerId;
   final String summary;
   final Timestamp appliedTime;
   final String state;
-  final List<EvSkillDescription> skills;
-  final List<EvEduQualificationDescription> eduQualifications;
-  final List<EvExperienceDescription> experiences;
-  final List<EvLanguageDescription> languages;
+  final List<ApSkillDescription> skills;
+  final List<ApEduQualificationDescription> eduQualifications;
+  final List<ApExperienceDescription> experiences;
+  final List<ApLanguageDescription> languages;
   final num score;
 
-  const EvaluatedJob({
+  const AppliedJob({
     required this.appliedId,
     required this.fullName,
-    required this.userId,
+    required this.jobSeekerId,
     required this.appliedTime,
     required this.summary,
     required this.skills,
@@ -33,7 +33,7 @@ class EvaluatedJob extends Equatable {
   List<Object?> get props => [
         appliedId,
         fullName,
-        userId,
+        jobSeekerId,
         appliedTime,
         summary,
         skills,

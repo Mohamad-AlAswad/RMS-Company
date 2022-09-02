@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/errors/exceptions/authentication_exceptions.dart';
+import '../../../domain/entities/company.dart';
 import '../../../domain/repositories/user_info_repo.dart';
 import '../../../domain/entities/user/user_info.dart' as user_ent;
 
@@ -20,6 +21,10 @@ abstract class AuthenticationRemote {
   String? get userId;
 
   user_ent.UserInfo? get connectedUser;
+
+  String? get companyId;
+
+  Company? get connectedCompany;
 }
 
 class FirebaseAuthentication extends AuthenticationRemote {
@@ -102,4 +107,12 @@ class FirebaseAuthentication extends AuthenticationRemote {
 
   @override
   user_ent.UserInfo? get connectedUser => _userInfo;
+
+  @override
+  // TODO: implement companyId
+  String? get companyId => throw UnimplementedError();
+
+  @override
+  // TODO: implement connectedCompany
+  Company? get connectedCompany => throw UnimplementedError();
 }

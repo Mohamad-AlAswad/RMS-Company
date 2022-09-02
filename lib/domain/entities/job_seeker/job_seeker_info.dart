@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class UserInfo extends Equatable {
+part 'education_certificate.dart';
+
+part 'past_job.dart';
+
+class JobSeekerInfo extends Equatable {
   final String? email;
+  final num rating;
   final List<String> phones;
   final List<String> emails;
   final String? firstName;
@@ -10,26 +16,36 @@ class UserInfo extends Equatable {
   final String? imgUrl;
   final String? gender;
   final String? location;
+  final String? summary;
   final String? nationality;
-  final List<String> companies;
+  final List<String> skills;
+  final List<EducationCertificate> eduQualifications;
+  final List<PastJob> experiences;
+  final List<String> languages;
 
-  const UserInfo({
+  const JobSeekerInfo({
     this.email,
+    this.rating = 0.0,
     this.firstName,
     this.middleName,
     this.lastName,
     this.imgUrl,
     this.gender,
     this.location,
-    this.nationality,
     this.phones = const [],
     this.emails = const [],
-    this.companies = const [],
+    this.summary,
+    this.nationality,
+    this.skills = const [],
+    this.eduQualifications = const [],
+    this.experiences = const [],
+    this.languages = const [],
   });
 
   @override
   List<Object?> get props => [
         email,
+        rating,
         firstName,
         middleName,
         lastName,
@@ -38,7 +54,11 @@ class UserInfo extends Equatable {
         location,
         phones,
         emails,
+        summary,
         nationality,
-        companies,
+        skills,
+        eduQualifications,
+        experiences,
+        languages,
       ];
 }
