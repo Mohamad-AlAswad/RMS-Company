@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:rms_company/presentation/splash_screen.dart';
 
 import '../provider/theme.dart';
 import '../provider/theme_notifier.dart';
-import 'bloc_builder_widget.dart';
 import 'blocs/authentication/auth_bloc.dart';
 import 'controllers/controllers.dart';
 
@@ -20,7 +20,6 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthState init = AuthInitial();
     return BlocProvider.value(
       value: authBloc,
       child: ChangeNotifierProvider(
@@ -32,10 +31,7 @@ class Wrapper extends StatelessWidget {
               theme: themeNotifier.darkTheme
                   ? CustomeTheme.dark
                   : CustomeTheme.light,
-              home: BlocBuilderWidget(
-                controllers: controllers,
-                initialState: init,
-              ),
+              home: SplashScreen(controllers: controllers),
             );
           },
         ),
@@ -43,3 +39,4 @@ class Wrapper extends StatelessWidget {
     );
   }
 }
+

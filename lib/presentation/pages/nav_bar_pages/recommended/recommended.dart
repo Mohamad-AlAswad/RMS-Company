@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
-import '../../../../domain/entities/job/evaluated_job.dart';
-import '../../../../domain/usecases/job/recommended/fetch_more.dart';
-import '../../../../injection_container.dart';
 import '../../../components/job/job.dart';
 import '../common/common.dart';
 import '../pages.dart';
@@ -21,8 +18,8 @@ class Recommended extends StatefulWidget implements Pages {
 class _RecommendedState extends State<Recommended> {
   ScrollController scrollController = ScrollController();
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey = GlobalKey();
-  final FetchMoreRecommended fetcherRecommended = FetchMoreRecommended();
-  List<EvaluatedJob> jobList = [];
+  // final FetchMoreRecommended fetcherRecommended = FetchMoreRecommended();
+  // List<EvaluatedJob> jobList = [];
 
   Future<void> _handleRefresh() async {
     _refreshIndicatorKey.currentState?.show();
@@ -38,14 +35,14 @@ class _RecommendedState extends State<Recommended> {
     setState(() {
       loading = true;
     });
-    jobList.addAll(await fetcherRecommended(limit: 1));
-    List<Widget> newJobs = jobList.map((e) => JobWidget(job: e)).toList();
-    if (newJobs.isNotEmpty) {
-      jobs.addAll(Iterable.castFrom(newJobs));
-    }
+    // jobList.addAll(await fetcherRecommended(limit: 1));
+    // List<Widget> newJobs = jobList.map((e) => JobWidget(job: e)).toList();
+    // if (newJobs.isNotEmpty) {
+    //   jobs.addAll(Iterable.castFrom(newJobs));
+    // }
     setState(() {
       loading = false;
-      allLoaded = newJobs.isEmpty;
+      // allLoaded = newJobs.isEmpty;
     });
   }
 

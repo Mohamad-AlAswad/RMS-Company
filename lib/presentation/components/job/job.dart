@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:intl/intl.dart';
 
-import '../../../domain/entities/job/evaluated_job.dart';
 import '../../../provider/theme.dart';
 import '../my_elevated_button.dart';
 import 'costum_expansion_tile.dart';
 
 class JobWidget extends StatelessWidget {
-  const JobWidget({Key? key, required this.job}) : super(key: key);
+  const JobWidget({
+    Key? key,
+    // required this.job,
+  }) : super(key: key);
 
-  final EvaluatedJob job;
+  // final EvaluatedJob job;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +37,19 @@ class JobWidget extends StatelessWidget {
             children: <Widget>[
               TextButton(
                 onPressed: () {},
-                child: Text(
-                  job.companyName,
-                  style: const TextStyle(fontSize: 22),
+                child: const Text(
+                  '',
+                  // job.companyName,
+                  style: TextStyle(fontSize: 22),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  DateFormat.yMMMEd().format(job.publishedTime.toDate()),
+                  DateFormat.yMMMEd().format(
+                    DateTime.now(),
+                    // job.publishedTime.toDate(),
+                  ),
                   style: const TextStyle(fontSize: 16),
                 ),
               ),
@@ -53,7 +59,8 @@ class JobWidget extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: MyElevatedButton(
               press: () {},
-              text: job.title,
+              // text: job.title,
+              text: '',
               w: 1,
               color: Theme.of(context).primaryColor.withAlpha(100),
             ),
@@ -61,7 +68,8 @@ class JobWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             child: ReadMoreText(
-              job.summary,
+              '',
+              // job.summary,
               trimMode: TrimMode.Line,
               trimLines: 3,
               style: const TextStyle(fontSize: 16),
@@ -76,7 +84,8 @@ class JobWidget extends StatelessWidget {
               trimExpandedText: ' show less',
             ),
           ),
-          CustomExpansionTile(job: job),
+          // CustomExpansionTile(job: job),
+          CustomExpansionTile(),
         ],
       ),
     );
