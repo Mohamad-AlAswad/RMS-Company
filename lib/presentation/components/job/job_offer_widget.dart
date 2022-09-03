@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:readmore/readmore.dart';
 import 'package:intl/intl.dart';
+import 'package:rms_company/presentation/components/components.dart';
 
+import '../../../domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
 import '../my_elevated_button.dart';
 
-class JobWidget extends StatelessWidget {
-  const JobWidget({
+class JobOfferWidget extends StatelessWidget {
+  const JobOfferWidget({
     Key? key,
-    // required this.job,
+    required this.job,
+    required this.valueChanged,
   }) : super(key: key);
 
-  // final EvaluatedJob job;
+  final Job job;
+  final Function valueChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +38,21 @@ class JobWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextButton(
-                onPressed: () {},
-                child: const Text(
-                  '',
-                  // job.companyName,
-                  style: TextStyle(fontSize: 22),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const Text('Job Offer Details'),
+                    ),
+                  );
+                },
+                child: Text(
+                  job.title,
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Padding(
@@ -57,34 +70,25 @@ class JobWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: MyElevatedButton(
-              press: () {},
-              // text: job.title,
-              text: '',
+              press: null,
+              text: job.summary,
               w: 1,
+              h: (job.summary.length / 20) * 0.02,
               color: Theme.of(context).primaryColor.withAlpha(100),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: ReadMoreText(
-              '',
-              // job.summary,
-              trimMode: TrimMode.Line,
-              trimLines: 3,
-              style: const TextStyle(fontSize: 16),
-              lessStyle: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 18,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Center(
+              child: RoundedDropdownButton(
+                color: Theme.of(context).primaryColor,
+                valueChanged: valueChanged,
+                value: job.status,
+                label: 'Job Offer Status',
+                list: const ['running', 'paused'],
               ),
-              moreStyle: TextStyle(
-                color: CustomeTheme.c2.withBlue(200).withGreen(200),
-                fontSize: 18,
-              ),
-              trimExpandedText: ' show less',
             ),
           ),
-          // CustomExpansionTile(job: job),
-          // CustomExpansionTile(),
         ],
       ),
     );

@@ -40,7 +40,7 @@ class RoundedDropdownButton extends StatelessWidget {
         .toList();
     return Container(
       decoration: BoxDecoration(
-        color: color,
+        color: (value=='paused')?Colors.red:color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       padding: const EdgeInsets.only(left: 15),
@@ -48,11 +48,11 @@ class RoundedDropdownButton extends StatelessWidget {
       height: size.height * h,
       child: Material(
         elevation: 20.0,
-        color: color,
-        shadowColor: color,
+        color: (value=='paused')?Colors.red:color,
+        shadowColor: (value=='paused')?Colors.red:color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: DropdownButtonFormField<String>(
-          value: newList[0].value,
+          value: value,
           dropdownColor: Colors.white,
           items: newList,
           icon: const Icon(Icons.keyboard_arrow_down_outlined),

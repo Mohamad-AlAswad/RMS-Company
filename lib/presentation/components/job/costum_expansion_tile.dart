@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-// import '../../../domain/entities/job/evaluated_job.dart';
+import 'package:rms_company/domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
 
 // ignore: must_be_immutable
 class CustomExpansionTile extends StatelessWidget {
   CustomExpansionTile({
     Key? key,
-    // required this.job,
+    required this.job,
   }) : super(key: key);
 
   TextStyle fontSize_18 = const TextStyle(
     fontSize: 18,
   );
-  // final EvaluatedJob job;
+  final Job job;
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +37,36 @@ class CustomExpansionTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
-            // children: job.eduQualifications
-            //     .map((item) => Text(item.field, style: fontSize_18))
-            //     .toList(),
+            children: job.eduQualifications
+                .map((item) => Text(item.field, style: fontSize_18))
+                .toList(),
           ),
         ),
         Text('Experience:', style: fontSize_18),
         Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
-            // children: job.experiences
-            //     .map((item) => Text(item.title, style: fontSize_18))
-            //     .toList(),
+            children: job.experiences
+                .map((item) => Text(item.title, style: fontSize_18))
+                .toList(),
           ),
         ),
         Text('Skills:', style: fontSize_18),
         Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
-            // children: job.skills
-            //     .map((item) => Text(item.title, style: fontSize_18))
-            //     .toList(),
+            children: job.skills
+                .map((item) => Text(item.title, style: fontSize_18))
+                .toList(),
           ),
         ),
         Text('Languages:', style: fontSize_18),
         Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
-            // children: job.languages
-                // .map((item) => Text(item.title, style: fontSize_18))
-                // .toList(),
+            children: job.languages
+                .map((item) => Text(item.title, style: fontSize_18))
+                .toList(),
           ),
         ),
       ],
