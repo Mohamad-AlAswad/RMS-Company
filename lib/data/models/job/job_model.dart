@@ -39,6 +39,7 @@ class JobModel extends Job {
         )!,
       );
     } catch (e) {
+      print(e);
       return null;
     }
   }
