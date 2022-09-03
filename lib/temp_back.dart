@@ -17,10 +17,12 @@ import 'injection_container.dart';
 
 class Temp {
   void getJob({required String id}) async {
+    print('before');
+
     Job job = Job(
       id: 'id',
       title: 'ai software developer',
-      summary: 'useless summary2',
+      summary: 'useless4656456456456456456465465465 summary2',
       publishedTime: Timestamp.now(),
       skills: const [
         SkillDescriptionField(title: 'r', isRequired: true),
@@ -38,7 +40,20 @@ class Temp {
       firebaseFirestore: FirebaseFirestore.instance,
       authenticationRepo: sl(),
     ));
+    print('middle');
+    try {
+      print('try');
+      var x = await FirebaseFirestore.instance
+          .collection('jobs')
+          .add({'Fuck': 'IT'});
+      print(x);
+    } catch (e) {
+      print('catch');
+
+      print(e);
+    }
     addNewJob(job: job);
+    print('after');
   }
 
   void updateUser() {
