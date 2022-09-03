@@ -4,12 +4,16 @@ import 'package:rms_company/data/repositories/job/job_repo_imp.dart';
 import 'package:rms_company/domain/entities/entities.dart';
 import 'package:rms_company/domain/entities/job/description_field/description_field.dart';
 import 'package:rms_company/domain/usecases/job/add_new_job.dart';
+import 'package:rms_company/domain/usecases/job/pause_status_job.dart';
+import 'package:rms_company/domain/usecases/job/remove_job.dart';
+import 'package:rms_company/domain/usecases/job/resume_status_job.dart';
 import 'domain/usecases/autocomplete/autocomplete_degrees.dart';
 import 'domain/usecases/autocomplete/autocomplete_field_edu.dart';
 import 'domain/usecases/autocomplete/autocomplete_job_titles.dart';
 import 'domain/usecases/autocomplete/autocomplete_languages.dart';
 import 'domain/usecases/autocomplete/autocomplete_skills.dart';
 import 'domain/usecases/autocomplete/autocomplete_universities.dart';
+import 'domain/usecases/job/fetch_more.dart';
 import 'domain/usecases/user/get_profile_user.dart';
 import 'domain/entities/user/user_info.dart' as user_info;
 import 'domain/usecases/user/update_profile_user.dart';
@@ -84,9 +88,37 @@ class MyApp2 extends StatefulWidget {
 class _MyApp2State extends State<MyApp2> {
   @override
   Widget build(BuildContext context) {
-    Temp().getJob(id: 's');
+    // Temp().getJob(id: 's');
+    RemoveJob removeJob = RemoveJob(
+      jobRepo: JobRepoImp(
+        firebaseFirestore: FirebaseFirestore.instance,
+        authenticationRepo: sl(),
+      ),
+    );
+    AddNewJob addNewJob = AddNewJob(
+      jobRepo: JobRepoImp(
+        firebaseFirestore: FirebaseFirestore.instance,
+        authenticationRepo: sl(),
+      ),
+    );
+    PauseStatusJob pauseJob = PauseStatusJob(
+      jobRepo: JobRepoImp(
+        firebaseFirestore: FirebaseFirestore.instance,
+        authenticationRepo: sl(),
+      ),
+    );
+    ResumeStatusJob resumeJob = ResumeStatusJob(
+      jobRepo: JobRepoImp(
+        firebaseFirestore: FirebaseFirestore.instance,
+        authenticationRepo: sl(),
+      ),
+    );
+
+    removeJob(jobId: '2NrGALiQwBR2jFCs2kwV');
 
     GetProfileUser getProfileUser = sl();
+    FetchMoreJob fetchMoreJob = FetchMoreJob();
+    Job? googleJob;
 
     String? curr = 'sk';
     String word = 'java';
@@ -99,12 +131,22 @@ class _MyApp2State extends State<MyApp2> {
             child: Column(
               children: [
                 TextButton(
-                  child: const Text('fetch more recommended'),
-                  onPressed: () async {},
+                  child: const Text('fetch more jobs'),
+                  onPressed: () async {
+                    var res = await fetchMoreJob(limit: 10);
+                    res.forEach((element) {
+                      print(element.summary);
+                      resumeJob(jobId: element.id);
+                    });
+                    print('no more data:');
+                    print(fetchMoreJob.noMoreData);
+                  },
                 ),
                 TextButton(
-                  child: const Text('refresh recommended'),
-                  onPressed: () async {},
+                  child: const Text('refresh jobs'),
+                  onPressed: () async {
+                    fetchMoreJob.refresh();
+                  },
                 ),
                 TextButton(
                   child: const Text('fetch more unavailable'),

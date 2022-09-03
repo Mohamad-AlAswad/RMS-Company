@@ -105,6 +105,7 @@ class FirebaseAuthentication extends AuthenticationRemote {
     return firebaseAuth.currentUser!.uid;
   }
 
+
   @override
   user_ent.UserInfo? get connectedUser => _userInfo;
 

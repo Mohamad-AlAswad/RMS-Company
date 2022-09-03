@@ -14,4 +14,6 @@ abstract class JobRepo {
   Future<Either<Failure, List<Job>>> fetch({required int limit});
 
   void refresh();
+
+  bool get noMoreData;
 }
