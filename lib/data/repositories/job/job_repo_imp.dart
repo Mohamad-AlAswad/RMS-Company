@@ -6,21 +6,21 @@ import '../../../core/errors/failures/failure.dart';
 import '../../../domain/repositories/authentication_repo.dart';
 import '../../../domain/repositories/job/job_repo.dart';
 import '../../models/job/job_model.dart';
+import '../paginater_firestore.dart';
 
 class JobRepoImp implements JobRepo {
   final FirebaseFirestore firebaseFirestore;
   final CollectionReference<Map<String, dynamic>> collection;
   final AuthenticationRepo authenticationRepo;
-  final Query query;
-  bool lazy = true;
-  bool _noMoreData = false;
-  QueryDocumentSnapshot? last;
+  final PaginaterFirestore paginaterFirestore;
 
   JobRepoImp({
     required this.firebaseFirestore,
     required this.authenticationRepo,
   })  : collection = firebaseFirestore.collection('jobs'),
-        query = firebaseFirestore.collection('jobs');
+        paginaterFirestore = PaginaterFirestore(
+          query: firebaseFirestore.collection('jobs-applications'),
+        );
 
   // .where('company-name', isEqualTo: authenticationRepo.companyName)
   // .orderBy('publish-time');
@@ -68,29 +68,16 @@ class JobRepoImp implements JobRepo {
 
   @override
   Future<Either<Failure, List<Job>>> fetch({required int limit}) async {
-    if (noMoreData == true) return Future.value(const Right([]));
-    if (lazy == true) {
-      last = null;
-      _noMoreData = false;
-    }
-    lazy = false;
-    print(last?.id);
     try {
-      Query pagQuery = query.limit(limit);
-      if (last != null) pagQuery = pagQuery.startAfterDocument(last!);
-      var response = await pagQuery.get();
-      if (response.docs.length < limit) {
-        _noMoreData = true;
-        last = null;
-      } else {
-        last = response.docs[response.docs.length - 1];
-      }
-      return Future.value(Right(response.docs
+      var response = await paginaterFirestore.fetch(limit: limit);
+      var result = response!.docs
           .map((e) => JobModel.fromSnapshot(
                 id: e.id,
                 documentSnapshot: e.data() as Map<String, dynamic>,
               )!)
-          .toList()));
+          .toList();
+      paginaterFirestore.commitFetching();
+      return Future.value(Right(result));
     } catch (e) {
       print(e);
       return Future.value(const Left(Unexpected()));
@@ -98,8 +85,8 @@ class JobRepoImp implements JobRepo {
   }
 
   @override
-  void refresh() => lazy = true;
+  void refresh() => paginaterFirestore.refresh();
 
   @override
-  bool get noMoreData => _noMoreData;
+  bool get noMoreData => paginaterFirestore.noMoreData;
 }
