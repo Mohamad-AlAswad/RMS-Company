@@ -3,6 +3,7 @@ export 'edu_controllers.dart';
 export 'personal_controllers.dart';
 export 'exp_controllers.dart';
 export 'skills_controllers.dart';
+export 'user_controller.dart';
 export 'lang_controllers.dart';
 
 class Controllers {

@@ -19,7 +19,7 @@ class JobRepoImp implements JobRepo {
     required this.authenticationRepo,
   })  : collection = firebaseFirestore.collection('jobs'),
         paginaterFirestore = PaginaterFirestore(
-          query: firebaseFirestore.collection('jobs-applications'),
+          query: firebaseFirestore.collection('jobs'),
         );
 
   // .where('company-name', isEqualTo: authenticationRepo.companyName)

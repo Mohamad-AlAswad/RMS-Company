@@ -5,6 +5,9 @@ import 'package:intl/intl.dart';
 import '../../../provider/theme.dart';
 import '../my_elevated_button.dart';
 
+export 'job_offer_widget.dart';
+export 'costum_expansion_tile.dart';
+
 class JobWidget extends StatelessWidget {
   const JobWidget({
     Key? key,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:rms_company/presentation/splash_screen.dart';
-
 import '../provider/theme.dart';
 import '../provider/theme_notifier.dart';
 import 'blocs/authentication/auth_bloc.dart';
 import 'controllers/controllers.dart';
+import 'splash_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({

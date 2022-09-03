@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/authentication/auth_bloc.dart';
 import '../../components/components.dart';
 
+
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
   final String title = 'Home';

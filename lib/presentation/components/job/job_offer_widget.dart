@@ -4,17 +4,19 @@ import 'package:rms_company/presentation/components/components.dart';
 
 import '../../../domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
-import '../my_elevated_button.dart';
 
+// ignore: must_be_immutable
 class JobOfferWidget extends StatelessWidget {
-  const JobOfferWidget({
+  JobOfferWidget({
     Key? key,
     required this.job,
     required this.valueChanged,
+    this.value = 'running',
   }) : super(key: key);
 
   final Job job;
   final Function valueChanged;
+  String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +30,28 @@ class JobOfferWidget extends StatelessWidget {
           width: 1,
         ),
       ),
-      padding: const EdgeInsets.all(12).copyWith(bottom: 0),
+      padding: const EdgeInsets.all(12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  DateFormat.yMMMEd().format(
+                    DateTime.now(),
+                    // job.publishedTime.toDate(),
+                  ),
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               TextButton(
                 onPressed: () {
@@ -55,16 +71,6 @@ class JobOfferWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  DateFormat.yMMMEd().format(
-                    DateTime.now(),
-                    // job.publishedTime.toDate(),
-                  ),
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
             ],
           ),
           Padding(
@@ -73,7 +79,7 @@ class JobOfferWidget extends StatelessWidget {
               press: null,
               text: job.summary,
               w: 1,
-              h: (job.summary.length / 20) * 0.02,
+              h: (job.summary.length / 20) * 0.02 + 0.05,
               color: Theme.of(context).primaryColor.withAlpha(100),
             ),
           ),

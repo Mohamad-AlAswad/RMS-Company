@@ -12,9 +12,11 @@ class CustomeAppBar extends StatefulWidget with PreferredSizeWidget {
     this.actions = const [],
     this.actions1 = const [],
     this.actions2 = const [],
+    this.leading = false,
   }) : super(key: key);
 
   final String label;
+  final bool leading;
   List<Widget> actions, actions1, actions2;
 
   @override
@@ -38,11 +40,13 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
         child: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(
-                Icons.menu,
+              icon: Icon(
+                (widget.leading) ? Icons.arrow_back : Icons.menu,
               ),
               onPressed: () {
-                ZoomDrawer.of(context)!.toggle();
+                (widget.leading)
+                    ? Navigator.pop(context)
+                    : ZoomDrawer.of(context)!.toggle();
               },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );

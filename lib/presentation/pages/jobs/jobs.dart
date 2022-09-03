@@ -3,13 +3,13 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:rms_company/domain/usecases/job/fetch_more.dart';
 import 'package:rms_company/domain/usecases/job/pause_status_job.dart';
 import 'package:rms_company/domain/usecases/job/resume_status_job.dart';
-import 'package:rms_company/presentation/components/job/job_offer_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../data/repositories/job/job_repo_imp.dart';
 import '../../../domain/entities/job/job.dart';
 import '../../../injection_container.dart';
 import '../../components/components.dart';
+import 'add_new_job.dart';
 
 // ignore: must_be_immutable
 class Jobs extends StatefulWidget {
@@ -23,6 +23,7 @@ class _JobsState extends State<Jobs> {
   FetchMoreJob fetchMoreJob = FetchMoreJob();
   late List<Job> allJobs;
   bool isLoading = false;
+  late List<bool> value;
 
   getJobs() async {
     setState(() {
@@ -53,7 +54,8 @@ class _JobsState extends State<Jobs> {
         label: 'Job Offers',
       ),
       body: Center(
-        child: ListView.builder(
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const SizedBox(height: 10),
           itemCount: isLoading ? 1 : allJobs.length,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           itemBuilder: (context, index) {
@@ -70,6 +72,7 @@ class _JobsState extends State<Jobs> {
             } else {
               return JobOfferWidget(
                 job: allJobs[index],
+                value: allJobs[index].status,
                 valueChanged: (val) {
                   setState(
                     () {
@@ -108,7 +111,7 @@ class _JobsState extends State<Jobs> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (_) => const Text('Add Job Page'),
+                builder: (_) => const AddNewJobPage(),
               ),
             );
           },
