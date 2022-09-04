@@ -9,7 +9,7 @@ class KeywordsUniversitiesRepoSubstring implements KeywordsUniversitiesRepo {
   Future<List<String>> getSimilar({
     required String word,
     int? limit,
-    bool ?exact,
+    bool? exact,
   }) {
     return keywordsRepoSubstring.getSimilar(
       word: word,
@@ -19,8 +19,5 @@ class KeywordsUniversitiesRepoSubstring implements KeywordsUniversitiesRepo {
   }
 
   KeywordsUniversitiesRepoSubstring()
-      : keywordsRepoSubstring = KeywordsRepoSubstring(
-          autocompleteSubstringApi: sl(),
-          type: 'university',
-        );
+      : keywordsRepoSubstring = KeywordsRepoSubstring(type: 'university');
 }

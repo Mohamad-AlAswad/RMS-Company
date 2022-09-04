@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:rms_company/provider/update_action_bar_actions_notification.dart';
 import 'domain/repositories/authentication_repo.dart';
@@ -23,33 +24,36 @@ void main() async {
 
   // runApp(const MyApp2());
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => UpdateActionBarActions(),
-      child: MyApp(),
+    Phoenix(
+      child: ChangeNotifierProvider(
+        create: (_) => UpdateActionBarActions(),
+        child: MyApp(),
+      ),
     ),
   );
 }
+
 //
 class MyApp extends StatelessWidget {
   late final AuthenticationRepo authenticationUsingTwoSteps;
   late final AuthBloc authBloc;
   late final GetConnectedUser getConnectedUser;
   final Controllers controllers = Controllers();
+
   //
   MyApp({Key? key}) : super(key: key) {
     authenticationUsingTwoSteps = sl();
 
     authBloc = AuthBloc(
-      signUpEmailPassword: SignUpEmailPassword(authenticationUsingTwoSteps),
-      signInEmailAndPassword:
-          SignInEmailAndPassword(authenticationUsingTwoSteps),
-      logOut: LogOut(authenticationUsingTwoSteps),
+      signUpEmailPassword: SignUpEmailPassword(),
+      signInEmailAndPassword: SignInEmailAndPassword(),
+      logOut: LogOut(),
       initialState: FirebaseAuth.instance.currentUser == null
           ? AuthInitial()
           : const SignedInState(),
     );
 
-    getConnectedUser = GetConnectedUser(sl());
+    getConnectedUser = sl();
   }
 
   @override

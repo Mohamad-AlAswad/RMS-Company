@@ -7,8 +7,7 @@ import '../../../../injection_container.dart';
 class FetchMoreJob {
   final JobRepo jobRepo;
 
-  FetchMoreJob()
-      : jobRepo = JobRepoImp(firebaseFirestore: sl(), authenticationRepo: sl());
+  FetchMoreJob() : jobRepo = sl();
 
   Future<List<Job>> call({required int limit}) async {
     List<Job> result = [];

@@ -1,12 +1,13 @@
 import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
 import 'package:rms_company/domain/entities/job/applied/job_application_states.dart';
 
+import '../../../../injection_container.dart';
 import '../../../repositories/job/applied_repo.dart';
 
 class AcceptApplied {
   final AppliedRepo appliedRepo;
 
-  AcceptApplied({required this.appliedRepo});
+  AcceptApplied() : appliedRepo = sl();
 
   Future<List<String>> call({required AppliedJob appliedJob}) async {
     return (await appliedRepo.accept(

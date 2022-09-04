@@ -12,27 +12,34 @@ class UserInfoRepoImp implements UserInfoRepo {
 
   UserInfoRepoImp({
     required this.firebaseFirestore,
-  }) : collection = firebaseFirestore.collection('user-info-company');
+  }) : collection = firebaseFirestore.collection('user-info');
 
   @override
   Future<Either<Failure, UserInfo>> getUserInfo(
       {required String userId}) async {
     try {
-      return Future.value(Right(UserInfoModel.fromSnapshot(
-          documentSnapshot: (await collection.doc(userId).get()).data())!));
-    } catch (e) {
+      print('get user info id: $userId');
+      return Future.value(
+        Right(UserInfoModel.fromSnapshot(
+            documentSnapshot: (await collection.doc(userId).get()).data())!),
+      );
+    } catch (e, stacktrace) {
       print('dasda WTF !!');
       print(e.toString());
+      print(stacktrace.toString());
       return Future.value(const Left(Unexpected(message: 'unexpected')));
     }
   }
 
   @override
   Future<Either<Failure, bool>> updateUserInfo(
-      {required UserInfo newUserInfo}) {
+      {required UserInfo newUserInfo}) async {
     try {
-      String userId = 'KWKKUrBFSAPT7sqtP24nqa2gduN2';
-      collection.doc(userId).update(UserInfoModel.toSnapshot(newUserInfo));
+      // String userId = 'KWKKUrBFSAPT7sqtP24nqa2gduN2';
+      print('update user info repo id: ${newUserInfo.id}');
+      await collection.doc(newUserInfo.id).update(
+            UserInfoModel.toSnapshot(newUserInfo),
+          );
       return Future.value(const Right(true));
     } catch (e) {
       print(e.toString());

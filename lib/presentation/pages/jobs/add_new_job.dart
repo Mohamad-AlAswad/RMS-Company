@@ -36,9 +36,7 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
       skillControllers,
       langControllers,
     );
-    final List<String> err = await AddNewJob(
-      jobRepo: JobRepoImp(authenticationRepo: sl(), firebaseFirestore: sl()),
-    )(job: job);
+    final List<String> err = await AddNewJob()(job: job);
     if (err.isEmpty) {
       await Fluttertoast.cancel();
       Fluttertoast.showToast(
@@ -48,9 +46,12 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
         backgroundColor: Theme.of(context).primaryColor,
         textColor: Colors.white,
       );
-      Future.delayed(const Duration(seconds: 1),() {
-        Navigator.pop(context);
-      },);
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.pop(context);
+        },
+      );
     }
   }
 

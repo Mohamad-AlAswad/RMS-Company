@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../../domain/entities/company.dart';
 import '../../../domain/repositories/user_info_repo.dart';
 import '../../../domain/entities/user/user_info.dart' as user_ent;
+import '../../../injection_container.dart';
 
 abstract class AuthenticationRemote {
   Future<void> signInEmailPassword({
@@ -34,22 +36,11 @@ class FirebaseAuthentication extends AuthenticationRemote {
   static bool _initiated = false;
 
   FirebaseAuthentication({
-    required this.firebaseAuth,
     required this.userInfoRepo,
-  }) {
+  }) : firebaseAuth = sl() {
     if (_initiated == false) {
       _initiated = true;
       _userInfo = null;
-      firebaseAuth.authStateChanges().forEach((element) async {
-        if (element == null) {
-          _userInfo = null;
-        } else {
-          (await userInfoRepo.getUserInfo(userId: element.uid)).fold(
-            (failure) => _userInfo = null,
-            (data) => _userInfo = data,
-          );
-        }
-      });
     }
   }
 
@@ -60,7 +51,9 @@ class FirebaseAuthentication extends AuthenticationRemote {
   }) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       return Future<void>.value(null);
     } on FirebaseAuthException {
       throw EmailAndPasswordNotMatchedException();
@@ -80,8 +73,19 @@ class FirebaseAuthentication extends AuthenticationRemote {
     required String password,
   }) async {
     try {
-      firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      var doc = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('created !');
+      print(doc.user);
+      await userInfoRepo.updateUserInfo(
+        newUserInfo: user_ent.UserInfo(
+          id: (await FirebaseFirestore.instance.collection('user-info').add({}))
+              .id,
+          email: email,
+        ),
+      );
       return Future<void>.value(null);
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -104,7 +108,6 @@ class FirebaseAuthentication extends AuthenticationRemote {
     if (firebaseAuth.currentUser == null) return null;
     return firebaseAuth.currentUser!.uid;
   }
-
 
   @override
   user_ent.UserInfo? get connectedUser => _userInfo;

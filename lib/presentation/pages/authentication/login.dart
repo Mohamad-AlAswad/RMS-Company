@@ -66,12 +66,16 @@ class _LogInState extends State<LogIn> {
             MyElevatedButton(
               text: 'Log In',
               press: () async {
-                Navigator.of(context).popUntil((route) => false);
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const CustomeZoomDrawer(),
-                  ),
-                );
+                BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                  email: widget.controllers.tecEmailLogIn.text,
+                  password: widget.controllers.tecPassLogIn.text,
+                ));
+                // Navigator.popUntil(context, (route) => false);
+                // await Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (_) => const CustomeZoomDrawer(),
+                //   ),
+                // );
               },
               w: 0.35,
             ),

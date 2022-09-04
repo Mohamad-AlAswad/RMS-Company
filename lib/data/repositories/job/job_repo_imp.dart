@@ -5,25 +5,30 @@ import 'package:rms_company/domain/entities/job/job.dart';
 import '../../../core/errors/failures/failure.dart';
 import '../../../domain/repositories/authentication_repo.dart';
 import '../../../domain/repositories/job/job_repo.dart';
+import '../../../injection_container.dart';
 import '../../models/job/job_model.dart';
 import '../paginater_firestore.dart';
 
 class JobRepoImp implements JobRepo {
   final FirebaseFirestore firebaseFirestore;
-  final CollectionReference<Map<String, dynamic>> collection;
+  late final CollectionReference<Map<String, dynamic>> collection;
   final AuthenticationRepo authenticationRepo;
-  final PaginaterFirestore paginaterFirestore;
+  late final PaginaterFirestore paginaterFirestore;
 
-  JobRepoImp({
-    required this.firebaseFirestore,
-    required this.authenticationRepo,
-  })  : collection = firebaseFirestore.collection('jobs'),
-        paginaterFirestore = PaginaterFirestore(
-          query: firebaseFirestore.collection('jobs'),
-        );
-
-  // .where('company-name', isEqualTo: authenticationRepo.companyName)
-  // .orderBy('publish-time');
+  JobRepoImp()
+      : firebaseFirestore = sl(),
+        authenticationRepo = sl() {
+    collection = firebaseFirestore.collection('jobs');
+    paginaterFirestore = PaginaterFirestore(
+      query: firebaseFirestore
+          .collection('jobs')
+          .where(
+            'company-name',
+            isEqualTo: authenticationRepo.companyName,
+          )
+          .orderBy('published-time'),
+    );
+  }
 
   @override
   Future<List<Failure>> add({required Job job}) async {

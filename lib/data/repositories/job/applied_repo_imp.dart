@@ -7,6 +7,8 @@ import 'package:rms_company/domain/entities/job/applied/full_applied_job.dart';
 import 'package:rms_company/domain/entities/job/applied/job_application_states.dart';
 import '../../../core/errors/failures/failure.dart';
 import '../../../domain/repositories/job/applied_repo.dart';
+import '../../../injection_container.dart';
+import '../../datasources/remote/evaluator_api.dart';
 import '../../models/job/applied_job_model.dart';
 import '../paginater_firestore.dart';
 
@@ -14,14 +16,34 @@ class AppliedRepoImp implements AppliedRepo {
   final FirebaseFirestore firebaseFirestore;
   final CollectionReference<Map<String, dynamic>> collection;
   final PaginaterFirestore paginaterFirestore;
+  final ApplicationStates? applicationStates;
+  final EvaluatorApi evaluatorApi;
 
-  AppliedRepoImp({required this.firebaseFirestore, required String jobId})
-      : collection = firebaseFirestore.collection('jobs-applications'),
-        paginaterFirestore = PaginaterFirestore(
-          query: firebaseFirestore
-              .collection('jobs-applications')
-              .where('job-id', isEqualTo: jobId),
-        );
+  AppliedRepoImp({
+    required this.firebaseFirestore,
+    required String jobId,
+    this.applicationStates,
+  })  : evaluatorApi = sl(),
+        collection = firebaseFirestore.collection('jobs-applications'),
+        paginaterFirestore = applicationStates == null
+            ? PaginaterFirestore(
+                query: firebaseFirestore
+                    .collection('jobs-applications')
+                    .where('job-id', isEqualTo: jobId)
+                    .orderBy('score'),
+              )
+            : PaginaterFirestore(
+                query: firebaseFirestore
+                    .collection('jobs-applications')
+                    .where('job-id', isEqualTo: jobId)
+                    .where(
+                      'state',
+                      isEqualTo: ApplicationStatesModel.stateToString(
+                        applicationStates,
+                      ),
+                    )
+                    .orderBy('score'),
+              );
 
   @override
   Future<Either<Failure, FullAppliedJob>> detailed({required String id}) async {
@@ -82,6 +104,17 @@ class AppliedRepoImp implements AppliedRepo {
       print(e);
       return Future.value([const Unexpected(message: 'can\'t reject')]);
     }
+  }
+
+  @override
+  Future<List<Failure>> rateApplication(
+      {required String appliedJobId, required num rating}) async {
+    bool response = await evaluatorApi.rateApplication(
+      appliedJobId: appliedJobId,
+      rating: rating,
+    );
+    if (response) return [];
+    return [const Unexpected(message: 'bad network. try again later')];
   }
 
   @override

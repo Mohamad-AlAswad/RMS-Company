@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../core/errors/failures/failure.dart';
+import '../../../injection_container.dart';
 import '../../repositories/authentication_repo.dart';
 
 class SignUpEmailPassword {
   final AuthenticationRepo authenticationRepo;
 
-  SignUpEmailPassword(this.authenticationRepo);
+  SignUpEmailPassword() : authenticationRepo = sl();
 
   Future<Either<Failure, void>> call({
     required String email,

@@ -7,6 +7,7 @@ import 'Pages/Authentication/signup.dart';
 import 'blocs/authentication/auth_bloc.dart';
 import 'components/drawer/zoom_drawer/zoom_drawer.dart';
 import 'controllers/controllers.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BlocBuilderWidget extends StatelessWidget {
   const BlocBuilderWidget({
@@ -18,14 +19,21 @@ class BlocBuilderWidget extends StatelessWidget {
   final Controllers controllers;
   final AuthState initialState;
 
+  Future showToast(String msg) async {
+    await Fluttertoast.cancel();
+    Fluttertoast.showToast(msg: msg, fontSize: 18);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is SignUpErrorState) {
-          print(state.message);
+          showToast(state.message);
+          // print(state.message);
         } else if (state is SignInErrorState) {
-          print(state.message);
+          // print(state.message);
+          showToast(state.message);
         } else if (state is SignedUpState) {
           print('new account has been registered ');
         } else if (state is SignedUpState) {
@@ -56,11 +64,7 @@ class BlocBuilderWidget extends StatelessWidget {
             controllers: controllers,
           );
         } else if (state is SignedUpState) {
-          return SignUp(
-            controllers: controllers,
-            // hasPopup: true,
-            // popupWidget: Popup(),
-          );
+          return const CustomeZoomDrawer();
         } else if (state is SignUpErrorState) {
           return SignUp(
             controllers: controllers,

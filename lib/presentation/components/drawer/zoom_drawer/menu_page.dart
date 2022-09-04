@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:rms_company/domain/usecases/authentication/log_out.dart';
+import 'package:rms_company/presentation/Pages/Authentication/authenticate.dart';
 
 import '../../../../provider/theme.dart';
 import '../../../../provider/theme_notifier.dart';
@@ -85,9 +88,22 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                       ...mi.MenuItems.group2.map(buildMenuItem).toList(),
                       const Spacer(flex: 3),
+                      ElevatedButton(
+                        onPressed: () {
+                          LogOut()();
+                          Phoenix.rebirth(context);
+                          // Navigator.pop(context);
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => Authenticate(),
+                          //   ),
+                          // );
+                        },
+                        child: const Text('log out'),
+                      ),
                       Consumer(
-                        builder:
-                            (context, ThemeNotifier themeNotifier, child) {
+                        builder: (context, ThemeNotifier themeNotifier, child) {
                           val = themeNotifier.darkTheme;
                           return Center(
                             child: Transform.scale(

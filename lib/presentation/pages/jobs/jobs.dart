@@ -96,19 +96,11 @@ class _JobsState extends State<Jobs> {
                       valueChanged: (val) async {
                         List<String> done;
                         if (val == 'running') {
-                          done = await ResumeStatusJob(
-                            jobRepo: JobRepoImp(
-                              firebaseFirestore: sl(),
-                              authenticationRepo: sl(),
-                            ),
-                          )(jobId: allJobs[index].id);
+                          done =
+                              await ResumeStatusJob()(jobId: allJobs[index].id);
                         } else {
-                          done = await PauseStatusJob(
-                            jobRepo: JobRepoImp(
-                              firebaseFirestore: sl(),
-                              authenticationRepo: sl(),
-                            ),
-                          )(jobId: allJobs[index].id);
+                          done =
+                              await PauseStatusJob()(jobId: allJobs[index].id);
                         }
                         if (done.isEmpty) {
                           _handleRefresh();

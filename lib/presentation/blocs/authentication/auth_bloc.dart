@@ -67,10 +67,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       final result = await signInEmailAndPassword(
           email: event.email, password: event.password);
+      AuthState? authState;
       result.fold(
-        (failure) => emit(SignInErrorState(message: failure.message)),
-        (user) => emit(const SignedInState()),
+        (failure) => authState = SignInErrorState(message: failure.message),
+        (user) => authState = const SignedInState(),
       );
+      emit(authState);
     }
   }
 }

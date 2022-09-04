@@ -39,11 +39,7 @@ class Temp {
       languages: const [],
       status: 'running',
     );
-    AddNewJob addNewJob = AddNewJob(
-        jobRepo: JobRepoImp(
-      firebaseFirestore: FirebaseFirestore.instance,
-      authenticationRepo: sl(),
-    ));
+    AddNewJob addNewJob = AddNewJob();
     print('middle');
     try {
       print('try');
@@ -89,30 +85,10 @@ class _MyApp2State extends State<MyApp2> {
   @override
   Widget build(BuildContext context) {
     // Temp().getJob(id: 's');
-    RemoveJob removeJob = RemoveJob(
-      jobRepo: JobRepoImp(
-        firebaseFirestore: FirebaseFirestore.instance,
-        authenticationRepo: sl(),
-      ),
-    );
-    AddNewJob addNewJob = AddNewJob(
-      jobRepo: JobRepoImp(
-        firebaseFirestore: FirebaseFirestore.instance,
-        authenticationRepo: sl(),
-      ),
-    );
-    PauseStatusJob pauseJob = PauseStatusJob(
-      jobRepo: JobRepoImp(
-        firebaseFirestore: FirebaseFirestore.instance,
-        authenticationRepo: sl(),
-      ),
-    );
-    ResumeStatusJob resumeJob = ResumeStatusJob(
-      jobRepo: JobRepoImp(
-        firebaseFirestore: FirebaseFirestore.instance,
-        authenticationRepo: sl(),
-      ),
-    );
+    RemoveJob removeJob = RemoveJob();
+    AddNewJob addNewJob = AddNewJob();
+    PauseStatusJob pauseJob = PauseStatusJob();
+    ResumeStatusJob resumeJob = ResumeStatusJob();
 
     removeJob(jobId: '2NrGALiQwBR2jFCs2kwV');
 

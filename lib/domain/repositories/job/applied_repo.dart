@@ -15,6 +15,9 @@ abstract class AppliedRepo {
   Future<List<Failure>> accept(
       {required String appliedId, required ApplicationStates nextState});
 
+  Future<List<Failure>> rateApplication(
+      {required String appliedJobId, required num rating});
+
   void refresh();
 
   bool get noMoreData;

@@ -7,11 +7,17 @@ abstract class EvaluatorApi {
   // static String get uriApi => 'http://192.168.137.223:5000/api';
   //
   static String get uriApi => 'http://192.168.102.208:5000/api';
+
   // static String get uriApi => 'http://192.168.12.120:5000/api';
 
   Future<Map<String, dynamic>> getRecommended(userId);
 
   Future<Map<String, dynamic>> getUnavailable(userId);
+
+  Future<bool> rateApplication({
+    required String appliedJobId,
+    required num rating,
+  });
 }
 
 class EvaluatorApiImp implements EvaluatorApi {
@@ -27,5 +33,16 @@ class EvaluatorApiImp implements EvaluatorApi {
     final response =
         await http.get(Uri.parse('${EvaluatorApi.uriApi}/unavailable/$userId'));
     return jsonDecode(response.body);
+  }
+
+  @override
+  Future<bool> rateApplication({
+    required String appliedJobId,
+    required num rating,
+  }) async {
+    final response = await http.get(
+      Uri.parse('${EvaluatorApi.uriApi}/rate-job-app/$appliedJobId/$rating'),
+    );
+    return response.statusCode == 201;
   }
 }

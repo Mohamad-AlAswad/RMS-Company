@@ -19,8 +19,5 @@ class KeywordsDegreeEduRepoSubstring implements KeywordsDegreeEduRepo {
   }
 
   KeywordsDegreeEduRepoSubstring()
-      : keywordsRepoSubstring = KeywordsRepoSubstring(
-          autocompleteSubstringApi: sl(),
-          type: 'degree',
-        );
+      : keywordsRepoSubstring = KeywordsRepoSubstring(type: 'degree');
 }

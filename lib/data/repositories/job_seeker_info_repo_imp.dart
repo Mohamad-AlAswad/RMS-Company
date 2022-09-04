@@ -5,14 +5,15 @@ import 'package:rms_company/domain/entities/job_seeker/job_seeker_info.dart';
 
 import '../../core/errors/failures/failure.dart';
 import '../../domain/repositories/job_seeker_info_repo.dart';
+import '../../injection_container.dart';
 
 class JobSeekerInfoRepoImp implements JobSeekerInfoRepo {
   final FirebaseFirestore firebaseFirestore;
-  final CollectionReference<Map<String, dynamic>> collection;
+  late final CollectionReference<Map<String, dynamic>> collection;
 
-  JobSeekerInfoRepoImp({
-    required this.firebaseFirestore,
-  }) : collection = firebaseFirestore.collection('user-info');
+  JobSeekerInfoRepoImp() : firebaseFirestore = sl() {
+    collection = firebaseFirestore.collection('user-info');
+  }
 
   @override
   Future<Either<Failure, JobSeekerInfo>> getJobSeekerInfo(

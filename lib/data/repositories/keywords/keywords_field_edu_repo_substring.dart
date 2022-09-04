@@ -13,10 +13,7 @@ class KeywordsFieldEduRepoSubstring implements KeywordsFieldEduRepo {
     bool? exact,
   }) {
     if (rep[degree] == null) {
-      rep[degree] = KeywordsRepoSubstring(
-        autocompleteSubstringApi: sl(),
-        type: 'field-edu-$degree',
-      );
+      rep[degree] = KeywordsRepoSubstring(type: 'field-edu-$degree');
     }
     return rep[degree]!.getSimilar(
       word: word,
