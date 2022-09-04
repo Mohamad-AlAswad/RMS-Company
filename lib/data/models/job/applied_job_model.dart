@@ -21,28 +21,28 @@ class AppliedJobModel extends AppliedJob {
     required String id,
     required Map<String, dynamic>? documentSnapshot,
   }) {
+    return AppliedJob(
+      appliedId: id,
+      fullName: documentSnapshot!['full-name-job-seeker'],
+      jobSeekerId: documentSnapshot['job-seeker-id'],
+      appliedTime: documentSnapshot['applied-time'],
+      summary: documentSnapshot['summary-job-seeker'],
+      score: documentSnapshot['score'],
+      state: documentSnapshot['state'],
+      skills: ApSkillDescriptionModel.fromSnapshot(
+        documentSnapshot['skills'],
+      )!,
+      eduQualifications: ApEduQualificationDescriptionModel.fromSnapshot(
+        documentSnapshot['edu-qualifications'],
+      )!,
+      experiences: ApExperienceDescriptionModel.fromSnapshot(
+        documentSnapshot['experiences'],
+      )!,
+      languages: ApLanguageDescriptionModel.fromSnapshot(
+        documentSnapshot['languages'],
+      )!,
+    );
     try {
-      return AppliedJob(
-        appliedId: id,
-        fullName: documentSnapshot!['full-name'],
-        jobSeekerId: documentSnapshot['job-seeker-id'],
-        appliedTime: documentSnapshot['applied-time'],
-        summary: documentSnapshot['summary'],
-        score: documentSnapshot['score'],
-        state: documentSnapshot['state'],
-        skills: ApSkillDescriptionModel.fromSnapshot(
-          documentSnapshot['skills'],
-        )!,
-        eduQualifications: ApEduQualificationDescriptionModel.fromSnapshot(
-          documentSnapshot['edu-qualifications'],
-        )!,
-        experiences: ApExperienceDescriptionModel.fromSnapshot(
-          documentSnapshot['experiences'],
-        )!,
-        languages: ApLanguageDescriptionModel.fromSnapshot(
-          documentSnapshot['languages'],
-        )!,
-      );
     } catch (e) {
       return null;
     }

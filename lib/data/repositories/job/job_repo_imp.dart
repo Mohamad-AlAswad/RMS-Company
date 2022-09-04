@@ -28,6 +28,7 @@ class JobRepoImp implements JobRepo {
           )
           .orderBy('published-time'),
     );
+    print(authenticationRepo.companyName);
   }
 
   @override
