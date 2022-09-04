@@ -15,9 +15,10 @@ class LanguageItem extends StatefulWidget {
     required this.delete,
     this.short = false,
     this.required,
+    this.sp = false,
   }) : super(key: key);
 
-  final bool enabled, short;
+  final bool enabled, short, sp;
   final List<String> titles;
   final int index;
   final LanguagesControllers languagesController;
@@ -60,10 +61,12 @@ class _LanguageItemState extends State<LanguageItem> {
                   ),
                   Checkbox(
                     activeColor: Theme.of(context).primaryColor,
-                    onChanged: (val) {
-                      if (widget.required != null) widget.required!(val!);
-                      value = val!;
-                    },
+                    onChanged: (!widget.sp)
+                        ? (val) {
+                            if (widget.required != null) widget.required!(val!);
+                            value = val!;
+                          }
+                        : null,
                     value: value,
                   ),
                 ],
@@ -77,11 +80,13 @@ class _LanguageItemState extends State<LanguageItem> {
                 autoApi: AutocompleteLanguages(),
                 label: 'Title',
                 enabled: widget.enabled,
-                w: widget.short
-                    ? 0.4
-                    : widget.enabled
-                        ? 0.7
-                        : 0.8,
+                w: widget.sp
+                    ? 0.55
+                    : widget.short
+                        ? 0.4
+                        : widget.enabled
+                            ? 0.7
+                            : 0.8,
               ),
             ],
           ),

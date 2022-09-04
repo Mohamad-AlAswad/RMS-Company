@@ -18,9 +18,10 @@ class EduQualificationItem extends StatefulWidget {
     required this.delete,
     this.required,
     this.short = false,
+    this.sp = false,
   }) : super(key: key);
 
-  final bool enabled, short;
+  final bool enabled, short, sp;
   final List<String> certificateNames;
   final List<String> degrees;
   final int index;
@@ -40,6 +41,45 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (widget.sp) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Spacer(flex: 1),
+              if (widget.short) ...[
+                Container(
+                  decoration: BoxDecoration(
+                    color: CustomeTheme.c2.withAlpha(70),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Required',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Checkbox(
+                        activeColor: Theme.of(context).primaryColor,
+                        onChanged: (!widget.sp)
+                            ? (val) {
+                                if (widget.required != null)
+                                  widget.required!(val!);
+                                value = val!;
+                              }
+                            : null,
+                        value: value,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              const Spacer(flex: 6),
+            ],
+          ),
+        ],
         if (widget.enabled) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -63,7 +103,9 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
                       Checkbox(
                         activeColor: Theme.of(context).primaryColor,
                         onChanged: (val) {
-                          if (widget.required != null) widget.required!(val!);
+                          if (widget.required != null) {
+                            widget.required!(val!);
+                          }
                           value = val!;
                         },
                         value: value,
@@ -116,7 +158,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
                   enabled: widget.enabled,
                   w: 0.8,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
               ],
               CustomeAutoComplete(
                 controller: widget.eduControllers.certificateName,
@@ -126,7 +168,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
                 enabled: widget.enabled,
                 w: 0.8,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               CustomeAutoComplete(
                 controller: widget.eduControllers.degree,
                 autoApi: AutocompleteDegrees(),
@@ -134,8 +176,8 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
                 enabled: widget.enabled,
                 w: 0.8,
               ),
-              const SizedBox(height: 10),
               if (!widget.short) ...[
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

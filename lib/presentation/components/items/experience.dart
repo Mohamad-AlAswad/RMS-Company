@@ -17,15 +17,17 @@ class PastExperienceItem extends StatefulWidget {
     required this.expController,
     required this.delete,
     this.short = false,
+    this.sp = false,
     this.required,
   }) : super(key: key);
 
-  final bool enabled, short;
+  final bool enabled, short, sp;
   final List<String> titles;
   final int index;
   final ExpControllers expController;
   final Function(int) delete;
   final Function(bool)? required;
+
   @override
   State<PastExperienceItem> createState() => _PastExperienceItemState();
 }
@@ -38,7 +40,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (widget.enabled) ...[
+        if (widget.sp) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -60,39 +62,81 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
                       ),
                       Checkbox(
                         activeColor: Theme.of(context).primaryColor,
-                        onChanged: (val) {
-                          if (widget.required != null) widget.required!(val!);
-                          value = val!;
-                        },
+                        onChanged: (!widget.sp)
+                            ? (val) {
+                                if (widget.required != null) {
+                                  widget.required!(val!);
+                                }
+                                value = val!;
+                              }
+                            : null,
                         value: value,
                       ),
                     ],
                   ),
                 ),
               ],
-              const Spacer(flex: 4),
-              Container(
-                decoration: BoxDecoration(
-                  color: CustomeTheme.c2.withAlpha(70),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-                child: IconButton(
-                  padding: const EdgeInsets.only(right: 1, bottom: 2),
-                  onPressed: () {
-                    widget.delete(widget.index);
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 40,
-                  ),
-                ),
-              ),
-              const Spacer(flex: 1),
+              const Spacer(flex: 6),
             ],
           ),
+        ],
+        if (!widget.sp) ...[
+          if (widget.enabled) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Spacer(flex: 1),
+                if (widget.short) ...[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: CustomeTheme.c2.withAlpha(70),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Required',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Checkbox(
+                          activeColor: Theme.of(context).primaryColor,
+                          onChanged: (val) {
+                            if (widget.required != null) widget.required!(val!);
+                            value = val!;
+                          },
+                          value: value,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                const Spacer(flex: 4),
+                Container(
+                  decoration: BoxDecoration(
+                    color: CustomeTheme.c2.withAlpha(70),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: IconButton(
+                    padding: const EdgeInsets.only(right: 1, bottom: 2),
+                    onPressed: () {
+                      widget.delete(widget.index);
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      size: 40,
+                    ),
+                  ),
+                ),
+                const Spacer(flex: 1),
+              ],
+            ),
+          ],
         ],
         Container(
           decoration: BoxDecoration(
@@ -113,7 +157,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
                 enabled: widget.enabled,
                 w: 0.8,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               if (!widget.short) ...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +197,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
                     ],
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
               ],
               RoundedTextField(
                 enabled: widget.enabled,

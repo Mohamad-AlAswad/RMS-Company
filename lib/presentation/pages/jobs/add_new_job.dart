@@ -4,10 +4,8 @@ import 'package:rms_company/domain/entities/job/description_field/description_fi
 import 'package:rms_company/presentation/controllers/controllers.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../data/repositories/job/job_repo_imp.dart';
 import '../../../domain/entities/job/job.dart';
 import '../../../domain/usecases/job/add_new_job.dart';
-import '../../../injection_container.dart';
 import '../../components/components.dart';
 
 class AddNewJobPage extends StatefulWidget {
@@ -133,6 +131,24 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
                       ],
                     ),
                   ),
+                  if (eduControllers.isEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Expanded(
+                        child: Text(
+                          'No Educational Certificates Specified !',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   ListView.separated(
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
@@ -187,6 +203,24 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
                       ],
                     ),
                   ),
+                  if (expControllers.isEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Expanded(
+                        child: Text(
+                          'No Experiences Specified !',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   ListView.separated(
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
@@ -242,6 +276,24 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
                       ],
                     ),
                   ),
+                  if (skillControllers.isEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Expanded(
+                        child: Text(
+                          'No Skills Specified !',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   ListView.separated(
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
@@ -297,6 +349,24 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
                       ],
                     ),
                   ),
+                  if (langControllers.isEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Expanded(
+                        child: Text(
+                          'No Languages Specified !',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   ListView.separated(
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
