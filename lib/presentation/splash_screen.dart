@@ -1,7 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'bloc_builder_widget.dart';
@@ -32,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
+      centered: true,
       animationDuration: const Duration(seconds: 1),
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,
@@ -41,13 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
         controllers: widget.controllers,
         initialState: init,
       ),
-      splashIconSize: 180,
-      splash: ScalableImageWidget.fromSISource(
-        si: ScalableImageSource.fromSvg(
-          rootBundle,
-          'assets/svg/Asset 9.svg',
-        ),
-      ),
+      splashIconSize: 1600,
+      splash: Image.asset('assets/png/Asset 1.png'),
     );
   }
 }

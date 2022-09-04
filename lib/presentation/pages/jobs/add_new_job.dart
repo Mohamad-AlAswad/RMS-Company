@@ -79,27 +79,8 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: RoundedTextField(
-                enabled: true,
-                controller: titleController,
-                color: Theme.of(context).primaryColor,
-                label: 'Title',
-                icon: Icons.title_outlined,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: RoundedTextField(
-                enabled: true,
-                controller: summaryController,
-                color: Theme.of(context).primaryColor,
-                label: 'Summary',
-                icon: Icons.text_snippet_outlined,
-                multiLines: true,
-              ),
-            ),
+            TitleBuilder(titleController: titleController),
+            SummaryBuilder(summaryController: summaryController),
             Padding(
               padding: const EdgeInsets.all(10),
               child: RoundedDropdownButton(
@@ -344,6 +325,53 @@ class _AddNewJobPageState extends State<AddNewJobPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SummaryBuilder extends StatelessWidget {
+  const SummaryBuilder({
+    Key? key,
+    required this.summaryController,
+  }) : super(key: key);
+
+  final TextEditingController summaryController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: RoundedTextField(
+        enabled: true,
+        controller: summaryController,
+        color: Theme.of(context).primaryColor,
+        label: 'Summary',
+        icon: Icons.text_snippet_outlined,
+        multiLines: true,
+      ),
+    );
+  }
+}
+
+class TitleBuilder extends StatelessWidget {
+  const TitleBuilder({
+    Key? key,
+    required this.titleController,
+  }) : super(key: key);
+
+  final TextEditingController titleController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: RoundedTextField(
+        enabled: true,
+        controller: titleController,
+        color: Theme.of(context).primaryColor,
+        label: 'Title',
+        icon: Icons.title_outlined,
       ),
     );
   }

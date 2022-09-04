@@ -4,6 +4,7 @@ import 'package:rms_company/presentation/components/components.dart';
 
 import '../../../domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
+import '../../pages/jobs/job_offer_details.dart';
 
 // ignore: must_be_immutable
 class JobOfferWidget extends StatelessWidget {
@@ -58,7 +59,7 @@ class JobOfferWidget extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const Text('Job Offer Details'),
+                      builder: (_) => JobOfferDetails(job: job),
                     ),
                   );
                 },

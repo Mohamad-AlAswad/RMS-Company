@@ -4,6 +4,7 @@ import 'package:rms_company/domain/usecases/job/fetch_more.dart';
 import 'package:rms_company/domain/usecases/job/pause_status_job.dart';
 import 'package:rms_company/domain/usecases/job/resume_status_job.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../../../data/repositories/job/job_repo_imp.dart';
 import '../../../domain/entities/job/job.dart';
@@ -20,10 +21,18 @@ class Jobs extends StatefulWidget {
 }
 
 class _JobsState extends State<Jobs> {
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey = GlobalKey();
   FetchMoreJob fetchMoreJob = FetchMoreJob();
   late List<Job> allJobs;
   bool isLoading = false;
   late List<bool> value;
+
+  Future<void> _handleRefresh() async {
+    _refreshIndicatorKey.currentState?.show();
+    allJobs.clear();
+    fetchMoreJob.refresh();
+    getJobs();
+  }
 
   getJobs() async {
     setState(() {
@@ -43,6 +52,7 @@ class _JobsState extends State<Jobs> {
   @override
   void initState() {
     super.initState();
+    _refreshIndicatorKey.currentState?.show();
     getJobs();
   }
 
@@ -54,49 +64,62 @@ class _JobsState extends State<Jobs> {
         label: 'Job Offers',
       ),
       body: Center(
-        child: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
-          itemCount: isLoading ? 1 : allJobs.length,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-          itemBuilder: (context, index) {
-            if (isLoading) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.4,
-                ),
-                child: SpinKitFoldingCube(
-                  color: Theme.of(context).primaryColor,
-                  size: 100,
-                ),
-              );
-            } else {
-              return JobOfferWidget(
-                job: allJobs[index],
-                value: allJobs[index].status,
-                valueChanged: (val) {
-                  setState(
-                    () {
-                      if (val == 'running') {
-                        ResumeStatusJob(
-                          jobRepo: JobRepoImp(
-                            firebaseFirestore: sl(),
-                            authenticationRepo: sl(),
-                          ),
-                        )(jobId: allJobs[index].id);
-                      } else {
-                        PauseStatusJob(
-                          jobRepo: JobRepoImp(
-                            firebaseFirestore: sl(),
-                            authenticationRepo: sl(),
-                          ),
-                        )(jobId: allJobs[index].id);
-                      }
-                    },
-                  );
+        child: LiquidPullToRefresh(
+          key: _refreshIndicatorKey,
+          onRefresh: _handleRefresh,
+          color: Theme.of(context).primaryColor.withAlpha(200),
+          height: 200,
+          springAnimationDurationInMilliseconds: 300,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return ListView.separated(
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                itemCount: isLoading ? 1 : allJobs.length,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                itemBuilder: (context, index) {
+                  if (isLoading) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.4,
+                      ),
+                      child: SpinKitFoldingCube(
+                        color: Theme.of(context).primaryColor,
+                        size: 100,
+                      ),
+                    );
+                  } else {
+                    return JobOfferWidget(
+                      job: allJobs[index],
+                      value: allJobs[index].status,
+                      valueChanged: (val) async {
+                        List<String> done;
+                        if (val == 'running') {
+                          done = await ResumeStatusJob(
+                            jobRepo: JobRepoImp(
+                              firebaseFirestore: sl(),
+                              authenticationRepo: sl(),
+                            ),
+                          )(jobId: allJobs[index].id);
+                        } else {
+                          done = await PauseStatusJob(
+                            jobRepo: JobRepoImp(
+                              firebaseFirestore: sl(),
+                              authenticationRepo: sl(),
+                            ),
+                          )(jobId: allJobs[index].id);
+                        }
+                        if (done.isEmpty) {
+                          _handleRefresh();
+                        }
+                      },
+                    );
+                  }
                 },
               );
-            }
-          },
+            },
+          ),
         ),
       ),
       floatingActionButton: SpeedDial(
