@@ -159,24 +159,31 @@ class _ApplicantPageState extends State<ApplicantPage>
                             ajob: ajob[index],
                             index: index,
                             callAccDial: (idx) {
+                              print('idssx: $idx');
                               setState(() {
-                                AlertDialog(
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        acceptApplied(appliedJob: ajob[idx]);
-                                        // handleRefresh();
-                                      },
-                                      child: const Text('Accept'),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                  ],
-                                  title: const Text('Really ?!'),
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            acceptApplied(
+                                                appliedJob: ajob[idx]);
+                                            // handleRefresh();
+                                          },
+                                          child: const Text('Accept'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Cancel'),
+                                        ),
+                                      ],
+                                      title: const Text('Really ?!'),
+                                    );
+                                  },
                                 );
                               });
                             },
