@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
 
 import '../../../../domain/entities/job/job.dart';
-import '../../../../domain/usecases/job/applied/fetch_more.dart';
 import 'applicant_page.dart';
 import 'info_page.dart';
 
