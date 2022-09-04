@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/description_field/description_field.dart';
-import 'package:rms_company/presentation/controllers/controllers.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../domain/entities/job/description_field/description_field.dart';
 import '../../../domain/entities/job/job.dart';
 import '../../../domain/usecases/job/add_new_job.dart';
 import '../../components/components.dart';
+import '../../controllers/controllers.dart';
 
 class AddNewJobPage extends StatefulWidget {
   const AddNewJobPage({Key? key}) : super(key: key);

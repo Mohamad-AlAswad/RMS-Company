@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:readmore/readmore.dart';
 import 'package:intl/intl.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../provider/theme.dart';
 import '../my_elevated_button.dart';
 
-export 'job_offer_widget.dart';
 export 'costum_expansion_tile.dart';
+export 'job_offer_widget.dart';
 
 class JobWidget extends StatelessWidget {
   const JobWidget({
@@ -21,10 +21,10 @@ class JobWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: CustomeTheme.c2.withAlpha(70),
+        color: CustomTheme.c2.withAlpha(70),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: CustomeTheme.c2,
+          color: CustomTheme.c2,
           width: 1,
         ),
       ),
@@ -80,7 +80,7 @@ class JobWidget extends StatelessWidget {
                 fontSize: 18,
               ),
               moreStyle: TextStyle(
-                color: CustomeTheme.c2.withBlue(200).withGreen(200),
+                color: CustomTheme.c2.withBlue(200).withGreen(200),
                 fontSize: 18,
               ),
               trimExpandedText: ' show less',

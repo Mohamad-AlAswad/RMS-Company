@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:readmore/readmore.dart';
 import 'package:intl/intl.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
+import 'package:readmore/readmore.dart';
 
+import '../../../domain/entities/job/applied/applied_job.dart';
 import '../../../provider/theme.dart';
 import '../components.dart';
 import '../my_elevated_button.dart';
 import 'custome_expantion_tile_applied.dart';
 
-export 'job_offer_widget.dart';
 export 'costum_expansion_tile.dart';
+export 'job_offer_widget.dart';
 
 class AppliedJobWidget extends StatelessWidget {
   const AppliedJobWidget({
@@ -32,7 +32,7 @@ class AppliedJobWidget extends StatelessWidget {
         color: Colors.white.withAlpha(120),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: CustomeTheme.c2,
+          color: CustomTheme.c2,
           width: 1,
         ),
       ),
@@ -120,7 +120,7 @@ class AppliedJobWidget extends StatelessWidget {
                 fontSize: 18,
               ),
               moreStyle: TextStyle(
-                color: CustomeTheme.c2.withBlue(200).withGreen(200),
+                color: CustomTheme.c2.withBlue(200).withGreen(200),
                 fontSize: 18,
               ),
               trimExpandedText: ' show less',

@@ -4,9 +4,8 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:rms_company/domain/usecases/authentication/log_out.dart';
-import 'package:rms_company/presentation/Pages/Authentication/authenticate.dart';
 
+import '../../../../domain/usecases/authentication/log_out.dart';
 import '../../../../provider/theme.dart';
 import '../../../../provider/theme_notifier.dart';
 import 'menu_items.dart' as mi;
@@ -110,11 +109,11 @@ class _MenuPageState extends State<MenuPage> {
                               scale: 2,
                               child: Switch(
                                 activeTrackColor:
-                                    CustomeTheme.c1.withAlpha(100),
-                                activeColor: CustomeTheme.c1,
+                                    CustomTheme.c1.withAlpha(100),
+                                activeColor: CustomTheme.c1,
                                 inactiveTrackColor:
-                                    CustomeTheme.c2.withAlpha(100),
-                                inactiveThumbColor: CustomeTheme.c2,
+                                    CustomTheme.c2.withAlpha(100),
+                                inactiveThumbColor: CustomTheme.c2,
                                 onChanged: (bool value) {
                                   setState(() {
                                     themeNotifier.toggleTheme();

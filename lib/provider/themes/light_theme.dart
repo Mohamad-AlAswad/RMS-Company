@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+
 import '../theme.dart';
 
 lightThemeData() => ThemeData(
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light().copyWith(
-        secondary: CustomeTheme.c1.withGreen(50).withBlue(250).withRed(0),
+        secondary: CustomTheme.c1.withGreen(50).withBlue(250).withRed(0),
       ),
-      primaryColorDark: CustomeTheme.c1..withAlpha(220),
-      primaryColorLight: CustomeTheme.c2,
+      primaryColorDark: CustomTheme.c1..withAlpha(220),
+      primaryColorLight: CustomTheme.c2,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
@@ -16,9 +17,9 @@ lightThemeData() => ThemeData(
           shadowColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return CustomeTheme.c2.withAlpha(200);
+                return CustomTheme.c2.withAlpha(200);
               }
-              return CustomeTheme.c2; // Use the component's default.
+              return CustomTheme.c2; // Use the component's default.
             },
           ),
           elevation: MaterialStateProperty.resolveWith<double>(
@@ -37,9 +38,9 @@ lightThemeData() => ThemeData(
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return CustomeTheme.c2.withAlpha(200);
+                return CustomTheme.c2.withAlpha(200);
               }
-              return CustomeTheme.c2; // Use the component's default.
+              return CustomTheme.c2; // Use the component's default.
             },
           ),
         ),
@@ -49,38 +50,38 @@ lightThemeData() => ThemeData(
           foregroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return CustomeTheme.c2.withAlpha(100);
+                return CustomTheme.c2.withAlpha(100);
               }
-              return CustomeTheme.c2;
+              return CustomTheme.c2;
             },
           ),
         ),
       ),
       expansionTileTheme: const ExpansionTileThemeData(
-        collapsedIconColor: CustomeTheme.c2,
+        collapsedIconColor: CustomTheme.c2,
         collapsedTextColor: Colors.white,
-        iconColor: CustomeTheme.c2,
-        textColor: CustomeTheme.c2,
+        iconColor: CustomTheme.c2,
+        textColor: CustomTheme.c2,
       ),
-      primaryColor: CustomeTheme.c2,
-      backgroundColor: CustomeTheme.c2,
+      primaryColor: CustomTheme.c2,
+      backgroundColor: CustomTheme.c2,
       tabBarTheme: const TabBarTheme(
         labelPadding: EdgeInsets.all(10),
         indicatorSize: TabBarIndicatorSize.label,
         labelColor: Colors.white,
-        unselectedLabelColor: CustomeTheme.c2,
+        unselectedLabelColor: CustomTheme.c2,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
-            color: CustomeTheme.c2),
+            color: CustomTheme.c2),
       ),
       appBarTheme: AppBarTheme(
-        foregroundColor: CustomeTheme.c2,
+        foregroundColor: CustomTheme.c2,
         backgroundColor: ThemeData.dark().appBarTheme.backgroundColor,
-        actionsIconTheme: const IconThemeData(color: CustomeTheme.c2),
-        iconTheme: const IconThemeData(color: CustomeTheme.c2),
+        actionsIconTheme: const IconThemeData(color: CustomTheme.c2),
+        iconTheme: const IconThemeData(color: CustomTheme.c2),
       ),
       fontFamily: 'Georgia',
       textTheme: const TextTheme(
@@ -90,6 +91,6 @@ lightThemeData() => ThemeData(
       ),
       listTileTheme: ListTileThemeData(
         selectedColor: Colors.white,
-        selectedTileColor: CustomeTheme.c2.withAlpha(100),
+        selectedTileColor: CustomTheme.c2.withAlpha(100),
       ),
     );

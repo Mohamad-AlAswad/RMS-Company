@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rms_company/domain/entities/entities.dart';
 
+import '../../../domain/entities/entities.dart';
 import '../../../domain/usecases/job/remove_job.dart';
 import '../../components/components.dart';
 import 'Slidbar/slidbar_layaout.dart';

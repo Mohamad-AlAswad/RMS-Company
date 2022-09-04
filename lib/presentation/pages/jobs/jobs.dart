@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:rms_company/domain/usecases/job/fetch_more.dart';
-import 'package:rms_company/domain/usecases/job/pause_status_job.dart';
-import 'package:rms_company/domain/usecases/job/resume_status_job.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
-import '../../../data/repositories/job/job_repo_imp.dart';
 import '../../../domain/entities/job/job.dart';
-import '../../../injection_container.dart';
+import '../../../domain/usecases/job/fetch_more.dart';
+import '../../../domain/usecases/job/pause_status_job.dart';
+import '../../../domain/usecases/job/resume_status_job.dart';
 import '../../components/components.dart';
 import 'add_new_job.dart';
 

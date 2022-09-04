@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
@@ -17,16 +16,16 @@ class CustomeAutoComplete extends StatefulWidget {
   }) : super(key: key);
 
   final Future<List<String>> Function({
-  required String word,
-  int? limit,
-  bool? exact,
+    required String word,
+    int? limit,
+    bool? exact,
   })? autoApi;
 
   final Future<List<String>> Function({
-  required String word,
-  int? limit,
-  bool? exact,
-  required String degree,
+    required String word,
+    int? limit,
+    bool? exact,
+    required String degree,
   })? autoEduApi;
 
   final bool enabled;

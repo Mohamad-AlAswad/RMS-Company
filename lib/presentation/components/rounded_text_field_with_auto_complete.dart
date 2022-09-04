@@ -1,3 +1,4 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -31,11 +32,11 @@ class RoundedTextFieldWithAutoComplete extends StatefulWidget {
 
 class _RoundedTextFieldWithAutoCompleteState
     extends State<RoundedTextFieldWithAutoComplete> {
-  var subscription;
+  late StreamSubscription? subscription;
 
   waitBeforeSending() {
     widget.callFather();
-    if (subscription != null) subscription.cancel();
+    if (subscription != null) subscription!.cancel();
     var future = Future.delayed(const Duration(milliseconds: 500));
 
     subscription = future.asStream().listen((any) {

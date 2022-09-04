@@ -1,8 +1,7 @@
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
-import 'package:rms_company/domain/entities/job/applied/job_application_states.dart';
-
 import '../../../../data/repositories/job/applied_repo_imp.dart';
 import '../../../../injection_container.dart';
+import '../../../entities/job/applied/applied_job.dart';
+import '../../../entities/job/applied/job_application_states.dart';
 import '../../../repositories/job/applied_repo.dart';
 
 class AcceptApplied {

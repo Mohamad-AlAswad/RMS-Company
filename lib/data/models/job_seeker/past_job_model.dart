@@ -1,6 +1,4 @@
-
 import '../../../domain/entities/job_seeker/job_seeker_info.dart';
-import '../../../domain/entities/user/user_info.dart';
 
 class PastJobModel extends PastJob {
   const PastJobModel({
@@ -17,9 +15,6 @@ class PastJobModel extends PastJob {
         end: documentSnapshot['end'],
       );
     } catch (e) {
-      print('dasdsd sdadsa');
-
-      print(e.toString());
       return null;
     }
   }

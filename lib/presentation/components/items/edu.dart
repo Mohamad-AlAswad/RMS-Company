@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rms_company/domain/usecases/autocomplete/autocomplete_degrees.dart';
-import 'package:rms_company/domain/usecases/autocomplete/autocomplete_field_edu.dart';
+
+import '../../../domain/usecases/autocomplete/autocomplete_degrees.dart';
+import '../../../domain/usecases/autocomplete/autocomplete_field_edu.dart';
 import '../../../provider/theme.dart';
 import '../../controllers/edu_controllers.dart';
 import '../components.dart';
-import '../custome_auto_complete.dart';
 
 class EduQualificationItem extends StatefulWidget {
   const EduQualificationItem({
@@ -49,7 +49,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
               if (widget.short) ...[
                 Container(
                   decoration: BoxDecoration(
-                    color: CustomeTheme.c2.withAlpha(70),
+                    color: CustomTheme.c2.withAlpha(70),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
@@ -65,8 +65,9 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
                         activeColor: Theme.of(context).primaryColor,
                         onChanged: (!widget.sp)
                             ? (val) {
-                                if (widget.required != null)
+                                if (widget.required != null) {
                                   widget.required!(val!);
+                                }
                                 value = val!;
                               }
                             : null,
@@ -88,7 +89,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
               if (widget.short) ...[
                 Container(
                   decoration: BoxDecoration(
-                    color: CustomeTheme.c2.withAlpha(70),
+                    color: CustomTheme.c2.withAlpha(70),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
@@ -117,7 +118,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
               const Spacer(flex: 4),
               Container(
                 decoration: BoxDecoration(
-                  color: CustomeTheme.c2.withAlpha(70),
+                  color: CustomTheme.c2.withAlpha(70),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -140,7 +141,7 @@ class _EduQualificationItemState extends State<EduQualificationItem> {
         ],
         Container(
           decoration: BoxDecoration(
-            color: CustomeTheme.c2.withAlpha(70),
+            color: CustomTheme.c2.withAlpha(70),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ).copyWith(

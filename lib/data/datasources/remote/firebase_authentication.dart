@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../../domain/entities/company.dart';
-import '../../../domain/repositories/user_info_repo.dart';
 import '../../../domain/entities/user/user_info.dart' as user_ent;
+import '../../../domain/repositories/user_info_repo.dart';
 import '../../../injection_container.dart';
 
 abstract class AuthenticationRemote {
@@ -73,12 +73,10 @@ class FirebaseAuthentication extends AuthenticationRemote {
     required String password,
   }) async {
     try {
-      var doc = await firebaseAuth.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print('created !');
-      print(doc.user);
       await userInfoRepo.updateUserInfo(
         newUserInfo: user_ent.UserInfo(
           id: (await FirebaseFirestore.instance.collection('user-info').add({}))
@@ -88,7 +86,6 @@ class FirebaseAuthentication extends AuthenticationRemote {
       );
       return Future<void>.value(null);
     } on FirebaseAuthException catch (e) {
-      print(e.message);
       if (e.code == 'weak-password') {
         throw WeakPasswordException();
       } else if (e.code == 'invalid-email') {

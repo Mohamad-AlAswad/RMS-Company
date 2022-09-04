@@ -18,6 +18,7 @@ class Unavailable extends StatefulWidget implements Pages {
 class _UnavailableState extends State<Unavailable> {
   ScrollController scrollController = ScrollController();
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey = GlobalKey();
+
   // final FetchMoreUnavailable fetchMoreUnavailable = FetchMoreUnavailable();
   // List<EvaluatedJob> jobList = [];
 
@@ -78,7 +79,7 @@ class _UnavailableState extends State<Unavailable> {
       springAnimationDurationInMilliseconds: 300,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          if (loading||jobs.isNotEmpty) {
+          if (loading || jobs.isNotEmpty) {
             return Stack(
               children: [
                 ListViewBuilder(

@@ -8,28 +8,28 @@ class MyElevatedButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.press,
-    this.color = CustomeTheme.c1,
+    this.color = CustomTheme.c1,
     this.textColor = Colors.white,
     this.h = 0.05,
     this.w = 0.5,
   }) : super(key: key);
 
   final String text;
-  final press;
+  final Function()? press;
   final Color color;
-  Color newColor = CustomeTheme.c2;
+  Color newColor = CustomTheme.c2;
   final Color textColor;
   final double w, h;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    newColor = color == CustomeTheme.c1
+    newColor = color == CustomTheme.c1
         ? Theme.of(context).primaryColor
         : newColor = color;
 
     return ElevatedButton(
-      style: color != CustomeTheme.c1
+      style: color != CustomTheme.c1
           ? ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith(
                 (states) {

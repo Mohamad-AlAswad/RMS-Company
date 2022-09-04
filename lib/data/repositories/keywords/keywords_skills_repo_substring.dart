@@ -1,6 +1,5 @@
 import '../../../domain/repositories/keywords/keywords_skills_repo.dart';
 import 'keywords_repo_substring.dart';
-import '../../../injection_container.dart';
 
 class KeywordsSkillsRepoSubstring implements KeywordsSkillsRepo {
   final KeywordsRepoSubstring keywordsRepoSubstring;

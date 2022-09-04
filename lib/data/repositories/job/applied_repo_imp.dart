@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/data/models/job/full_applied_job_model.dart';
-import 'package:rms_company/data/models/job/job_application_states_model.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
-import 'package:rms_company/domain/entities/job/applied/full_applied_job.dart';
-import 'package:rms_company/domain/entities/job/applied/job_application_states.dart';
+
 import '../../../core/errors/failures/failure.dart';
+import '../../../domain/entities/job/applied/applied_job.dart';
+import '../../../domain/entities/job/applied/full_applied_job.dart';
+import '../../../domain/entities/job/applied/job_application_states.dart';
 import '../../../domain/repositories/job/applied_repo.dart';
 import '../../../injection_container.dart';
 import '../../datasources/remote/evaluator_api.dart';
 import '../../models/job/applied_job_model.dart';
+import '../../models/job/full_applied_job_model.dart';
+import '../../models/job/job_application_states_model.dart';
 import '../paginater_firestore.dart';
 
 class AppliedRepoImp implements AppliedRepo {
@@ -43,9 +44,7 @@ class AppliedRepoImp implements AppliedRepo {
                       ),
                     )
                     .orderBy('score'),
-              ) {
-    print (jobId);
-  }
+              );
 
   @override
   Future<Either<Failure, FullAppliedJob>> detailed({required String id}) async {
@@ -59,26 +58,23 @@ class AppliedRepoImp implements AppliedRepo {
         ),
       );
     } catch (e) {
-      print(e);
       return Future.value(const Left(Unexpected()));
     }
   }
 
   @override
   Future<Either<Failure, List<AppliedJob>>> fetch({required int limit}) async {
-    var response = await paginaterFirestore.fetch(limit: limit);
-    print(response!.docs[0].id);
-    return Future.value(Right(
-      response.docs
-          .map((e) => AppliedJobModel.fromSnapshot(
-        id: e.id,
-        documentSnapshot: e.data() as Map<String, dynamic>,
-      )!)
-          .toList(),
-    ));
     try {
+      var response = await paginaterFirestore.fetch(limit: limit);
+      return Future.value(Right(
+        response!.docs
+            .map((e) => AppliedJobModel.fromSnapshot(
+                  id: e.id,
+                  documentSnapshot: e.data() as Map<String, dynamic>,
+                )!)
+            .toList(),
+      ));
     } catch (e) {
-      print(e);
       return Future.value(const Left(Unexpected()));
     }
   }
@@ -104,7 +100,6 @@ class AppliedRepoImp implements AppliedRepo {
           .update({'state': ApplicationStatesModel.stateToString(nextState)});
       return Future.value([]);
     } catch (e) {
-      print(e);
       return Future.value([const Unexpected(message: 'can\'t reject')]);
     }
   }

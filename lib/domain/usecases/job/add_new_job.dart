@@ -1,7 +1,6 @@
-import 'package:rms_company/domain/entities/job/job.dart';
-import 'package:rms_company/domain/repositories/job/job_repo.dart';
-
 import '../../../injection_container.dart';
+import '../../entities/job/job.dart';
+import '../../repositories/job/job_repo.dart';
 
 class AddNewJob {
   final JobRepo jobRepo;

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
 
+import 'applied_job.dart';
 
 class FullAppliedJob extends Equatable {
   final AppliedJob appliedJob;

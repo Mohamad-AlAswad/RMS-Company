@@ -17,7 +17,6 @@ class SlidBarLayout extends StatefulWidget {
 }
 
 class _SlidBarLayoutState extends State<SlidBarLayout> {
-
   @override
   Widget build(BuildContext context) {
     return Stack(

@@ -1,6 +1,5 @@
-import 'package:rms_company/data/models/job/description_field/description_field_model.dart';
-
 import '../../../domain/entities/job/job.dart';
+import 'description_field/description_field_model.dart';
 
 class JobModel extends Job {
   const JobModel({
@@ -39,7 +38,6 @@ class JobModel extends Job {
         )!,
       );
     } catch (e) {
-      print(e);
       return null;
     }
   }

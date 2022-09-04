@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
-import 'package:rms_company/domain/usecases/job/applied/accept_applied.dart';
-import 'package:rms_company/domain/usecases/job/applied/reject_applied.dart';
 
+import '../../../../domain/entities/job/applied/applied_job.dart';
 import '../../../../domain/entities/job/job.dart';
+import '../../../../domain/usecases/job/applied/accept_applied.dart';
 import '../../../../domain/usecases/job/applied/fetch_more.dart';
+import '../../../../domain/usecases/job/applied/reject_applied.dart';
 import '../applied_job.dart';
 
 class ApplicantPage extends StatefulWidget {
@@ -60,7 +60,6 @@ class _ApplicantPageState extends State<ApplicantPage>
     setState(() {
       allLoaded = tmpAJob.length < 10;
       ajob = tmpAJob;
-      print(tmpAJob.length);
       isLoading = false;
     });
   }
@@ -96,7 +95,6 @@ class _ApplicantPageState extends State<ApplicantPage>
         width: 0,
       ),
     );
-    print(ajob.length);
     final size = MediaQuery.of(context).size;
     return AnimatedPositioned(
       duration: animationDuration,
@@ -159,7 +157,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                             ajob: ajob[index],
                             index: index,
                             callAccDial: (idx) {
-                              print('idssx: $idx');
                               setState(() {
                                 showDialog(
                                   context: context,

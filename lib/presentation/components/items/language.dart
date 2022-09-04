@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/usecases/autocomplete/autocomplete_languages.dart';
 
+import '../../../domain/usecases/autocomplete/autocomplete_languages.dart';
 import '../../../provider/theme.dart';
 import '../../controllers/controllers.dart';
 import '../custome_auto_complete.dart';
@@ -37,7 +37,7 @@ class _LanguageItemState extends State<LanguageItem> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: CustomeTheme.c2.withAlpha(70),
+        color: CustomTheme.c2.withAlpha(70),
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.all(15).copyWith(right: 0),
@@ -47,7 +47,7 @@ class _LanguageItemState extends State<LanguageItem> {
           if (widget.short) ...[
             Container(
               decoration: BoxDecoration(
-                color: CustomeTheme.c2.withAlpha(70),
+                color: CustomTheme.c2.withAlpha(70),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),

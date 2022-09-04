@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rms_company/presentation/components/components.dart';
 
 import '../../../domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
 import '../../pages/jobs/job_offer_details.dart';
+import '../components.dart';
 
 // ignore: must_be_immutable
 class JobOfferWidget extends StatelessWidget {
@@ -24,10 +24,10 @@ class JobOfferWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: CustomeTheme.c2.withAlpha(70),
+        color: CustomTheme.c2.withAlpha(70),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: CustomeTheme.c2,
+          color: CustomTheme.c2,
           width: 1,
         ),
       ),

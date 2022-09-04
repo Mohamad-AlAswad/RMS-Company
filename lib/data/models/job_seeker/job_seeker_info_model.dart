@@ -1,4 +1,4 @@
-import 'package:rms_company/domain/entities/job_seeker/job_seeker_info.dart';
+import '../../../domain/entities/job_seeker/job_seeker_info.dart';
 import 'education_certificate_model.dart';
 import 'past_job_model.dart';
 

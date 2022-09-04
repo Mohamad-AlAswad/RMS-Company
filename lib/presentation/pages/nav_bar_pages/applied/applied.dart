@@ -18,6 +18,7 @@ class Applied extends StatefulWidget implements Pages {
 class _AppliedState extends State<Applied> {
   ScrollController scrollController = ScrollController();
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey = GlobalKey();
+
   // final FetchMoreUnavailable fetchMoreUnavailable = FetchMoreUnavailable();
   // List<EvaluatedJob> jobList = [];
 

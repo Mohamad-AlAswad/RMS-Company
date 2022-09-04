@@ -1,5 +1,4 @@
 import '../../../domain/repositories/keywords/keywords_degree_edu_repo.dart';
-import '../../../injection_container.dart';
 import 'keywords_repo_substring.dart';
 
 class KeywordsDegreeEduRepoSubstring implements KeywordsDegreeEduRepo {

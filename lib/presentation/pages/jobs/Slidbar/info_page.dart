@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/job/job.dart';
-import 'package:rms_company/presentation/controllers/controllers.dart';
-
 import '../../../components/components.dart';
+import '../../../controllers/controllers.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({Key? key, required this.job}) : super(key: key);

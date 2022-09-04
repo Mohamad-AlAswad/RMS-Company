@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
-import 'package:rms_company/domain/usecases/job/applied/accept_applied.dart';
-import 'package:rms_company/domain/usecases/job/applied/reject_applied.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
+import '../../../../domain/entities/job/applied/applied_job.dart';
 import '../../../../domain/entities/job/job.dart';
+import '../../../../domain/usecases/job/applied/accept_applied.dart';
 import '../../../../domain/usecases/job/applied/fetch_more.dart';
+import '../../../../domain/usecases/job/applied/reject_applied.dart';
 import '../../../components/job/applied_job.dart';
 
 class ApplicantPage extends StatefulWidget {
@@ -69,7 +69,6 @@ class _ApplicantPageState extends State<ApplicantPage>
     setState(() {
       allLoaded = tmpAJob.length < 10;
       ajob = tmpAJob;
-      print(tmpAJob.length);
       isLoading = false;
     });
   }
@@ -105,7 +104,6 @@ class _ApplicantPageState extends State<ApplicantPage>
         width: 0,
       ),
     );
-    print(ajob.length);
     final size = MediaQuery.of(context).size;
     return AnimatedPositioned(
       duration: animationDuration,
@@ -200,7 +198,7 @@ class _ApplicantPageState extends State<ApplicantPage>
                                         ),
                                         DialogButton(
                                           ajob: ajob,
-                                          onPress: ()=>Navigator.pop(context),
+                                          onPress: () => Navigator.pop(context),
                                           text: 'Cancel',
                                         ),
                                       ],
@@ -227,7 +225,7 @@ class _ApplicantPageState extends State<ApplicantPage>
                                             await rejectApplied(
                                               appliedId: ajob[idx].appliedId,
                                             ).then(
-                                                  (value) {
+                                              (value) {
                                                 Navigator.pop(context);
                                                 handleRefresh();
                                               },
@@ -237,11 +235,12 @@ class _ApplicantPageState extends State<ApplicantPage>
                                         ),
                                         DialogButton(
                                           ajob: ajob,
-                                          onPress: ()=>Navigator.pop(context),
+                                          onPress: () => Navigator.pop(context),
                                           text: 'Cancel',
                                         ),
                                       ],
-                                      title: const Text('once u do this u cant un do it ?!'),
+                                      title: const Text(
+                                          'once u do this u cant un do it ?!'),
                                     ),
                                   );
                                 });

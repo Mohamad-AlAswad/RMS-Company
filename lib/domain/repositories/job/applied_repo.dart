@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/domain/entities/job/applied/full_applied_job.dart';
 
 import '../../../core/errors/failures/failure.dart';
 import '../../entities/job/applied/applied_job.dart';
+import '../../entities/job/applied/full_applied_job.dart';
 import '../../entities/job/applied/job_application_states.dart';
 
 abstract class AppliedRepo {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/job.dart';
+
+import '../../../domain/entities/job/job.dart';
 import '../../../provider/theme.dart';
 
 // ignore: must_be_immutable
@@ -24,7 +25,7 @@ class CustomExpansionTile extends StatelessWidget {
       leading: const Icon(
         Icons.info_outline,
       ),
-      textColor: CustomeTheme.c1,
+      textColor: CustomTheme.c1,
       title: Text(
         'Job Details:',
         style: TextStyle(

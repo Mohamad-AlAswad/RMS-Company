@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+
 import 'description_field/description_field.dart';
 
 class Job extends Equatable {

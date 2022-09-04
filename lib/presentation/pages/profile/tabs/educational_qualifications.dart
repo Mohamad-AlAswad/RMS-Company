@@ -127,4 +127,3 @@ class _EducationalQualificationsState extends State<EducationalQualifications> {
     );
   }
 }
-

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_job.dart';
-import 'bullet_point.dart';
+
+import '../../../domain/entities/job/applied/applied_job.dart';
 import '../../../provider/theme.dart';
+import 'bullet_point.dart';
 
 // ignore: must_be_immutable
 class CustomExpansionTileApplied extends StatelessWidget {
@@ -34,7 +35,7 @@ class CustomExpansionTileApplied extends StatelessWidget {
         Icons.info_outline,
         size: 26,
       ),
-      textColor: CustomeTheme.c1,
+      textColor: CustomTheme.c1,
       title: Text(
         'Applicant Details :',
         style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:rms_company/domain/entities/job/applied/applied_description/applied_description.dart';
+
+import 'applied_description/applied_description.dart';
 
 class AppliedJob extends Equatable {
   final String fullName;

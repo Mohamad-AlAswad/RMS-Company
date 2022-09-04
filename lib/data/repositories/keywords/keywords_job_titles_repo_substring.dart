@@ -1,5 +1,4 @@
 import '../../../domain/repositories/keywords/keywords_job_titles_repo.dart';
-import '../../../injection_container.dart';
 import 'keywords_repo_substring.dart';
 
 class KeywordsJobTitlesRepoSubstring implements KeywordsJobTitlesRepo {

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/domain/entities/job/job.dart';
 
 import '../../../core/errors/failures/failure.dart';
+import '../../../domain/entities/job/job.dart';
 import '../../../domain/repositories/authentication_repo.dart';
 import '../../../domain/repositories/job/job_repo.dart';
 import '../../../injection_container.dart';
@@ -28,7 +28,6 @@ class JobRepoImp implements JobRepo {
           )
           .orderBy('published-time'),
     );
-    print(authenticationRepo.companyName);
   }
 
   @override
@@ -46,30 +45,30 @@ class JobRepoImp implements JobRepo {
   Future<List<Failure>> pause({required String jobId}) {
     try {
       collection.doc(jobId).update({'status': 'paused'});
+      return Future<List<Failure>>.value([]);
     } catch (e) {
-      print(e);
+      return Future<List<Failure>>.value([]);
     }
-    return Future<List<Failure>>.value([]);
   }
 
   @override
   Future<List<Failure>> resume({required String jobId}) {
     try {
       collection.doc(jobId).update({'status': 'running'});
+      return Future<List<Failure>>.value([]);
     } catch (e) {
-      print(e);
+      return Future<List<Failure>>.value([]);
     }
-    return Future<List<Failure>>.value([]);
   }
 
   @override
   Future<List<Failure>> remove({required String jobId}) {
     try {
       collection.doc(jobId).delete();
+      return Future<List<Failure>>.value([]);
     } catch (e) {
-      print(e);
+      return Future<List<Failure>>.value([]);
     }
-    return Future<List<Failure>>.value([]);
   }
 
   @override
@@ -85,7 +84,6 @@ class JobRepoImp implements JobRepo {
       paginaterFirestore.commitFetching();
       return Future.value(Right(result));
     } catch (e) {
-      print(e);
       return Future.value(const Left(Unexpected()));
     }
   }

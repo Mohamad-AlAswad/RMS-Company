@@ -1,4 +1,4 @@
-import 'package:rms_company/domain/entities/job/applied/job_application_states.dart';
+import '../../../domain/entities/job/applied/job_application_states.dart';
 
 class ApplicationStatesModel {
   static String stateToString(ApplicationStates? state) {

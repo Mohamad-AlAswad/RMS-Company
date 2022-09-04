@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../provider/theme.dart';
 
 class RefreshBox extends StatelessWidget {
@@ -18,7 +19,7 @@ class RefreshBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       margin: const EdgeInsets.only(bottom: 50, top: 10),
-      color: CustomeTheme.c2.withAlpha(70),
+      color: CustomTheme.c2.withAlpha(70),
       child: Center(
         child: ListTile(
           title: Text(

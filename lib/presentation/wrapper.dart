@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
 import '../provider/theme.dart';
 import '../provider/theme_notifier.dart';
 import 'blocs/authentication/auth_bloc.dart';
@@ -29,8 +30,8 @@ class Wrapper extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'RMS Demo pla....',
               theme: themeNotifier.darkTheme
-                  ? CustomeTheme.dark
-                  : CustomeTheme.light,
+                  ? CustomTheme.dark
+                  : CustomTheme.light,
               home: SplashScreen(controllers: controllers),
             );
           },
@@ -39,4 +40,3 @@ class Wrapper extends StatelessWidget {
     );
   }
 }
-

@@ -85,7 +85,7 @@ class _LanguagesState extends State<Languages> {
               if (languagesControllers.isNotEmpty) ...[
                 ListView.separated(
                   separatorBuilder: ((context, index) =>
-                  const SizedBox(height: 15)),
+                      const SizedBox(height: 15)),
                   itemBuilder: (context, index) => LanguageItem(
                     languagesController: languagesControllers[index],
                     enabled: enabled,

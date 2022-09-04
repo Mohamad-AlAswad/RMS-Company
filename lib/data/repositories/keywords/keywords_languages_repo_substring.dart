@@ -1,5 +1,4 @@
 import '../../../domain/repositories/keywords/keywords_languages_repo.dart';
-import '../../../injection_container.dart';
 import 'keywords_repo_substring.dart';
 
 class KeywordsLanguagesRepoSubstring implements KeywordsLanguagesRepo {

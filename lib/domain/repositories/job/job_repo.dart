@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/core/errors/failures/failure.dart';
-import 'package:rms_company/domain/entities/entities.dart';
+
+import '../../../core/errors/failures/failure.dart';
+import '../../entities/entities.dart';
 
 abstract class JobRepo {
   Future<List<Failure>> add({required Job job});

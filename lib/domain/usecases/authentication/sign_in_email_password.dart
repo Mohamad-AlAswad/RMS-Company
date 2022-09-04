@@ -13,7 +13,7 @@ class SignInEmailAndPassword {
     required String email,
     required String password,
   }) async {
-    return  authenticationRepo.signInEmailAndPassword(
+    return authenticationRepo.signInEmailAndPassword(
       email: email,
       password: password,
     );

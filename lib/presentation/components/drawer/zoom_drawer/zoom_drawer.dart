@@ -3,9 +3,8 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../pages/jobs/jobs.dart';
 import '../../../pages/profile/profile.dart';
-
-import 'menu_page.dart';
 import 'menu_items.dart' as mi;
+import 'menu_page.dart';
 
 class CustomeZoomDrawer extends StatefulWidget {
   const CustomeZoomDrawer({Key? key}) : super(key: key);
@@ -46,19 +45,19 @@ class _CustomeZoomDrawerState extends State<CustomeZoomDrawer> {
   Widget getScreen() {
     switch (currentItem) {
       case mi.MenuItems.jobs:
-        return Jobs();
+        return const Jobs();
       case mi.MenuItems.profile:
-        return Profile();
+        return const Profile();
       case mi.MenuItems.mailBox:
-        return Jobs();
+        return const Jobs();
       case mi.MenuItems.reports:
-        return Profile();
+        return const Profile();
       case mi.MenuItems.aboutUs:
-        return Jobs();
+        return const Jobs();
       case mi.MenuItems.rateUs:
-        return Profile();
+        return const Profile();
       default:
-        return Jobs();
+        return const Jobs();
     }
   }
 }

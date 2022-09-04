@@ -7,6 +7,7 @@ class Rating extends StatelessWidget {
   }) : super(key: key);
 
   final double rating;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,4 +34,3 @@ class Rating extends StatelessWidget {
     );
   }
 }
-

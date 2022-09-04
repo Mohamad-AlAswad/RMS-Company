@@ -1,7 +1,7 @@
 import 'package:validators/validators.dart';
 
-import '../../errors/failures/user_info_failures.dart';
 import '../../../domain/entities/user/user_info.dart';
+import '../../errors/failures/user_info_failures.dart';
 
 class UserInfoValidator {
   static Future<List<UserInfoFailure>> validate(UserInfo userInfo) async {

@@ -1,7 +1,6 @@
-import 'package:rms_company/domain/repositories/job_seeker_info_repo.dart';
-
 import '../../../injection_container.dart';
 import '../../entities/job_seeker/job_seeker_info.dart';
+import '../../repositories/job_seeker_info_repo.dart';
 
 class GetProfileJobSeeker {
   final JobSeekerInfoRepo jobSeekerInfoRepo;
@@ -12,7 +11,7 @@ class GetProfileJobSeeker {
     // String userId = GetConnectedUser(sl()).userId!;
     JobSeekerInfo? result;
     (await jobSeekerInfoRepo.getJobSeekerInfo(userId: userId)).fold(
-      (failure) => print(failure.message),
+      (failure) => result = null,
       (data) => result = data,
     );
     return result;

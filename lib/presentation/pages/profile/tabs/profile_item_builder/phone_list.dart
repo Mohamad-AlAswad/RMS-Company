@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'phone.dart';
 import '../../../../../provider/update_action_bar_actions_notification.dart';
+import 'phone.dart';
 
 class PhoneList extends StatelessWidget {
   const PhoneList({

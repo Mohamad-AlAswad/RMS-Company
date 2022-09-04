@@ -1,4 +1,3 @@
-
 import '../../../domain/entities/job_seeker/job_seeker_info.dart';
 
 class EducationCertificateModel extends EducationCertificate {
@@ -19,8 +18,6 @@ class EducationCertificateModel extends EducationCertificate {
         graduationDate: documentSnapshot['graduation-date'],
       );
     } catch (e) {
-      print('dasdsd sds');
-      print(e.toString());
       return null;
     }
   }

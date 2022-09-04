@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rms_company/domain/usecases/autocomplete/autocomplete_job_titles.dart';
 
+import '../../../domain/usecases/autocomplete/autocomplete_job_titles.dart';
 import '../../../provider/theme.dart';
 import '../../controllers/controllers.dart';
 import '../custome_auto_complete.dart';
@@ -48,7 +48,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
               if (widget.short) ...[
                 Container(
                   decoration: BoxDecoration(
-                    color: CustomeTheme.c2.withAlpha(70),
+                    color: CustomTheme.c2.withAlpha(70),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
@@ -89,7 +89,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
                 if (widget.short) ...[
                   Container(
                     decoration: BoxDecoration(
-                      color: CustomeTheme.c2.withAlpha(70),
+                      color: CustomTheme.c2.withAlpha(70),
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
@@ -116,7 +116,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
                 const Spacer(flex: 4),
                 Container(
                   decoration: BoxDecoration(
-                    color: CustomeTheme.c2.withAlpha(70),
+                    color: CustomTheme.c2.withAlpha(70),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
@@ -140,7 +140,7 @@ class _PastExperienceItemState extends State<PastExperienceItem> {
         ],
         Container(
           decoration: BoxDecoration(
-            color: CustomeTheme.c2.withAlpha(70),
+            color: CustomTheme.c2.withAlpha(70),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ).copyWith(

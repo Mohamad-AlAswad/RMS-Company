@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/domain/entities/entities.dart';
 
 import '../../core/errors/failures/failure.dart';
+import '../entities/entities.dart';
 
 abstract class AuthenticationRepo {
   Future<Either<Failure, void>> signUpEmailAndPassword({
