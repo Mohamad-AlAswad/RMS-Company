@@ -32,8 +32,6 @@ class _ApplicantPageState extends State<ApplicantPage>
   @override
   void initState() {
     super.initState();
-    acceptApplied = AcceptApplied();
-    rejectApplied = RejectApplied();
     isOpened = false;
     isOpening = false;
     animationDuration = const Duration(milliseconds: 500);
@@ -44,6 +42,8 @@ class _ApplicantPageState extends State<ApplicantPage>
     allLoaded = false;
     isLoading = false;
     job = widget.job;
+    acceptApplied = AcceptApplied(jobId: job.id);
+    rejectApplied = RejectApplied(jobId: job.id);
     ajob = [];
     fetchMoreApplied = FetchMoreApplied(jobId: widget.job.id);
     getAppliedJobs();

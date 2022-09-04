@@ -115,11 +115,6 @@ void initUseCases() {
   sl.registerLazySingleton(() => AutocompleteLanguages());
   sl.registerLazySingleton(() => AutocompleteSkills());
   sl.registerLazySingleton(() => AutocompleteUniversities());
-  // job - applied
-  sl.registerLazySingleton(() => AcceptApplied());
-  sl.registerLazySingleton(() => GetDetailedApplied());
-  sl.registerLazySingleton(() => RateApplication());
-  sl.registerLazySingleton(() => RejectApplied());
   // job
   sl.registerLazySingleton(() => AddNewJob());
   sl.registerLazySingleton(() => FetchMoreJob());
