@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rms_company/presentation/pages/authentication/company_select.dart';
 
 import 'Pages/Authentication/authenticate.dart';
 import 'Pages/Authentication/login.dart';
 import 'Pages/Authentication/signup.dart';
 import 'blocs/authentication/auth_bloc.dart';
-import 'components/drawer/zoom_drawer/zoom_drawer.dart';
 import 'controllers/controllers.dart';
 
 class BlocBuilderWidget extends StatelessWidget {
@@ -40,6 +40,7 @@ class BlocBuilderWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        return const CompanySelect();
         if (state is AuthInitial) {
           return const Authenticate();
         } else if (state is SigningInState) {
@@ -49,7 +50,7 @@ class BlocBuilderWidget extends StatelessWidget {
         } else if (state is SignedInState) {
           controllers.tecEmailLogIn.text = '';
           controllers.tecPassLogIn.text = '';
-          return const CustomeZoomDrawer();
+          return const CompanySelect();
         } else if (state is SignInErrorState) {
           return LogIn(
             controllers: controllers,
@@ -61,7 +62,7 @@ class BlocBuilderWidget extends StatelessWidget {
             controllers: controllers,
           );
         } else if (state is SignedUpState) {
-          return const CustomeZoomDrawer();
+          return const CompanySelect();
         } else if (state is SignUpErrorState) {
           return SignUp(
             controllers: controllers,

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../../domain/usecases/authentication/log_out.dart';
 import '../../../../provider/theme.dart';
 import '../../../../provider/theme_notifier.dart';
+import '../../components.dart';
 import 'menu_items.dart' as mi;
 
 // ignore: must_be_immutable
@@ -63,7 +64,7 @@ class _MenuPageState extends State<MenuPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Spacer(flex: 1),
+                      const Spacer(flex: 2),
                       Container(
                         padding: const EdgeInsets.only(left: 20),
                         height: MediaQuery.of(context).size.width * 0.3,
@@ -86,45 +87,68 @@ class _MenuPageState extends State<MenuPage> {
                         indent: MediaQuery.of(context).size.width * 0.03,
                       ),
                       ...mi.MenuItems.group2.map(buildMenuItem).toList(),
-                      const Spacer(flex: 3),
-                      ElevatedButton(
-                        onPressed: () {
-                          LogOut()();
-                          Phoenix.rebirth(context);
-                          // Navigator.pop(context);
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => Authenticate(),
-                          //   ),
-                          // );
-                        },
-                        child: const Text('log out'),
+                      const Spacer(flex: 5),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          right: 20,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 35,
+                          vertical: 25,
+                        ),
+                        child: MyElevatedButton(
+                          press: () {
+                            LogOut()();
+                            Phoenix.rebirth(context);
+                            // Navigator.pop(context);
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (_) => Authenticate(),
+                            //   ),
+                            // );
+                          },
+                          text: 'log out',
+                        ),
                       ),
-                      Consumer(
-                        builder: (context, ThemeNotifier themeNotifier, child) {
-                          val = themeNotifier.darkTheme;
-                          return Center(
-                            child: Transform.scale(
-                              scale: 2,
-                              child: Switch(
-                                activeTrackColor:
-                                    CustomTheme.c1.withAlpha(100),
-                                activeColor: CustomTheme.c1,
-                                inactiveTrackColor:
-                                    CustomTheme.c2.withAlpha(100),
-                                inactiveThumbColor: CustomTheme.c2,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    themeNotifier.toggleTheme();
-                                    val = value;
-                                  });
-                                },
-                                value: val,
-                              ),
+                      const Spacer(flex: 1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            'Dark Mode:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
                             ),
-                          );
-                        },
+                          ),
+                          Consumer(
+                            builder:
+                                (context, ThemeNotifier themeNotifier, child) {
+                              val = themeNotifier.darkTheme;
+                              return Center(
+                                child: Transform.scale(
+                                  scale: 2,
+                                  child: Switch(
+                                    activeTrackColor:
+                                        CustomTheme.c1.withAlpha(100),
+                                    activeColor: CustomTheme.c1,
+                                    inactiveTrackColor:
+                                        CustomTheme.c2.withAlpha(100),
+                                    inactiveThumbColor: CustomTheme.c2,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        themeNotifier.toggleTheme();
+                                        val = value;
+                                      });
+                                    },
+                                    value: val,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                       const Spacer(flex: 3),
                     ],

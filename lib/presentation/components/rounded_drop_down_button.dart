@@ -6,17 +6,17 @@ class RoundedDropdownButton extends StatelessWidget {
     Key? key,
     required this.color,
     required this.valueChanged,
-    required this.value,
+    this.value,
     this.icon = Icons.person,
     this.secColor = Colors.white,
     this.hintText = 'input here',
     this.label = '',
     this.enabled = true,
-    this.list = const [],
+    this.list,
     this.w = 0.7,
     this.h = 0.06,
   }) : super(key: key);
-  final List<String> list;
+  final List<String>? list;
   List<DropdownMenuItem<String>> newList = [];
   final IconData icon;
   final Color secColor, color;
@@ -25,19 +25,22 @@ class RoundedDropdownButton extends StatelessWidget {
   final String label;
   final bool enabled;
   final Function valueChanged;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    newList = list
-        .map(
-          (e) => DropdownMenuItem<String>(
-            value: e,
-            child: Text(e),
-          ),
-        )
-        .toList();
+    print(list);
+    if (list != null) {
+      newList = list!
+          .map(
+            (e) => DropdownMenuItem<String>(
+              value: e,
+              child: Text(e),
+            ),
+          )
+          .toList();
+    }
     return Container(
       decoration: BoxDecoration(
         color: (value == 'paused') ? Colors.red : color,

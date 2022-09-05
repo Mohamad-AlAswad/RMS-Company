@@ -15,7 +15,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   int currentIndex = 0;
   String currentPage = 'personal';
-  List<String> pagesKeys = ['personal', 'edu', 'exp', 'skills', 'lang'];
+  List<String> pagesKeys = [
+    'personal',
+    // 'edu', 'exp', 'skills', 'lang'
+  ];
   Map<String, GlobalKey<NavigatorState>> navigatorState = {
     'personal': GlobalKey<NavigatorState>(),
     'edu': GlobalKey<NavigatorState>(),
@@ -25,13 +28,13 @@ class _ProfileState extends State<Profile> {
   };
   final List<Text> texts = [
     const Text('Personal Information', style: TextStyle(fontSize: 20)),
-    const Text(
-      'Educational Qualifications',
-      style: TextStyle(fontSize: 20),
-    ),
-    const Text('Past Experience', style: TextStyle(fontSize: 20)),
-    const Text('Skills', style: TextStyle(fontSize: 20)),
-    const Text('Languages', style: TextStyle(fontSize: 20)),
+    // const Text(
+    //   'Educational Qualifications',
+    //   style: TextStyle(fontSize: 20),
+    // ),
+    // const Text('Past Experience', style: TextStyle(fontSize: 20)),
+    // const Text('Skills', style: TextStyle(fontSize: 20)),
+    // const Text('Languages', style: TextStyle(fontSize: 20)),
   ];
   late List<Widget> actions1;
   late List<Widget> actions2;

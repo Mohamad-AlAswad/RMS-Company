@@ -50,10 +50,12 @@ class FirebaseAuthentication extends AuthenticationRemote {
     required String password,
   }) async {
     try {
+      print('wtf');
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print('wtf2 ');
       return Future<void>.value(null);
     } on FirebaseAuthException {
       throw EmailAndPasswordNotMatchedException();

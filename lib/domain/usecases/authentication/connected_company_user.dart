@@ -8,6 +8,7 @@ class ConnectedCompanyUser {
   ConnectedCompanyUser() : authenticationRepo = sl();
 
   String? get companyId => authenticationRepo.userId;
+  List<String>? get companyIds => [authenticationRepo.userId!];
 
   user_ent.UserInfo? get connectedUser => authenticationRepo.connectedUser;
 }

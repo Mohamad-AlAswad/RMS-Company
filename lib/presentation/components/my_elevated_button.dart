@@ -31,10 +31,23 @@ class MyElevatedButton extends StatelessWidget {
     return ElevatedButton(
       style: color != CustomTheme.c1
           ? ButtonStyle(
+              textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return const TextStyle(
+                      color: Colors.grey,
+                    );
+                  }
+                  return null;
+                },
+              ),
               backgroundColor: MaterialStateProperty.resolveWith(
-                (states) {
+                (Set<MaterialState> states) {
                   if (states.contains(MaterialState.pressed)) {
                     return newColor.withAlpha(200);
+                  }
+                  if (states.contains(MaterialState.disabled)) {
+                    return newColor.withAlpha(100);
                   }
                   return newColor;
                 },
