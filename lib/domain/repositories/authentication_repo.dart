@@ -18,9 +18,11 @@ abstract class AuthenticationRepo {
 
   String? get userId;
 
-  String? get companyName;
-
   UserInfo? get connectedUser;
 
-  Company? get connectedCompany;
+  List<String> get companies;
+
+  String? get connectedCompany;
+
+  set connectedCompany(String? company);
 }

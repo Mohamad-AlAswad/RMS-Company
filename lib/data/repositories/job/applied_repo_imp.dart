@@ -107,10 +107,11 @@ class AppliedRepoImp implements AppliedRepo {
   @override
   Future<List<Failure>> rateApplication(
       {required String appliedJobId, required num rating}) async {
-    bool response = await evaluatorApi.rateApplication(
-      appliedJobId: appliedJobId,
-      rating: rating,
-    );
+    bool response = false ;
+    // bool response = await evaluatorApi.rateApplication(
+    //   appliedJobId: appliedJobId,
+    //   rating: rating,
+    // );
     if (response) return [];
     return [const Unexpected(message: 'bad network. try again later')];
   }

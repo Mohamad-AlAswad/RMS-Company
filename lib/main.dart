@@ -19,7 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   init();
-
+  FirebaseAuth.instance.signOut();
   // runApp(const MyApp2());
   runApp(
     Phoenix(
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       signUpEmailPassword: SignUpEmailPassword(),
       signInEmailAndPassword: SignInEmailAndPassword(),
       logOut: LogOut(),
-      initialState: FirebaseAuth.instance.currentUser == null
+      initialState: GetConnectedUser().connectedUser == null
           ? AuthInitial()
           : const SignedInState(),
     );

@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rms_company/domain/usecases/authentication/connected_company_user.dart';
+import 'package:rms_company/domain/usecases/authentication/get_connected_user.dart';
 import 'package:rms_company/presentation/components/components.dart';
+
+import '../../../data/repositories/authentication_repo.dart';
+import '../../../domain/repositories/authentication_repo.dart';
 
 class CompanySelect extends StatefulWidget {
   const CompanySelect({Key? key}) : super(key: key);
@@ -12,7 +15,7 @@ class CompanySelect extends StatefulWidget {
 }
 
 class _CompanySelectState extends State<CompanySelect> {
-  late List<String>? list = list = ConnectedCompanyUser().companyIds;
+  late List<String>? list = GetConnectedUser().companies;
   late String? value;
   late TextEditingController company;
   late bool isValid;
@@ -20,7 +23,7 @@ class _CompanySelectState extends State<CompanySelect> {
   @override
   void initState() {
     super.initState();
-    value = list != null ? list![0] : null;
+    value = list != null && list!.isNotEmpty ? list![0] : null;
     isValid = false;
     company = TextEditingController();
   }
@@ -87,7 +90,7 @@ class _CompanySelectState extends State<CompanySelect> {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: MyElevatedButton(
               text: 'Log In',
-              press: (value!.isNotEmpty)
+              press: (value != null && value!.isNotEmpty)
                   ? () {
                       Navigator.pushReplacement(
                         context,

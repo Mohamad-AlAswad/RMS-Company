@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../core/errors/failures/failure.dart';
-import '../../domain/entities/company.dart';
 import '../../domain/entities/user/user_info.dart' as user_ent;
 import '../../domain/repositories/authentication_repo.dart';
 import '../../injection_container.dart';
@@ -11,12 +10,16 @@ import '../datasources/remote/firebase_authentication.dart';
 class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   final AuthenticationRemote authenticationRemote;
 
-  AuthenticationUsingTwoSteps() : authenticationRemote = sl();
+  AuthenticationUsingTwoSteps()
+      : authenticationRemote = sl();
+
+  late String? _company;
 
   @override
   Future<Either<Failure, void>> logOut() async {
     try {
       await authenticationRemote.signOut();
+      connectedCompany = null;
       return Future<Either<Failure, void>>.value(const Right(null));
     } catch (e) {
       return Future<Either<Failure, void>>.value(const Left(Unexpected()));
@@ -24,8 +27,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, void>> signInEmailAndPassword(
-      {required String email, required String password}) {
+  Future<Either<Failure, void>> signInEmailAndPassword({required String email, required String password}) {
     return _signInUp(
       email: email,
       password: password,
@@ -34,8 +36,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, void>> signUpEmailAndPassword(
-      {required String email, required String password}) {
+  Future<Either<Failure, void>> signUpEmailAndPassword({required String email, required String password}) {
     return _signInUp(
       email: email,
       password: password,
@@ -67,8 +68,12 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   user_ent.UserInfo? get connectedUser => authenticationRemote.connectedUser;
 
   @override
-  String? get companyName => authenticationRemote.companyId;
+  List<String> get companies =>
+      connectedUser == null ? [] : connectedUser!.companies;
 
   @override
-  Company? get connectedCompany => authenticationRemote.connectedCompany;
+  String? get connectedCompany => _company;
+
+  @override
+  set connectedCompany(String? company) => _company = company;
 }

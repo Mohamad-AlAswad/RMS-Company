@@ -40,7 +40,7 @@ class BlocBuilderWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return const CompanySelect();
+        // return const CompanySelect();
         if (state is AuthInitial) {
           return const Authenticate();
         } else if (state is SigningInState) {

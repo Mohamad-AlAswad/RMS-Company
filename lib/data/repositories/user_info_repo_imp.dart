@@ -20,7 +20,9 @@ class UserInfoRepoImp implements UserInfoRepo {
     try {
       return Future.value(
         Right(UserInfoModel.fromSnapshot(
-            documentSnapshot: (await collection.doc(userId).get()).data())!),
+          documentSnapshot: (await collection.doc(userId).get()).data(),
+          userId: '',
+        )!),
       );
     } catch (e) {
       return Future.value(const Left(Unexpected(message: 'unexpected')));

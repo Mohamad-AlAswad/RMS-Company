@@ -24,7 +24,7 @@ class JobRepoImp implements JobRepo {
           .collection('jobs')
           .where(
             'company-name',
-            isEqualTo: authenticationRepo.companyName,
+            isEqualTo: authenticationRepo.connectedCompany,
           )
           .orderBy('published-time'),
     );
@@ -34,7 +34,7 @@ class JobRepoImp implements JobRepo {
   Future<List<Failure>> add({required Job job}) async {
     await collection.add(
       JobModel.toSnapshot(
-        companyName: authenticationRepo.companyName!,
+        companyName: authenticationRepo.connectedCompany!,
         job: job,
       ),
     );

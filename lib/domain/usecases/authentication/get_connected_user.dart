@@ -10,4 +10,8 @@ class GetConnectedUser {
   String? get userId => authenticationRepo.userId;
 
   user_ent.UserInfo? get connectedUser => authenticationRepo.connectedUser;
+
+  List<String> get companies => authenticationRepo.companies;
+
+  String? get connectedCompany => authenticationRepo.connectedCompany;
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rms_company/data/repositories/company_repo_imp.dart';
 
 import 'data/datasources/remote/autocomplete_substring_api.dart';
 import 'data/datasources/remote/evaluator_api.dart';
@@ -15,6 +16,7 @@ import 'data/repositories/keywords/keywords_skills_repo_substring.dart';
 import 'data/repositories/keywords/keywords_universities_repo_substring.dart';
 import 'data/repositories/user_info_repo_imp.dart';
 import 'domain/repositories/authentication_repo.dart';
+import 'domain/repositories/company_repo.dart';
 import 'domain/repositories/job/job_repo.dart';
 import 'domain/repositories/keywords/keywords_degree_edu_repo.dart';
 import 'domain/repositories/keywords/keywords_field_edu_repo.dart';
@@ -23,7 +25,6 @@ import 'domain/repositories/keywords/keywords_languages_repo.dart';
 import 'domain/repositories/keywords/keywords_skills_repo.dart';
 import 'domain/repositories/keywords/keywords_universities_repo.dart';
 import 'domain/repositories/user_info_repo.dart';
-import 'domain/usecases/authentication/connected_company_user.dart';
 import 'domain/usecases/authentication/get_connected_user.dart';
 import 'domain/usecases/authentication/log_out.dart';
 import 'domain/usecases/authentication/sign_in_email_password.dart';
@@ -93,12 +94,18 @@ void initData() {
   sl.registerLazySingleton<KeywordsUniversitiesRepo>(
     () => KeywordsUniversitiesRepoSubstring(),
   );
+  sl.registerLazySingleton<CompanyRepo>(
+    () => CompanyRepoImp(
+      firebaseFirestore: sl(),
+      authenticationRepo: sl(),
+      userInfoRepo: sl(),
+    ),
+  );
 }
 
 void initUseCases() {
   // authentication
   sl.registerLazySingleton(() => GetConnectedUser());
-  sl.registerLazySingleton(() => ConnectedCompanyUser());
   sl.registerLazySingleton(() => LogOut());
   sl.registerLazySingleton(() => SignInEmailAndPassword());
   sl.registerLazySingleton(() => SignUpEmailPassword());

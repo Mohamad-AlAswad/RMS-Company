@@ -1,3 +1,5 @@
+import 'package:rms_company/data/models/job/applied_note_model.dart';
+
 import '../../../domain/entities/job/applied/applied_job.dart';
 import 'evaluated_description/applied_description_model.dart';
 
@@ -14,6 +16,7 @@ class AppliedJobModel extends AppliedJob {
     required super.languages,
     required super.score,
     required super.state,
+    required super.notes,
   });
 
   static AppliedJob? fromSnapshot({
@@ -41,6 +44,7 @@ class AppliedJobModel extends AppliedJob {
         languages: ApLanguageDescriptionModel.fromSnapshot(
           documentSnapshot['languages'],
         )!,
+        notes: AppliedNoteModel.fromSnapshot(documentSnapshot['notes'])!,
       );
     } catch (e) {
       return null;
