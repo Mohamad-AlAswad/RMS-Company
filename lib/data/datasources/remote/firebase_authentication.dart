@@ -36,6 +36,16 @@ class FirebaseAuthentication extends AuthenticationRemote {
     if (_initiated == false) {
       _initiated = true;
       _userInfo = null;
+      firebaseAuth.authStateChanges().listen((event) async {
+        if (event == null) {
+          _userInfo = null;
+        } else {
+          (await userInfoRepo.getUserInfo(userId: event.uid)).fold(
+            (l) => _userInfo = null,
+            (r) => _userInfo = r,
+          );
+        }
+      });
     }
   }
 
