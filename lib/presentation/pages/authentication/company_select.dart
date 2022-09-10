@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rms_company/domain/usecases/%20company/register_company.dart';
 import 'package:rms_company/domain/usecases/authentication/get_connected_user.dart';
 import 'package:rms_company/presentation/components/components.dart';
 
@@ -105,12 +106,10 @@ class _CompanySelectState extends State<CompanySelect> {
           ),
           const SizedBox(height: 20),
           ExpansionTile(
-            title: Expanded(
-              child: Text(
-                "Don't have a Company",
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor, fontSize: 18),
-              ),
+            title: Text(
+              "Don't have a Company",
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor, fontSize: 18),
             ),
             children: [
               RoundedTextField(
@@ -123,6 +122,7 @@ class _CompanySelectState extends State<CompanySelect> {
                 text: 'Register',
                 press: isValid
                     ? () {
+                        RegisterCompany()(company: company.text);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

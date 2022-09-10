@@ -48,7 +48,7 @@ class _LogInState extends State<LogIn> {
               controller: widget.controllers.tecEmailLogIn,
               email: true,
               icon: Icons.mail,
-              hintText: 'Email',
+              label: 'Email',
             ),
             SizedBox(
               height: size.height * 0.02,
@@ -58,7 +58,7 @@ class _LogInState extends State<LogIn> {
               controller: widget.controllers.tecPassLogIn,
               pass: true,
               icon: Icons.lock,
-              hintText: 'Password',
+              label: 'Password',
             ),
             SizedBox(
               height: size.height * 0.04,
