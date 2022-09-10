@@ -14,4 +14,7 @@ class GetConnectedUser {
   List<String> get companies => authenticationRepo.companies;
 
   String? get connectedCompany => authenticationRepo.connectedCompany;
+
+  set connectedCompany(String? company) =>
+      authenticationRepo.connectedCompany = company;
 }
