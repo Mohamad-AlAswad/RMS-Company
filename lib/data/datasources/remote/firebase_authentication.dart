@@ -44,6 +44,18 @@ class FirebaseAuthentication extends AuthenticationRemote {
             (l) => _userInfo = null,
             (r) => _userInfo = r,
           );
+          if (_userInfo != null) {
+            FirebaseFirestore.instance
+                .collection('user-info')
+                .doc(_userInfo!.id)
+                .snapshots()
+                .listen((event) async {
+              (await userInfoRepo.getUserInfo(userId: _userInfo!.id!)).fold(
+                (l) => _userInfo = null,
+                (r) => _userInfo = r,
+              );
+            });
+          }
         }
       });
     }
