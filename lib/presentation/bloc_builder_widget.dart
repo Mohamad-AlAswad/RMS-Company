@@ -50,7 +50,7 @@ class BlocBuilderWidget extends StatelessWidget {
         } else if (state is SignedInState) {
           controllers.tecEmailLogIn.text = '';
           controllers.tecPassLogIn.text = '';
-          return const CompanySelect();
+          return  CompanySelect();
         } else if (state is SignInErrorState) {
           return LogIn(
             controllers: controllers,
@@ -62,7 +62,7 @@ class BlocBuilderWidget extends StatelessWidget {
             controllers: controllers,
           );
         } else if (state is SignedUpState) {
-          return const CompanySelect();
+          return  CompanySelect();
         } else if (state is SignUpErrorState) {
           return SignUp(
             controllers: controllers,

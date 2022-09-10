@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class RoundedDropdownButton extends StatelessWidget {
-  RoundedDropdownButton({
+class RoundedDropdownButton extends StatefulWidget {
+  const RoundedDropdownButton({
     Key? key,
     required this.color,
     required this.valueChanged,
@@ -15,9 +15,9 @@ class RoundedDropdownButton extends StatelessWidget {
     this.list,
     this.w = 0.7,
     this.h = 0.06,
+    this.onRefresh,
   }) : super(key: key);
   final List<String>? list;
-  List<DropdownMenuItem<String>> newList = [];
   final IconData icon;
   final Color secColor, color;
   final String hintText;
@@ -26,13 +26,26 @@ class RoundedDropdownButton extends StatelessWidget {
   final bool enabled;
   final Function valueChanged;
   final String? value;
+  final List<String>?Function()? onRefresh;
+  @override
+  State<RoundedDropdownButton> createState() => _RoundedDropdownButtonState();
+}
+
+class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
+  List<DropdownMenuItem<String>> newList = [];
+  List<String>? list;
+  @override
+  void initState() {
+    super.initState();
+    list = widget.list;
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    print(list);
-    if (list != null) {
-      newList = list!
+    print(widget.list);
+    if (widget.list != null) {
+      newList = widget.list!
           .map(
             (e) => DropdownMenuItem<String>(
               value: e,
@@ -43,25 +56,25 @@ class RoundedDropdownButton extends StatelessWidget {
     }
     return Container(
       decoration: BoxDecoration(
-        color: (value == 'paused') ? Colors.red : color,
+        color: (widget.value == 'paused') ? Colors.red : widget.color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       padding: const EdgeInsets.only(left: 15),
-      width: size.width * w,
-      height: size.height * h,
+      width: size.width * widget.w,
+      height: size.height * widget.h,
       child: Material(
         elevation: 20.0,
-        color: (value == 'paused') ? Colors.red : color,
-        shadowColor: (value == 'paused') ? Colors.red : color,
+        color: (widget.value == 'paused') ? Colors.red : widget.color,
+        shadowColor: (widget.value == 'paused') ? Colors.red : widget.color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: DropdownButtonFormField<String>(
-          value: value,
+          value: widget.value,
           dropdownColor: Colors.white,
           items: newList,
           icon: const Icon(Icons.keyboard_arrow_down_outlined),
-          onChanged: (enabled)
+          onChanged: (widget.enabled)
               ? (String? val) {
-                  valueChanged(val);
+                  widget.valueChanged(val);
                 }
               : null,
           autofocus: false,
@@ -83,10 +96,10 @@ class RoundedDropdownButton extends StatelessWidget {
                 width: 3.0,
               ),
             ),
-            enabled: enabled,
+            enabled: widget.enabled,
             label: Padding(
               padding: const EdgeInsets.all(5),
-              child: Text(label),
+              child: Text(widget.label),
             ),
             floatingLabelStyle: const TextStyle(
               fontSize: 22,
@@ -97,9 +110,16 @@ class RoundedDropdownButton extends StatelessWidget {
               color: Colors.black,
               fontSize: 22,
             ),
-            icon: Icon(icon, color: secColor),
-            hintText: hintText,
-            fillColor: secColor,
+            icon: IconButton(
+              icon: Icon(widget.icon, color: widget.secColor),
+              onPressed: (widget.onRefresh!=null)?(){
+                setState(() {
+                  list = widget.onRefresh!();
+                });
+              }:null,
+            ),
+            hintText: widget.hintText,
+            fillColor: widget.secColor,
             hintStyle: const TextStyle(color: Colors.black),
             filled: true,
             contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),

@@ -8,6 +8,7 @@ import '../../../domain/usecases/authentication/sign_in_email_password.dart';
 import '../../../domain/usecases/authentication/sign_up_email_password.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -68,7 +69,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (failure) => authState = SignInErrorState(message: failure.message),
         (user) => authState = const SignedInState(),
       );
-      emit(authState);
+      emit(
+          await Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+        return authState;
+      }));
     }
   }
 }

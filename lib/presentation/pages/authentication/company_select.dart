@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rms_company/domain/usecases/%20company/check_company.dart';
 import 'package:rms_company/domain/usecases/%20company/register_company.dart';
 import 'package:rms_company/domain/usecases/authentication/get_connected_user.dart';
 import 'package:rms_company/presentation/components/components.dart';
 
-import '../../../data/repositories/authentication_repo.dart';
-import '../../../domain/repositories/authentication_repo.dart';
 
 class CompanySelect extends StatefulWidget {
   const CompanySelect({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class CompanySelect extends StatefulWidget {
 }
 
 class _CompanySelectState extends State<CompanySelect> {
-  late List<String>? list = GetConnectedUser().companies;
+  late List<String>? list;
   late String? value;
   late TextEditingController company;
   late bool isValid;
@@ -24,6 +23,7 @@ class _CompanySelectState extends State<CompanySelect> {
   @override
   void initState() {
     super.initState();
+    list = GetConnectedUser().companies;
     value = list != null && list!.isNotEmpty ? list![0] : null;
     isValid = false;
     company = TextEditingController();
@@ -32,12 +32,15 @@ class _CompanySelectState extends State<CompanySelect> {
   StreamSubscription? subscription;
 
   waitBeforeSending(String companyName) {
+    setState(() {
+      isValid = false;
+    });
     if (subscription != null) subscription!.cancel();
     var future = Future.delayed(const Duration(milliseconds: 500));
 
     subscription = future.asStream().listen((_) async {
       if (companyName.isNotEmpty) {
-        final bool valid = await check(companyName);
+        final bool valid = await CheckCompany()(company: companyName);
         setState(() {
           isValid = valid;
         });
@@ -45,11 +48,6 @@ class _CompanySelectState extends State<CompanySelect> {
         isValid = false;
       }
     });
-  }
-
-  Future<bool> check(String companyName) async {
-    bool valid = true;
-    return valid;
   }
 
   @override
@@ -75,7 +73,7 @@ class _CompanySelectState extends State<CompanySelect> {
           ),
           const SizedBox(height: 20),
           RoundedDropdownButton(
-            icon: Icons.work_outline_rounded,
+            icon: Icons.refresh,
             color: Theme.of(context).primaryColor,
             list: list,
             valueChanged: (val) {
@@ -85,6 +83,9 @@ class _CompanySelectState extends State<CompanySelect> {
             },
             value: value,
             label: 'your Companies',
+            onRefresh: (){
+              return GetConnectedUser().companies;
+            },
           ),
           const SizedBox(height: 20),
           Padding(
@@ -93,6 +94,7 @@ class _CompanySelectState extends State<CompanySelect> {
               text: 'Log In',
               press: (value != null && value!.isNotEmpty)
                   ? () {
+                      GetConnectedUser().connectedCompany = value;
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -123,12 +125,13 @@ class _CompanySelectState extends State<CompanySelect> {
                 press: isValid
                     ? () {
                         RegisterCompany()(company: company.text);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const CustomeZoomDrawer(),
-                          ),
-                        );
+                        // GetConnectedUser().connectedCompany = company.text;
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (_) => const CustomeZoomDrawer(),
+                        //   ),
+                        // );
                       }
                     : null,
               ),

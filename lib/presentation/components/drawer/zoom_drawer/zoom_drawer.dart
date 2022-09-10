@@ -48,14 +48,14 @@ class _CustomeZoomDrawerState extends State<CustomeZoomDrawer> {
         return const Jobs();
       case mi.MenuItems.profile:
         return const Profile();
-      case mi.MenuItems.mailBox:
-        return const Jobs();
-      case mi.MenuItems.reports:
-        return const Profile();
-      case mi.MenuItems.aboutUs:
-        return const Jobs();
-      case mi.MenuItems.rateUs:
-        return const Profile();
+      // case mi.MenuItems.mailBox:
+      //   return const Jobs();
+      // case mi.MenuItems.reports:
+      //   return const Profile();
+      // case mi.MenuItems.aboutUs:
+      //   return const Jobs();
+      // case mi.MenuItems.rateUs:
+      //   return const Profile();
       default:
         return const Jobs();
     }

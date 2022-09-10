@@ -40,10 +40,13 @@ class FirebaseAuthentication extends AuthenticationRemote {
         if (event == null) {
           _userInfo = null;
         } else {
+          print('111');
           (await userInfoRepo.getUserInfo(userId: event.uid)).fold(
             (l) => _userInfo = null,
             (r) => _userInfo = r,
           );
+          print('222');
+
         }
       });
     }

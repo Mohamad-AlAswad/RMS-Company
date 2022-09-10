@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../domain/usecases/authentication/log_out.dart';
 import '../../../../provider/theme.dart';
 import '../../../../provider/theme_notifier.dart';
+import '../../../blocs/authentication/auth_bloc.dart';
 import '../../components.dart';
 import 'menu_items.dart' as mi;
 
@@ -97,8 +98,9 @@ class _MenuPageState extends State<MenuPage> {
                           vertical: 25,
                         ),
                         child: MyElevatedButton(
-                          press: () {
-                            LogOut()();
+                          press: () async {
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(LogOutEvent());
                             Phoenix.rebirth(context);
                             // Navigator.pop(context);
                             // Navigator.pushReplacement(
