@@ -21,7 +21,7 @@ class UserInfoRepoImp implements UserInfoRepo {
       return Future.value(
         Right(UserInfoModel.fromSnapshot(
           documentSnapshot: (await collection.doc(userId).get()).data(),
-          userId: '',
+          userId: userId,
         )!),
       );
     } catch (e) {
