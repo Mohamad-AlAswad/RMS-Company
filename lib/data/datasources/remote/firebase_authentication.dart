@@ -45,15 +45,18 @@ class FirebaseAuthentication extends AuthenticationRemote {
             (r) => _userInfo = r,
           );
           if (_userInfo != null) {
+            print('listen to: ${_userInfo!.id!}');
             FirebaseFirestore.instance
                 .collection('user-info')
                 .doc(_userInfo!.id)
                 .snapshots()
                 .listen((event) async {
+              print(event);
               (await userInfoRepo.getUserInfo(userId: _userInfo!.id!)).fold(
                 (l) => _userInfo = null,
                 (r) => _userInfo = r,
               );
+              print(_userInfo);
             });
           }
         }
@@ -90,14 +93,13 @@ class FirebaseAuthentication extends AuthenticationRemote {
     required String password,
   }) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
+      var temp = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       await userInfoRepo.updateUserInfo(
         newUserInfo: user_ent.UserInfo(
-          id: (await FirebaseFirestore.instance.collection('user-info').add({}))
-              .id,
+          id: temp.user!.uid,
           email: email,
         ),
       );
