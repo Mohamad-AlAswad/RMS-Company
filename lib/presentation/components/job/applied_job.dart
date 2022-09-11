@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:readmore/readmore.dart';
 
-import '../../../domain/entities/job/applied/applied_job.dart';
 import '../../../provider/theme.dart';
-import '../components.dart';
-import '../my_elevated_button.dart';
+import 'Slidbar/applied_job_elements/applied_job-elements.dart';
 import 'custome_expantion_tile_applied.dart';
 
 export 'costum_expansion_tile.dart';
 export 'job_offer_widget.dart';
 
-class AppliedJobWidget extends StatelessWidget {
+class AppliedJobWidget extends StatefulWidget {
   const AppliedJobWidget({
     Key? key,
     required this.ajob,
     required this.index,
     required this.callAccDial,
     required this.callRejDial,
+    this.refresh,
   }) : super(key: key);
 
   final AppliedJob ajob;
   final int index;
   final Function(int) callAccDial, callRejDial;
+  final Function()? refresh;
+
+  @override
+  State<AppliedJobWidget> createState() => _AppliedJobWidgetState();
+}
+
+class _AppliedJobWidgetState extends State<AppliedJobWidget> {
+  late AppliedJob ajob;
+  bool opened = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ajob = widget.ajob;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,95 +53,41 @@ class AppliedJobWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  DateFormat.yMMMEd().format(ajob.appliedTime.toDate()),
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
-            ],
+          DateRow(ajob: ajob),
+          ClickableApplicantName(ajob: ajob),
+          StatusRow(ajob: ajob),
+          ChangeStatusButtonsRow(
+            callAccDial: widget.callAccDial,
+            index: widget.index,
+            callRejDial: widget.callRejDial,
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const Text('Profile of an Applicant'),
-                ),
-              );
-            },
-            child: Text(
-              ajob.fullName,
-              style: const TextStyle(fontSize: 22),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'Status :',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  ajob.state,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MyElevatedButton(
-                press: () => callAccDial(index),
-                text: 'Accept',
-                w: 0.5,
-                color: Colors.green,
-              ),
-              MyElevatedButton(
-                press: () => callRejDial(index),
-                text: 'Reject',
-                w: 0.20,
-                color: Colors.red,
-              ),
-            ],
-          ),
-
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            child: ReadMoreText(
-              ajob.summary,
-              trimMode: TrimMode.Line,
-              trimLines: 3,
-              style: const TextStyle(fontSize: 18),
-              lessStyle: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 18,
-              ),
-              moreStyle: TextStyle(
-                color: CustomTheme.c2.withBlue(200).withGreen(200),
-                fontSize: 18,
-              ),
-              trimExpandedText: ' show less',
-            ),
-          ),
+          ApplicantSummary(ajob: ajob),
           CustomExpansionTileApplied(job: ajob),
-          // CustomExpansionTile(),
+          const SizedBox(height: 10),
+          if (opened) ...[
+            TopRow(
+              aJob: ajob,
+              refresh: widget.refresh,
+              iconOnPress: () {
+                setState(() {
+                  opened = false;
+                });
+              },
+            ),
+          ],
+          if (!opened) ...[
+            BottomRow(
+              iconOnPress: () {
+                setState(() {
+                  opened = true;
+                });
+              },
+            ),
+          ],
+          const SizedBox(height: 10),
         ],
       ),
     );
   }
 }
+

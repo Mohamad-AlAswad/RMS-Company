@@ -64,6 +64,15 @@ class AppliedRepoImp implements AppliedRepo {
 
   @override
   Future<Either<Failure, List<AppliedJob>>> fetch({required int limit}) async {
+    var response = await paginaterFirestore.fetch(limit: limit);
+    return Future.value(Right(
+      response!.docs
+          .map((e) => AppliedJobModel.fromSnapshot(
+        id: e.id,
+        documentSnapshot: e.data() as Map<String, dynamic>,
+      )!)
+          .toList(),
+    ));
     try {
       var response = await paginaterFirestore.fetch(limit: limit);
       return Future.value(Right(

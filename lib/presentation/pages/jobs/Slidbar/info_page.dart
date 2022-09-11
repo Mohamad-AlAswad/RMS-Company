@@ -113,14 +113,12 @@ class _InfoPageState extends State<InfoPage> {
                       horizontal: 10,
                       vertical: 10,
                     ),
-                    child: Expanded(
-                      child: Text(
-                        'No Educational Certificates Specified !',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                    child: Text(
+                      'No Educational Certificates Specified !',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),
@@ -165,14 +163,12 @@ class _InfoPageState extends State<InfoPage> {
                       horizontal: 10,
                       vertical: 10,
                     ),
-                    child: Expanded(
-                      child: Text(
-                        'No Experiences Specified !',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                    child: Text(
+                      'No Experiences Specified !',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),
@@ -218,14 +214,12 @@ class _InfoPageState extends State<InfoPage> {
                       horizontal: 10,
                       vertical: 10,
                     ),
-                    child: Expanded(
-                      child: Text(
-                        'No Skills Specified !',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                    child: Text(
+                      'No Skills Specified !',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),
@@ -255,13 +249,11 @@ class _InfoPageState extends State<InfoPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Expanded(
-                        child: Text(
-                          'Languages :',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
+                      Text(
+                        'Languages :',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
                         ),
                       ),
                     ],
@@ -273,14 +265,12 @@ class _InfoPageState extends State<InfoPage> {
                       horizontal: 10,
                       vertical: 10,
                     ),
-                    child: Expanded(
-                      child: Text(
-                        'No Languages Specified !',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                    child: Text(
+                      'No Languages Specified !',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),

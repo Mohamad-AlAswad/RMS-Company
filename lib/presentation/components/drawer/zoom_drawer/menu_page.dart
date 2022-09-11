@@ -102,13 +102,6 @@ class _MenuPageState extends State<MenuPage> {
                             BlocProvider.of<AuthBloc>(context)
                                 .add(LogOutEvent());
                             Phoenix.rebirth(context);
-                            // Navigator.pop(context);
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (_) => Authenticate(),
-                            //   ),
-                            // );
                           },
                           text: 'log out',
                         ),

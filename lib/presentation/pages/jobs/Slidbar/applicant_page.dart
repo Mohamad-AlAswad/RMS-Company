@@ -44,6 +44,7 @@ class _ApplicantPageState extends State<ApplicantPage>
     allLoaded = false;
     isLoading = false;
     job = widget.job;
+    print(job.id);
     acceptApplied = AcceptApplied(jobId: job.id);
     rejectApplied = RejectApplied(jobId: job.id);
     ajob = [];
@@ -171,6 +172,7 @@ class _ApplicantPageState extends State<ApplicantPage>
                             primary: false,
                             shrinkWrap: true,
                             itemBuilder: (context, index) => AppliedJobWidget(
+                              refresh: handleRefresh,
                               ajob: ajob[index],
                               index: index,
                               callAccDial: (idx) {
