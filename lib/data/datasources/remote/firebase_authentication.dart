@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rms_company/data/models/user/user_info_model.dart';
 
 import '../../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../../domain/entities/user/user_info.dart' as user_ent;
@@ -97,12 +98,17 @@ class FirebaseAuthentication extends AuthenticationRemote {
         email: email,
         password: password,
       );
-      await userInfoRepo.updateUserInfo(
-        newUserInfo: user_ent.UserInfo(
-          id: temp.user!.uid,
-          email: email,
-        ),
-      );
+      await FirebaseFirestore.instance
+          .collection('user-info')
+          .doc(temp.user!.uid)
+          .set(
+            UserInfoModel.toSnapshot(
+              user_ent.UserInfo(
+                id: temp.user!.uid,
+                email: email,
+              ),
+            ),
+          );
       return Future<void>.value(null);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
