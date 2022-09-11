@@ -45,6 +45,7 @@ class FirebaseAuthentication extends AuthenticationRemote {
             (l) => _userInfo = null,
             (r) => _userInfo = r,
           );
+          if (userId != null) _update(userId!);
           if (_userInfo != null) {
             print('listen to: ${_userInfo!.id!}');
             FirebaseFirestore.instance
@@ -53,16 +54,20 @@ class FirebaseAuthentication extends AuthenticationRemote {
                 .snapshots()
                 .listen((event) async {
               print(event);
-              (await userInfoRepo.getUserInfo(userId: _userInfo!.id!)).fold(
-                (l) => _userInfo = null,
-                (r) => _userInfo = r,
-              );
+              _update(event.id);
               print(_userInfo);
             });
           }
         }
       });
     }
+  }
+
+  Future<void> _update(String userId2) async {
+    (await userInfoRepo.getUserInfo(userId: userId2)).fold(
+      (l) => _userInfo = null,
+      (r) => _userInfo = r,
+    );
   }
 
   @override

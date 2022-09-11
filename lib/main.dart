@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       signUpEmailPassword: SignUpEmailPassword(),
       signInEmailAndPassword: SignInEmailAndPassword(),
       logOut: LogOut(),
-      initialState: GetConnectedUser().connectedUser == null
+      initialState: GetConnectedUser().userId == null
           ? AuthInitial()
           : const SignedInState(),
     );
