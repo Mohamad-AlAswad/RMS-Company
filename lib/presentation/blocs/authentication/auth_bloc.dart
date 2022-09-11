@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_company/injection_container.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../../core/errors/failures/authentication_failures.dart';
@@ -36,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>(loginEventHandle);
     on<LogOutEvent>((event, emit) async {
       await logOut();
+      sl.reset(dispose: true);
       emit(AuthInitial());
     });
   }

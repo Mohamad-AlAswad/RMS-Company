@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -34,18 +35,19 @@ class RoundedDropdownButton extends StatefulWidget {
 class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
   List<DropdownMenuItem<String>> newList = [];
   List<String>? list;
+  String? value;
   @override
   void initState() {
     super.initState();
     list = widget.list;
+    value = widget.value;
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    print(widget.list);
     if (widget.list != null) {
-      newList = widget.list!
+      newList = list!
           .map(
             (e) => DropdownMenuItem<String>(
               value: e,
@@ -56,7 +58,7 @@ class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
     }
     return Container(
       decoration: BoxDecoration(
-        color: (widget.value == 'paused') ? Colors.red : widget.color,
+        color: (value == 'paused') ? Colors.red : widget.color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       padding: const EdgeInsets.only(left: 15),
@@ -64,11 +66,11 @@ class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
       height: size.height * widget.h,
       child: Material(
         elevation: 20.0,
-        color: (widget.value == 'paused') ? Colors.red : widget.color,
-        shadowColor: (widget.value == 'paused') ? Colors.red : widget.color,
+        color: (value == 'paused') ? Colors.red : widget.color,
+        shadowColor: (value == 'paused') ? Colors.red : widget.color,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: DropdownButtonFormField<String>(
-          value: widget.value,
+          value: value,
           dropdownColor: Colors.white,
           items: newList,
           icon: const Icon(Icons.keyboard_arrow_down_outlined),
@@ -115,6 +117,20 @@ class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
               onPressed: (widget.onRefresh!=null)?(){
                 setState(() {
                   list = widget.onRefresh!();
+                  newList = list!
+                      .map(
+                        (e) => DropdownMenuItem<String>(
+                      value: e,
+                      child: Text(e),
+                    ),
+                  )
+                      .toList();
+                  if(list!.isNotEmpty){
+                    value = list![0];
+                  }
+                  else {
+                    value = null;
+                  }
                 });
               }:null,
             ),
