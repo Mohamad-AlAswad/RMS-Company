@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:rms_company/domain/entities/job/inquiry_job.dart';
 
 import '../../../core/errors/failures/failure.dart';
 import '../../../domain/entities/job/job.dart';
@@ -12,6 +13,7 @@ import '../paginater_firestore.dart';
 class JobRepoImp implements JobRepo {
   final FirebaseFirestore firebaseFirestore;
   late final CollectionReference<Map<String, dynamic>> collection;
+  late final CollectionReference<Map<String, dynamic>> collection2;
   final AuthenticationRepo authenticationRepo;
   late final PaginaterFirestore paginaterFirestore;
 
@@ -20,6 +22,7 @@ class JobRepoImp implements JobRepo {
         authenticationRepo = sl() {
     print(authenticationRepo.connectedCompany);
     collection = firebaseFirestore.collection('jobs');
+    collection = firebaseFirestore.collection('jobs-applications');
     paginaterFirestore = PaginaterFirestore(
       query: firebaseFirestore
           .collection('jobs')
@@ -94,4 +97,32 @@ class JobRepoImp implements JobRepo {
 
   @override
   bool get noMoreData => paginaterFirestore.noMoreData;
+
+  @override
+  Future<List<Failure>> replyInquiry({
+    required Job job,
+    required InquiryJob inquiryJob,
+    required String answer,
+  }) async {
+    List<InquiryJob> inquiries = [
+      InquiryJob(
+        inquiry: inquiryJob.inquiry,
+        name: inquiryJob.name,
+        inquiryDate: inquiryJob.inquiryDate,
+        answer: answer,
+        answerDate: Timestamp.now(),
+      ),
+    ];
+
+    inquiries.addAll(
+      job.inquiries.where((element) => element != inquiryJob).toList(),
+    );
+
+    await collection.doc(job.id).update({'inquiries': inquiries});
+    var docs = await collection2.where('job-id', isEqualTo: job.id).get();
+    for (var doc in docs.docs) {
+      await collection2.doc(doc.id).update({'inquiries': inquiries});
+    }
+    return [];
+  }
 }

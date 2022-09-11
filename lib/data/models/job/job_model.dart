@@ -1,3 +1,6 @@
+import 'package:rms_company/data/models/job/inquiry_job_model.dart';
+
+import '../../../core/utils/custom_converter.dart';
 import '../../../domain/entities/job/job.dart';
 import 'description_field/description_field_model.dart';
 
@@ -12,10 +15,10 @@ class JobModel extends Job {
     required super.experiences,
     required super.languages,
     required super.status,
+    required super.inquiries,
   });
 
-  static Job? fromSnapshot(
-      {String? id, Map<String, dynamic>? documentSnapshot}) {
+  static Job? fromSnapshot({String? id, Map<String, dynamic>? documentSnapshot}) {
     try {
       return Job(
         id: id!,
@@ -36,6 +39,9 @@ class JobModel extends Job {
         languages: LanguageDescriptionFieldModel.fromListSnapshot(
           documentSnapshot['languages'],
         )!,
+        inquiries: InquiryJobModel.fromSnapshot(
+          CustomConverter.convertToListMap(documentSnapshot['inquiries']),
+        ),
       );
     } catch (e) {
       return null;
@@ -60,6 +66,7 @@ class JobModel extends Job {
       'experiences':
           ExperienceDescriptionFieldModel.listToSnapshot(job.experiences),
       'languages': LanguageDescriptionFieldModel.listToSnapshot(job.languages),
+      'inquiries': InquiryJobModel.toSnapshot(job.inquiries),
     };
   }
 }

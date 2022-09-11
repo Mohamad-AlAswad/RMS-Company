@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import 'description_field/description_field.dart';
+import 'inquiry_job.dart';
 
 class Job extends Equatable {
   final String id;
@@ -13,6 +14,7 @@ class Job extends Equatable {
   final List<ExperienceDescriptionField> experiences;
   final List<LanguageDescriptionField> languages;
   final String status;
+  final List<InquiryJob> inquiries;
 
   const Job({
     required this.id,
@@ -24,10 +26,12 @@ class Job extends Equatable {
     required this.experiences,
     required this.languages,
     required this.status,
+    required this.inquiries,
   });
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props =>
+      [
         id,
         title,
         summary,
@@ -37,5 +41,6 @@ class Job extends Equatable {
         experiences,
         languages,
         status,
+        inquiries,
       ];
 }

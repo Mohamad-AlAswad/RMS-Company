@@ -22,6 +22,11 @@ abstract class AppliedRepo {
     required num rating,
   });
 
+  Future<List<Failure>> addNote({
+    required AppliedJob appliedJob,
+    required String note,
+  });
+
   void refresh();
 
   bool get noMoreData;

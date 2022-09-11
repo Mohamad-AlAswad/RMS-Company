@@ -12,7 +12,10 @@ class ApExperienceDescriptionModel extends ApExperienceDescription {
     List<dynamic>? documentSnapshot,
   ) {
     try {
-      return documentSnapshot!.map((e) => _fromSnapshot(e)!).toList();
+      return documentSnapshot!
+          .map((e) => _fromSnapshot(e)!)
+          .where((element) => element.isRequired == false)
+          .toList();
     } catch (e) {
       return null;
     }

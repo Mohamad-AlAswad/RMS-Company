@@ -460,6 +460,7 @@ Job saveJob(
   List<Pair> langControllers,
 ) {
   Job job = Job(
+    inquiries: const [],
     id: '',
     title: titleController.text,
     summary: summaryController.text,

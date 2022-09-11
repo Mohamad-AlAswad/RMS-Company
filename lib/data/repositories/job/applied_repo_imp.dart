@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:rms_company/domain/entities/job/applied/applied_note.dart';
 
 import '../../../core/errors/failures/failure.dart';
 import '../../../domain/entities/job/applied/applied_job.dart';
@@ -11,6 +12,7 @@ import '../../../domain/repositories/user_info_repo.dart';
 import '../../../injection_container.dart';
 import '../../datasources/remote/evaluator_api.dart';
 import '../../models/job/applied_job_model.dart';
+import '../../models/job/applied_note_model.dart';
 import '../../models/job/full_applied_job_model.dart';
 import '../../models/job/job_application_states_model.dart';
 import '../paginater_firestore.dart';
@@ -149,4 +151,18 @@ class AppliedRepoImp implements AppliedRepo {
 
   @override
   void refresh() => paginaterFirestore.refresh();
+
+  @override
+  Future<List<Failure>> addNote({
+    required AppliedJob appliedJob,
+    required String note,
+  }) async {
+    appliedJob.notes.add(AppliedNote(note: note, state: appliedJob.state));
+    await collection.doc(appliedJob.appliedId).update(
+      {
+        'notes': AppliedNoteModel.toSnapshot(appliedJob.notes),
+      },
+    );
+    return [];
+  }
 }
