@@ -12,11 +12,15 @@ abstract class AppliedRepo {
 
   Future<List<Failure>> reject({required String appliedId});
 
-  Future<List<Failure>> accept(
-      {required String appliedId, required ApplicationStates nextState});
+  Future<List<Failure>> accept({
+    required String appliedId,
+    required ApplicationStates nextState,
+  });
 
-  Future<List<Failure>> rateApplication(
-      {required String appliedJobId, required num rating});
+  Future<List<Failure>> rateApplication({
+    required AppliedJob appliedJob,
+    required num rating,
+  });
 
   void refresh();
 

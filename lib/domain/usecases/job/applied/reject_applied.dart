@@ -10,6 +10,7 @@ class RejectApplied {
   }) : appliedRepo = AppliedRepoImp(
           firebaseFirestore: sl(),
           jobId: jobId,
+          userInfoRepo: sl(),
         );
 
   Future<List<String>> call({required String appliedId}) async {

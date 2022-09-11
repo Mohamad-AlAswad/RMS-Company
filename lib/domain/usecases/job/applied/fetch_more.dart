@@ -14,6 +14,7 @@ class FetchMoreApplied {
           firebaseFirestore: sl(),
           jobId: jobId,
           applicationStates: applicationStates,
+          userInfoRepo: sl(),
         );
 
   Future<List<AppliedJob>> call({required int limit}) async {

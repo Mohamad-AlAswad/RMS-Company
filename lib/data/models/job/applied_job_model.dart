@@ -18,6 +18,7 @@ class AppliedJobModel extends AppliedJob {
     required super.score,
     required super.state,
     required super.notes,
+    required super.rating,
   });
 
   static AppliedJob? fromSnapshot({
@@ -32,6 +33,7 @@ class AppliedJobModel extends AppliedJob {
       summary: documentSnapshot['summary-job-seeker'],
       score: documentSnapshot['score'],
       state: documentSnapshot['state'],
+      rating: documentSnapshot['rating'],
       skills: ApSkillDescriptionModel.fromSnapshot(
         documentSnapshot['skills'],
       )!,
@@ -57,6 +59,7 @@ class AppliedJobModel extends AppliedJob {
         summary: documentSnapshot['summary-job-seeker'],
         score: documentSnapshot['score'],
         state: documentSnapshot['state'],
+        rating: documentSnapshot['rating'],
         skills: ApSkillDescriptionModel.fromSnapshot(
           documentSnapshot['skills'],
         )!,

@@ -41,4 +41,15 @@ class UserInfoRepoImp implements UserInfoRepo {
       return Future.value(const Right(false));
     }
   }
+
+  @override
+  Future<void> updateRate({
+    required String userId,
+    required num rate,
+    required num counter,
+  }) =>
+      collection.doc(userId).update({
+        'rate': rate,
+        '--rating-counter': counter,
+      });
 }

@@ -11,6 +11,7 @@ class GetDetailedApplied {
   }) : appliedRepo = AppliedRepoImp(
           firebaseFirestore: sl(),
           jobId: jobId,
+          userInfoRepo: sl(),
         );
 
   Future<FullAppliedJob> call({required String id}) async {

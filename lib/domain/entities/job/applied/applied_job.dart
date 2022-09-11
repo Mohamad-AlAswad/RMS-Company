@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:rms_company/domain/usecases/job/applied/applied_note.dart';
+import 'package:rms_company/domain/entities/job/applied/applied_note.dart';
 
 import 'applied_description/applied_description.dart';
 
@@ -16,6 +16,7 @@ class AppliedJob extends Equatable {
   final List<ApExperienceDescription> experiences;
   final List<ApLanguageDescription> languages;
   final num score;
+  final num rating;
   final List<AppliedNote> notes;
 
   const AppliedJob({
@@ -29,6 +30,7 @@ class AppliedJob extends Equatable {
     required this.experiences,
     required this.languages,
     required this.score,
+    required this.rating,
     required this.state,
     required this.notes,
   });
@@ -45,6 +47,7 @@ class AppliedJob extends Equatable {
         experiences,
         languages,
         score,
+        rating,
         state,
         notes,
       ];

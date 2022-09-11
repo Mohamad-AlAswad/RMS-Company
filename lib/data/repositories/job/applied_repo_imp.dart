@@ -5,7 +5,9 @@ import '../../../core/errors/failures/failure.dart';
 import '../../../domain/entities/job/applied/applied_job.dart';
 import '../../../domain/entities/job/applied/full_applied_job.dart';
 import '../../../domain/entities/job/applied/job_application_states.dart';
+import '../../../domain/entities/user/user_info.dart' as user_ent;
 import '../../../domain/repositories/job/applied_repo.dart';
+import '../../../domain/repositories/user_info_repo.dart';
 import '../../../injection_container.dart';
 import '../../datasources/remote/evaluator_api.dart';
 import '../../models/job/applied_job_model.dart';
@@ -19,11 +21,13 @@ class AppliedRepoImp implements AppliedRepo {
   final PaginaterFirestore paginaterFirestore;
   final ApplicationStates? applicationStates;
   final EvaluatorApi evaluatorApi;
+  final UserInfoRepo userInfoRepo;
 
   AppliedRepoImp({
     required this.firebaseFirestore,
     required String jobId,
     this.applicationStates,
+    required this.userInfoRepo,
   })  : evaluatorApi = sl(),
         collection = firebaseFirestore.collection('jobs-applications'),
         paginaterFirestore = applicationStates == null
@@ -114,15 +118,30 @@ class AppliedRepoImp implements AppliedRepo {
   }
 
   @override
-  Future<List<Failure>> rateApplication(
-      {required String appliedJobId, required num rating}) async {
-    bool response = false ;
-    // bool response = await evaluatorApi.rateApplication(
-    //   appliedJobId: appliedJobId,
-    //   rating: rating,
-    // );
-    if (response) return [];
-    return [const Unexpected(message: 'bad network. try again later')];
+  Future<List<Failure>> rateApplication({
+    required AppliedJob appliedJob,
+    required num rating,
+  }) async {
+    user_ent.UserInfo? user;
+    (await userInfoRepo.getUserInfo(userId: appliedJob.jobSeekerId)).fold(
+      (l) => user = null,
+      (r) => user = r,
+    );
+    if (user != null) {
+      num counter = user!.ratingCounter;
+      num oldRating = user!.rating * counter;
+      oldRating += rating - appliedJob.rating;
+      if (appliedJob.rating == 0 && rating > 0) counter += 1;
+      if (rating == 0 && appliedJob.rating > 0) counter -= 1;
+      num newRating = counter > 0 ? oldRating / counter : 0;
+      userInfoRepo.updateRate(
+        userId: appliedJob.jobSeekerId,
+        rate: newRating,
+        counter: counter,
+      );
+      return [];
+    }
+    return [];
   }
 
   @override

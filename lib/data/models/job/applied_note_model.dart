@@ -1,4 +1,4 @@
-import '../../../domain/usecases/job/applied/applied_note.dart';
+import '../../../domain/entities/job/applied/applied_note.dart';
 
 class AppliedNoteModel extends AppliedNote {
   const AppliedNoteModel({

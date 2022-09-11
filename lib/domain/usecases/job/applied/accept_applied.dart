@@ -12,6 +12,7 @@ class AcceptApplied {
   }) : appliedRepo = AppliedRepoImp(
           firebaseFirestore: sl(),
           jobId: jobId,
+          userInfoRepo: sl(),
         );
 
   Future<List<String>> call({required AppliedJob appliedJob}) async {

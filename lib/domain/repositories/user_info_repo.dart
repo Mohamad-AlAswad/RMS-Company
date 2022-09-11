@@ -7,4 +7,10 @@ abstract class UserInfoRepo {
   Future<Either<Failure, UserInfo>> getUserInfo({required String userId});
 
   Future<Either<Failure, bool>> updateUserInfo({required UserInfo newUserInfo});
+
+  Future<void> updateRate({
+    required String userId,
+    required num rate,
+    required num counter,
+  });
 }
