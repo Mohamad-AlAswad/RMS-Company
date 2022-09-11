@@ -21,17 +21,18 @@ class RoundedTextField extends StatefulWidget {
     this.h = 0.06,
     this.multiLines = false,
     this.onChange,
+    this.suffixText,
+    this.suffixPress,
   }) : super(key: key);
   final TextEditingController controller;
-  final bool pass, email, code, numbers, isDouble, phone;
+  final bool pass, email, code, numbers, isDouble, phone, enabled, multiLines;
   final IconData icon;
   final Color secColor, color;
-  final String hintText;
+  final String hintText, label;
   final double w, h;
-  final String label;
-  final bool enabled;
-  final bool multiLines;
+  final String? suffixText;
   final Function(String)? onChange;
+  final Function(String)? suffixPress;
 
   @override
   State<RoundedTextField> createState() => _RoundedTextFieldState();
@@ -112,6 +113,19 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
                 width: 3.0,
               ),
             ),
+            suffixIcon: widget.suffixText != null
+                ? TextButton(
+                    onPressed: (widget.suffixPress != null)
+                        ? () {
+                            widget.suffixPress!(widget.controller.text);
+                          }
+                        : null,
+                    child: Text(
+                      widget.suffixText!,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  )
+                : null,
             enabled: widget.enabled,
             label: Padding(
               padding: const EdgeInsets.all(5),

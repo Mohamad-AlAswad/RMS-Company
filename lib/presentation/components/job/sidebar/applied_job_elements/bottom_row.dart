@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'applied_job-elements.dart';
@@ -6,10 +5,14 @@ import 'applied_job-elements.dart';
 class BottomRow extends StatelessWidget {
   const BottomRow({
     Key? key,
-    this.iconOnPress,
+    required this.iconOnPress,
+    required this.addOnPress,
+    required this.showOnPress,
   }) : super(key: key);
 
-  final Function()? iconOnPress;
+  final Function() iconOnPress;
+  final Function() addOnPress;
+  final Function() showOnPress;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,9 @@ class BottomRow extends StatelessWidget {
           color: Colors.yellow,
         ),
         const Spacer(flex: 5),
-        const ShowNotesButton(),
+        ShowNotesButton(onPressed: showOnPress),
         const Spacer(flex: 1),
-        const AddNoteButton(),
+        AddNoteButton(onPressed: addOnPress),
       ],
     );
   }

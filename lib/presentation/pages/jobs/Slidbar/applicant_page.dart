@@ -6,6 +6,7 @@ import '../../../../domain/entities/job/job.dart';
 import '../../../../domain/usecases/job/applied/accept_applied.dart';
 import '../../../../domain/usecases/job/applied/fetch_more.dart';
 import '../../../../domain/usecases/job/applied/reject_applied.dart';
+import '../../../components/dialog_button.dart';
 import '../../../components/job/applied_job.dart';
 
 class ApplicantPage extends StatefulWidget {
@@ -185,7 +186,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                                       buttonPadding: const EdgeInsets.all(10),
                                       actions: [
                                         DialogButton(
-                                          ajob: ajob,
                                           onPress: () async {
                                             await acceptApplied(
                                               appliedJob: ajob[idx],
@@ -199,7 +199,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                                           text: 'Accept',
                                         ),
                                         DialogButton(
-                                          ajob: ajob,
                                           onPress: () => Navigator.pop(context),
                                           text: 'Cancel',
                                         ),
@@ -222,7 +221,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                                       buttonPadding: const EdgeInsets.all(10),
                                       actions: [
                                         DialogButton(
-                                          ajob: ajob,
                                           onPress: () async {
                                             await rejectApplied(
                                               appliedId: ajob[idx].appliedId,
@@ -236,7 +234,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                                           text: 'Reject',
                                         ),
                                         DialogButton(
-                                          ajob: ajob,
                                           onPress: () => Navigator.pop(context),
                                           text: 'Cancel',
                                         ),
@@ -259,37 +256,6 @@ class _ApplicantPageState extends State<ApplicantPage>
                 : Container(decoration: boxDecoration),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DialogButton extends StatelessWidget {
-  const DialogButton({
-    Key? key,
-    required this.onPress,
-    required this.ajob,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-  final List<AppliedJob> ajob;
-  final Function() onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPress,
-      child: Container(
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width * 0.2,
-        height: MediaQuery.of(context).size.height * 0.05,
-        child: Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 20),
-          ),
-        ),
       ),
     );
   }
