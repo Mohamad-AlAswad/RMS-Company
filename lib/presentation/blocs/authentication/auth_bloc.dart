@@ -9,7 +9,6 @@ import '../../../domain/usecases/authentication/sign_in_email_password.dart';
 import '../../../domain/usecases/authentication/sign_up_email_password.dart';
 
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -37,7 +36,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>(loginEventHandle);
     on<LogOutEvent>((event, emit) async {
       await logOut();
-      sl.reset(dispose: true);
+      await sl.reset(dispose: true);
+      init();
       emit(AuthInitial());
     });
   }
