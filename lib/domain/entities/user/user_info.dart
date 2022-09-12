@@ -4,28 +4,31 @@ import 'package:equatable/equatable.dart';
 part 'education_certificate.dart';
 part 'past_job.dart';
 
-class UserInfo extends Equatable {
-  final String? id;
-  final String? email;
-  final num rating;
-  final num ratingCounter;
-  final List<String> companies;
-  final List<String> phones;
-  final List<String> emails;
-  final String? firstName;
-  final String? middleName;
-  final String? lastName;
-  final String? imgUrl;
-  final String? gender;
-  final String? location;
-  final String? summary;
-  final String? nationality;
-  final List<String> skills;
-  final List<EducationCertificate> eduQualifications;
-  final List<PastJob> experiences;
-  final List<String> languages;
 
-  const UserInfo({
+
+// ignore: must_be_immutable
+class UserInfo extends Equatable {
+  String? id;
+  String? email;
+  num? rating;
+  num? ratingCounter;
+  List<String> companies;
+  List<String> phones;
+  List<String> emails;
+  String? firstName;
+  String? middleName;
+  String? lastName;
+  String? imgUrl;
+  String? gender;
+  String? location;
+  String? summary;
+  String? nationality;
+  List<String> skills;
+  List<EducationCertificate> eduQualifications;
+  List<PastJob> experiences;
+  List<String> languages;
+
+  UserInfo({
     this.id,
     this.companies = const [],
     this.email,
