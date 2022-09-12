@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:rms_company/data/models/job/inquiry_job_model.dart';
 import 'package:rms_company/domain/entities/job/inquiry_job.dart';
 
 import '../../../core/errors/failures/failure.dart';
@@ -117,11 +118,11 @@ class JobRepoImp implements JobRepo {
     inquiries.addAll(
       job.inquiries.where((element) => element != inquiryJob).toList(),
     );
-
-    await collection2.doc(job.id).update({'inquiries': inquiries});
+    var snap = InquiryJobModel.toSnapshot(inquiries);
+    await collection.doc(job.id).update({'inquiries': snap});
     var docs = await collection2.where('job-id', isEqualTo: job.id).get();
     for (var doc in docs.docs) {
-      await collection2.doc(doc.id).update({'inquiries': inquiries});
+      await collection2.doc(doc.id).update({'inquiries': snap});
     }
     return [];
   }

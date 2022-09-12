@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'applied_job-elements.dart';
 
-
 class ClickableApplicantName extends StatelessWidget {
   const ClickableApplicantName({
     Key? key,
@@ -14,16 +13,25 @@ class ClickableApplicantName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => const Text('Profile of an Applicant'),
+      onPressed: () {},
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Text(
+              ajob.fullName,
+              style: const TextStyle(
+                fontSize: 22,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
-        );
-      },
-      child: Text(
-        ajob.fullName,
-        style: const TextStyle(fontSize: 22),
+          Text(
+            '${ajob.score.truncate()}%',
+            style: const TextStyle(fontSize: 22),
+          ),
+        ],
       ),
     );
   }

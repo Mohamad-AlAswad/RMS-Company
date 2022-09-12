@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rms_company/domain/usecases/job/reply_inquiry.dart';
 
 import '../../../../domain/entities/job/job.dart';
 import '../../../components/components.dart';
@@ -22,11 +23,19 @@ class _InfoPageState extends State<InfoPage> {
   List<Pair> expControllers = [];
   List<Pair> skillControllers = [];
   List<Pair> langControllers = [];
+  List<bool> answers = [];
+  List<Pair?> answersVal = [];
 
   @override
   void initState() {
     super.initState();
     job = widget.job;
+    answers = job.inquiries.map((e) => e.answer != null).toList();
+    answersVal = job.inquiries.map((e) {
+      if (e.answer != null) {
+        return Pair(e.answer, e.answerDate);
+      }
+    }).toList();
     value = job.status;
     titleController.text = job.title;
     summaryController.text = job.summary;
@@ -317,22 +326,99 @@ class _InfoPageState extends State<InfoPage> {
           ListView.separated(
             shrinkWrap: true,
             primary: false,
-            itemBuilder: (context, index) => ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    DateFormat.yMMMd()
-                        .format(job.inquiries[index].inquiryDate.toDate()),
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            DateFormat.yMMMd()
+                                .format(job.inquiries[index].inquiryDate.toDate()),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        job.inquiries[index].inquiry,
+                        style: const TextStyle(fontSize: 20),
+                      )
+                    ],
                   ),
-                ],
-              ),
-              subtitle: job.inquiries[index].answer != null
-                  ? Text(job.inquiries[index].answer!)
-                  : null,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+                      if (job.inquiries[index].answer != null ||
+                          answers[index]) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              DateFormat.yMMMd().format(
+                                (job.inquiries[index].answer != null)
+                                    ? job.inquiries[index].answerDate!.toDate()
+                                    : answersVal[index]!.right,
+                              ),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          (job.inquiries[index].answer != null)?
+                          job.inquiries[index].answer!:
+                          answersVal[index]!.left,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                      if (!answers[index] &&
+                          job.inquiries[index].answer == null) ...[
+                        RoundedTextField(
+                          controller: TextEditingController(),
+                          color: Theme.of(context).primaryColor,
+                          enabled: true,
+                          w: 0.85,
+                          icon: Icons.question_answer_outlined,
+                          label: 'Answer',
+                          suffixText: 'save',
+                          suffixPress: (val) {
+                            ReplyInquiry()(
+                              job: job,
+                              answer: val,
+                              inquiryJob: job.inquiries[index],
+                            ).then((value) {
+                              setState(() {
+                                answers[index] = true;
+                                if (answersVal[index] == null) {
+                                  answersVal[index] = Pair(val, DateTime.now());
+                                }
+                              });
+                            });
+                          },
+                          multiLines: true,
+                        ),
+                      ],
+                    ],
+                  )),
             ),
             itemCount: job.inquiries.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
+            separatorBuilder: (context, index) => Column(
+              children: [
+                const SizedBox(height: 10),
+                Divider(
+                  color: Theme.of(context).primaryColor,
+                  indent: 30,
+                  endIndent: 40,
+                  thickness: 2,
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
           ),
         ],
       ),
