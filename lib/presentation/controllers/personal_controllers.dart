@@ -5,13 +5,14 @@ class PersonalControllers {
 
   late final List<TextEditingController> phones;
 
-  late final String gender;
+  late final String gender,rating;
 
   PersonalControllers({
     required this.fName,
     required this.mName,
     required this.lName,
     required this.email,
+    required this.rating,
     required this.freeSpace,
     required List<TextEditingController>? tempPhones,
     required String? tempGender,

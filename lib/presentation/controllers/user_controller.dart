@@ -27,6 +27,7 @@ class TransformerUserController {
 
   static PersonalControllers _convertPersonal(UserInfo userInfo) {
     return PersonalControllers(
+      rating: userInfo.rating.toString(),
       fName: TextEditingController(text: userInfo.firstName),
       mName: TextEditingController(text: userInfo.middleName),
       lName: TextEditingController(text: userInfo.lastName),
@@ -39,16 +40,7 @@ class TransformerUserController {
   }
 
   static CompanyController _convertComp() {
-    // String companyName = GetConnectedUser().connectedCompany!;
-    // Company company = GetCompany()(company: companyName)!;
-    Company company = Company(
-      adminId: '123',
-      name: 'miwdd',
-      address: 'dasdasd',
-      creationDate: Timestamp.now(),
-      phones: const [],
-      emails: const [],
-    );
+    Company company = GetConnectedUser().connectedCompanyInstance!;
     return CompanyController(
       name: TextEditingController(text: company.name),
       address: TextEditingController(text: company.address),
@@ -65,15 +57,38 @@ class TransformerUserController {
   }
 
   static UserInfo fromUserController(UserController userController) {
-    return UserInfo(
-      summary: userController.personalControllers.freeSpace.text,
-      email: GetConnectedUser().connectedUser!.email,
-      firstName: userController.personalControllers.fName.text,
-      gender: userController.personalControllers.gender,
-      lastName: userController.personalControllers.lName.text,
-      middleName: userController.personalControllers.mName.text,
-      phones:
-          userController.personalControllers.phones.map((c) => c.text).toList(),
+    UserInfo userInfo = GetConnectedUser().connectedUser!;
+    userInfo.summary = userController.personalControllers.freeSpace.text;
+    userInfo.email = userController.personalControllers.email.text;
+    userInfo.firstName = userController.personalControllers.fName.text;
+    userInfo.gender = userController.personalControllers.gender;
+    userInfo.lastName = userController.personalControllers.lName.text;
+    userInfo.middleName = userController.personalControllers.mName.text;
+    userInfo.phones =
+        userController.personalControllers.phones.map((c) => c.text).toList();
+
+    return userInfo;
+  }
+
+  static Company fromController(UserController userController) {
+    return Company(
+      adminId: GetConnectedUser().connectedCompanyInstance!.adminId,
+      address: userController.companyController.address.text,
+      name: userController.companyController.name.text,
+      creationDate: Timestamp.fromDate(
+        DateFormat.yMMMd()
+            .parse(userController.companyController.creationDate.text),
+      ),
+      phones: userController.companyController.phones
+          .map(
+            (c) => c.text,
+          )
+          .toList(),
+      emails: userController.companyController.emails
+          .map(
+            (c) => c.text,
+          )
+          .toList(),
     );
   }
 }

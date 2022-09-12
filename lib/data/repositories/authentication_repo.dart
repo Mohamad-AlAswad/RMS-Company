@@ -15,7 +15,7 @@ import '../datasources/remote/firebase_authentication.dart';
 class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   final AuthenticationRemote authenticationRemote;
   CompanyRepo? companyRepo;
-  late StreamSubscription _stream;
+   StreamSubscription? _stream;
 
   AuthenticationUsingTwoSteps() : authenticationRemote = sl();
 
@@ -83,7 +83,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
 
   @override
   set connectedCompany(String? company) {
-    _stream.cancel();
+    _stream?.cancel();
     _company = company;
     if (_company != null) {
       companyRepo ??= sl();

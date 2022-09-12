@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../../../domain/entities/entities.dart';
 import '../../../domain/usecases/authentication/get_connected_user.dart';
+import '../../../domain/usecases/user/update_profile_user.dart';
 import '../../../provider/update_action_bar_actions_notification.dart';
 import '../../components/components.dart';
 import '../../controllers/user_controller.dart';
@@ -16,6 +19,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   int currentIndex = 0;
+  late bool isLoading;
   String currentPage = 'personal';
   UserController userController =
       TransformerUserController.fromUserInfo(GetConnectedUser().connectedUser);
@@ -31,16 +35,37 @@ class _ProfileState extends State<Profile> {
     'lang': GlobalKey<NavigatorState>(),
     'company': GlobalKey<NavigatorState>(),
   };
+
+  UpdateProfileUser updateProfileUser = UpdateProfileUser();
+
+  saveChanges() async {
+    setState(() {
+      isLoading = true;
+    });
+    UserInfo userInfo =
+        TransformerUserController.fromUserController(userController);
+
+    UserController? newUserController;
+    await updateProfileUser(newUserInfo: userInfo).then((value) {
+      newUserController = TransformerUserController.fromUserInfo(
+          GetConnectedUser().connectedUser);
+    });
+
+    setState(() {
+      if (newUserController != null) {
+        userController = newUserController!;
+      }
+      isLoading = false;
+    });
+
+    // ignore: use_build_context_synchronously
+    Provider.of<UpdateActionBarActions>(context, listen: false)
+        .changeEditMode(false);
+  }
+
   final List<Text> texts = [
     const Text('Personal Information', style: TextStyle(fontSize: 20)),
     const Text('Company Information', style: TextStyle(fontSize: 20)),
-    // const Text(
-    //   'Educational Qualifications',
-    //   style: TextStyle(fontSize: 20),
-    // ),
-    // const Text('Past Experience', style: TextStyle(fontSize: 20)),
-    // const Text('Skills', style: TextStyle(fontSize: 20)),
-    // const Text('Languages', style: TextStyle(fontSize: 20)),
   ];
   late List<Widget> actions1;
   late List<Widget> actions2;
@@ -48,6 +73,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
+    isLoading = false;
     actions2 = [
       Padding(
         padding: const EdgeInsets.only(right: 10),
@@ -71,10 +97,7 @@ class _ProfileState extends State<Profile> {
             Icons.published_with_changes_outlined,
             size: 30,
           ),
-          onPressed: () {
-            Provider.of<UpdateActionBarActions>(context, listen: false)
-                .changeEditMode(false);
-          },
+          onPressed: saveChanges,
         ),
       ),
     ];
@@ -134,13 +157,19 @@ class _ProfileState extends State<Profile> {
                 onTap: (value) => selectTab(value),
                 tabs: texts,
               ),
-              body: Stack(
-                children: pagesKeys
-                    .map(
-                      (e) => buildOffstageNavigator(e),
+              body: (isLoading)
+                  ? Center(
+                      child: SpinKitFoldingCube(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     )
-                    .toList(),
-              ),
+                  : Stack(
+                      children: pagesKeys
+                          .map(
+                            (e) => buildOffstageNavigator(e),
+                          )
+                          .toList(),
+                    ),
             ),
           ),
         ),

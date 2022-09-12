@@ -295,8 +295,36 @@ class _InfoPageState extends State<InfoPage> {
               ],
             ),
           ),
-          const Text('Im ques'),
-
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Inquiries :',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListView.separated(
+            shrinkWrap: true,
+            primary: false,
+            itemBuilder: (context, index) => ListTile(
+              title: Text(job.inquiries[index].inquiry),
+              subtitle: job.inquiries[index].answer != null
+                  ? Text(job.inquiries[index].answer!)
+                  : null,
+            ),
+            itemCount: job.inquiries.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
+          ),
         ],
       ),
     );

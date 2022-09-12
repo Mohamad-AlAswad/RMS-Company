@@ -130,8 +130,8 @@ class AppliedRepoImp implements AppliedRepo {
       (r) => user = r,
     );
     if (user != null) {
-      num counter = user!.ratingCounter;
-      num oldRating = user!.rating * counter;
+      num counter = user!.ratingCounter!;
+      num oldRating = user!.rating! * counter;
       oldRating += rating - appliedJob.rating;
       if (appliedJob.rating == 0 && rating > 0) counter += 1;
       if (rating == 0 && appliedJob.rating > 0) counter -= 1;

@@ -23,6 +23,7 @@ class _CompanyInformationState extends State<CompanyInformation> {
   late List<TextEditingController> emails;
   late CompanyController companyController ;
   late DateTime date ;
+
   addPhone() {
     setState(() {
       phones.insert(phones.length, TextEditingController());
@@ -83,15 +84,13 @@ class _CompanyInformationState extends State<CompanyInformation> {
               const SizedBox(height: 15),
               CompanyNameBuilder(companyController: companyController),
               AddressBuilder(companyController: companyController),
-              PhoneList(phones: phones, add: addPhone, remove: removePhone),
-              EmailList(emails: emails, add: addEmail, remove: removeEmail),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width *
-                        (enabled ? 0.47 : .8),
+                        (enabled ? 0.47 : .85),
                     margin: EdgeInsets.only(right: (enabled ? 10 : 0)),
                     child: RoundedTextField(
                       enabled: false,
@@ -126,6 +125,8 @@ class _CompanyInformationState extends State<CompanyInformation> {
                   ],
                 ],
               ),
+              PhoneList(phones: phones, add: addPhone, remove: removePhone),
+              EmailList(emails: emails, add: addEmail, remove: removeEmail),
             ],
           ),
         ),

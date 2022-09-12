@@ -23,7 +23,7 @@ class AddressBuilder extends StatelessWidget {
       ),
       child: RoundedTextField(
         enabled: Provider.of<UpdateActionBarActions>(context).edit,
-        controller: companyController.name,
+        controller: companyController.address,
         color: Theme.of(context).primaryColor,
         icon: Icons.location_on_outlined,
         label: 'Address',
