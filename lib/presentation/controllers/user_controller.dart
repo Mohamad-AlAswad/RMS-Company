@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../domain/entities/entities.dart';
 import '../../domain/usecases/authentication/get_connected_user.dart';
@@ -19,7 +21,7 @@ class TransformerUserController {
     userInfo = GetConnectedUser().connectedUser;
     return UserController(
       personalControllers: _convertPersonal(userInfo!),
-      companyController: _convertComp(userInfo),
+      companyController: _convertComp(),
     );
   }
 
@@ -32,22 +34,35 @@ class TransformerUserController {
       freeSpace: TextEditingController(text: userInfo.summary),
       tempGender: userInfo.gender,
       tempPhones:
-      userInfo.phones.map((e) => TextEditingController(text: e)).toList(),
+          userInfo.phones.map((e) => TextEditingController(text: e)).toList(),
     );
   }
 
-  static CompanyController _convertComp(UserInfo userInfo) {
+  static CompanyController _convertComp() {
+    // String companyName = GetConnectedUser().connectedCompany!;
+    // Company company = GetCompany()(company: companyName)!;
+    Company company = Company(
+      adminId: '123',
+      name: 'miwdd',
+      address: 'dasdasd',
+      creationDate: Timestamp.now(),
+      phones: const [],
+      emails: const [],
+    );
     return CompanyController(
-      name: TextEditingController(text: 'userInfo'),
-      address: TextEditingController(text: 'userInfo'),
-      creationDate: TextEditingController(text: 'userInfo'),
+      name: TextEditingController(text: company.name),
+      address: TextEditingController(text: company.address),
+      creationDate: TextEditingController(
+        text: DateFormat.yMMMd().format(
+          company.creationDate.toDate(),
+        ),
+      ),
       tempPhones:
-      userInfo.phones.map((e) => TextEditingController(text: e)).toList(),
+          company.phones.map((e) => TextEditingController(text: e)).toList(),
       tempEmails:
-      userInfo.emails.map((e) => TextEditingController(text: e)).toList(),
+          company.emails.map((e) => TextEditingController(text: e)).toList(),
     );
   }
-
 
   static UserInfo fromUserController(UserController userController) {
     return UserInfo(
@@ -58,7 +73,7 @@ class TransformerUserController {
       lastName: userController.personalControllers.lName.text,
       middleName: userController.personalControllers.mName.text,
       phones:
-      userController.personalControllers.phones.map((c) => c.text).toList(),
+          userController.personalControllers.phones.map((c) => c.text).toList(),
     );
   }
 }

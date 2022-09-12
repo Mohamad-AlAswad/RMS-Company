@@ -7,6 +7,7 @@ class GetCompany {
 
   GetCompany() : companyRepo = sl();
 
-  Future<Company> call({required String company}) =>
-      companyRepo.getCompany(company: company);
+  Company? call({required String company}) =>
+      // companyRepo.getCompany(company: company);
+      null;
 }

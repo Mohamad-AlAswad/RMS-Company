@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/usecases/job/applied/add_note.dart';
 import '../../../provider/theme.dart';
 import '../components.dart';
 import '../dialog_button.dart';
@@ -36,7 +37,7 @@ class _AppliedJobWidgetState extends State<AppliedJobWidget> {
 
   saveNote(String value) {
     if (value != '') {
-      print(value);
+      AddNote()(appliedJob: ajob, note: value);
     }
   }
 
@@ -113,7 +114,7 @@ class _AppliedJobWidgetState extends State<AppliedJobWidget> {
                 setState(() {
                   noteEditorOpened = false;
                   note.clear();
-                  if(widget.refresh!=null) {
+                  if (widget.refresh != null) {
                     widget.refresh!();
                   }
                 });
