@@ -295,6 +295,8 @@ class _InfoPageState extends State<InfoPage> {
               ],
             ),
           ),
+          const Text('Im ques'),
+
         ],
       ),
     );

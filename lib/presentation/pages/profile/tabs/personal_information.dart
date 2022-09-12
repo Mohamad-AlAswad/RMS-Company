@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rms_company/presentation/controllers/controllers.dart';
 
 import '../../../controllers/personal_controllers.dart';
 import 'profile_item_builder/profile_item_builder.dart';
@@ -11,8 +12,10 @@ import 'profile_item_builder/profile_item_builder.dart';
 class PersonalInformation extends StatefulWidget {
   const PersonalInformation({
     Key? key,
-  }) : super(key: key);
+    required this.personalControllers,
 
+  }) : super(key: key);
+  final PersonalControllers personalControllers;
   @override
   State<PersonalInformation> createState() => _PersonalInformationState();
 }
@@ -22,7 +25,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
   late List<String> genders;
   late String gender;
   late double rating;
-  PersonalControllers personalControllers = PersonalControllers();
+  late PersonalControllers personalControllers;
 
   File? image;
 
@@ -61,6 +64,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
   @override
   void initState() {
     super.initState();
+    personalControllers = widget.personalControllers;
     phones = personalControllers.phones;
     genders = const ['Male', 'Female'];
     gender = 'Male';

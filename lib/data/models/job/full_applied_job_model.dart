@@ -1,4 +1,3 @@
-import 'package:rms_company/data/models/job/applied_note_model.dart';
 
 import '../../../domain/entities/job/applied/full_applied_job.dart';
 import 'applied_job_model.dart';

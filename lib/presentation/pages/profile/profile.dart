@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../domain/usecases/authentication/get_connected_user.dart';
 import '../../../provider/update_action_bar_actions_notification.dart';
 import '../../components/components.dart';
+import '../../controllers/user_controller.dart';
 import 'profile_navigator.dart';
 
 class Profile extends StatefulWidget {
@@ -15,8 +17,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   int currentIndex = 0;
   String currentPage = 'personal';
+  UserController userController =
+      TransformerUserController.fromUserInfo(GetConnectedUser().connectedUser);
   List<String> pagesKeys = [
-    'personal',
+    'personal', 'company'
     // 'edu', 'exp', 'skills', 'lang'
   ];
   Map<String, GlobalKey<NavigatorState>> navigatorState = {
@@ -25,9 +29,11 @@ class _ProfileState extends State<Profile> {
     'exp': GlobalKey<NavigatorState>(),
     'skills': GlobalKey<NavigatorState>(),
     'lang': GlobalKey<NavigatorState>(),
+    'company': GlobalKey<NavigatorState>(),
   };
   final List<Text> texts = [
     const Text('Personal Information', style: TextStyle(fontSize: 20)),
+    const Text('Company Information', style: TextStyle(fontSize: 20)),
     // const Text(
     //   'Educational Qualifications',
     //   style: TextStyle(fontSize: 20),
@@ -100,6 +106,9 @@ class _ProfileState extends State<Profile> {
               if (currentPage != 'personal') {
                 selectTab(1);
               }
+              if (currentPage != 'company') {
+                selectTab(2);
+              }
             }
             return isFirstRouteInCurrentTab;
           },
@@ -145,6 +154,7 @@ class _ProfileState extends State<Profile> {
       child: ProfileNavigator(
         navigatorState: navigatorState[tabItem]!,
         tabItem: tabItem,
+        userController: userController,
       ),
     );
   }

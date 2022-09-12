@@ -22,7 +22,7 @@ class JobRepoImp implements JobRepo {
         authenticationRepo = sl() {
     print(authenticationRepo.connectedCompany);
     collection = firebaseFirestore.collection('jobs');
-    collection = firebaseFirestore.collection('jobs-applications');
+    collection2 = firebaseFirestore.collection('jobs-applications');
     paginaterFirestore = PaginaterFirestore(
       query: firebaseFirestore
           .collection('jobs')
@@ -118,7 +118,7 @@ class JobRepoImp implements JobRepo {
       job.inquiries.where((element) => element != inquiryJob).toList(),
     );
 
-    await collection.doc(job.id).update({'inquiries': inquiries});
+    await collection2.doc(job.id).update({'inquiries': inquiries});
     var docs = await collection2.where('job-id', isEqualTo: job.id).get();
     for (var doc in docs.docs) {
       await collection2.doc(doc.id).update({'inquiries': inquiries});
