@@ -14,12 +14,10 @@ import '../datasources/remote/firebase_authentication.dart';
 
 class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   final AuthenticationRemote authenticationRemote;
-  final CompanyRepo companyRepo;
+  CompanyRepo? companyRepo;
   late StreamSubscription _stream;
 
-  AuthenticationUsingTwoSteps()
-      : authenticationRemote = sl(),
-        companyRepo = sl();
+  AuthenticationUsingTwoSteps() : authenticationRemote = sl();
 
   late String? _company;
   late Company? _companyInstance;
@@ -88,6 +86,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
     _stream.cancel();
     _company = company;
     if (_company != null) {
+      companyRepo ??= sl();
       _update();
       _stream = FirebaseFirestore.instance
           .collection('company')
@@ -97,7 +96,7 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
     }
   }
 
-  void _update() => companyRepo
+  void _update() => companyRepo!
       .getCompany(company: _company!)
       .then((value) => _companyInstance = value);
 
