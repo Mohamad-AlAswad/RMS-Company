@@ -89,16 +89,23 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
       companyRepo ??= sl();
       _update();
       _stream = FirebaseFirestore.instance
-          .collection('company')
+          .collection('companies')
           .doc(_company)
           .snapshots()
           .listen((event) => _update());
     }
   }
 
-  void _update() => companyRepo!
-      .getCompany(company: _company!)
-      .then((value) => _companyInstance = value);
+  void _update() {
+    print('new update!');
+
+    companyRepo!
+        .getCompany(company: _company!)
+        .then((value) => _companyInstance = value)
+        .then((value) {
+      print(_companyInstance);
+    });
+  }
 
   @override
   Company? get connectedCompanyInstance => _companyInstance;

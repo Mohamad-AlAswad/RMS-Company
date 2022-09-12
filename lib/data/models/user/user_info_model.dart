@@ -2,6 +2,7 @@ import '../../../domain/entities/user/user_info.dart';
 import 'education_certificate_model.dart';
 import 'past_job_model.dart';
 
+// ignore: must_be_immutable
 class UserInfoModel extends UserInfo {
   static UserInfo? fromSnapshot({
     required Map<String, dynamic>? documentSnapshot,
