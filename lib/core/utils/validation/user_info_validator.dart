@@ -18,17 +18,9 @@ class UserInfoValidator {
     List<UserInfoFailure> errors = [];
     bool invalidEmail = _validateEmails(userInfo.emails);
     bool invalidPhone = _validatePhone(userInfo.phones);
-    bool invalidEdu = await _validateEdu(userInfo.eduQualifications);
-    bool invalidSkill = await _validateSkill(userInfo.skills);
-    bool invalidLang = await _validateLang(userInfo.languages);
-    bool invalidJobTitle = await _validateJobTitle(userInfo.experiences);
 
-    if (invalidEmail) errors.add(const InvalidEduUserInfoFailure());
-    if (invalidEdu) errors.add(const InvalidEduUserInfoFailure());
+    // if (invalidEmail) errors.add(const InvalidEmailUserInfoFailure());
     if (invalidPhone) errors.add(const InvalidPhoneUserInfoFailure());
-    if (invalidSkill) errors.add(const InvalidSkillUserInfoFailure());
-    if (invalidLang) errors.add(const InvalidLangUserInfoFailure());
-    if (invalidJobTitle) errors.add(const InvalidJobTitleUserInfoFailure());
 
     return Future<List<UserInfoFailure>>.value(errors);
   }
@@ -37,48 +29,4 @@ class UserInfoValidator {
       emails.map((e) => !isEmail(e)).isNotEmpty;
 
   static bool _validatePhone(List<String> phones) => false;
-
-  static Future<bool> _validateSkill(List<String> skills) async {
-    KeywordsSkillsRepo repo = KeywordsSkillsRepoSubstring();
-    for (var e in skills) {
-      var result = await repo.getSimilar(word: e, limit: 1, exact: true);
-      if (result.isEmpty) return Future<bool>.value(true);
-    }
-    return Future<bool>.value(false);
-  }
-
-  static Future<bool> _validateLang(List<String> languages) async {
-    KeywordsLanguagesRepo repo = KeywordsLanguagesRepoSubstring();
-    for (var e in languages) {
-      var result = await repo.getSimilar(word: e, limit: 1, exact: true);
-      if (result.isEmpty) return Future<bool>.value(true);
-    }
-    return Future<bool>.value(false);
-  }
-
-  static Future<bool> _validateJobTitle(List<PastJob> experiences) async {
-    KeywordsJobTitlesRepo repo = KeywordsJobTitlesRepoSubstring();
-    for (var e in experiences) {
-      var result = await repo.getSimilar(word: e.title, limit: 1, exact: true);
-      if (result.isEmpty) return Future<bool>.value(true);
-    }
-    return Future<bool>.value(false);
-  }
-
-  static Future<bool> _validateEdu(
-      List<EducationCertificate> eduQualifications) async {
-    KeywordsFieldEduRepo repoField = KeywordsFieldEduRepoSubstring();
-    KeywordsDegreeEduRepo repoDegree = KeywordsDegreeEduRepoSubstring();
-    for (var e in eduQualifications) {
-      var result =
-          await repoDegree.getSimilar(word: e.degree, limit: 1, exact: true);
-      if (result.isEmpty) return Future<bool>.value(true);
-    }
-    for (var e in eduQualifications) {
-      var result = await repoField.getSimilar(
-          degree: e.degree, word: e.field, limit: 1, exact: true);
-      if (result.isEmpty) return Future<bool>.value(true);
-    }
-    return Future<bool>.value(false);
-  }
 }
