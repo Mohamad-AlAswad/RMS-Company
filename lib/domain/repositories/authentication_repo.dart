@@ -24,5 +24,7 @@ abstract class AuthenticationRepo {
 
   String? get connectedCompany;
 
+  Company? get connectedCompanyInstance;
+
   set connectedCompany(String? company);
 }

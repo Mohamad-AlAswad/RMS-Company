@@ -141,6 +141,7 @@ class AppliedRepoImp implements AppliedRepo {
         rate: newRating,
         counter: counter,
       );
+      collection.doc(appliedJob.appliedId).update({'rating': rating});
       return [];
     }
     return [];

@@ -1,19 +1,28 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:rms_company/domain/entities/company.dart';
 
 import '../../core/errors/exceptions/authentication_exceptions.dart';
 import '../../core/errors/failures/failure.dart';
 import '../../domain/entities/user/user_info.dart' as user_ent;
 import '../../domain/repositories/authentication_repo.dart';
+import '../../domain/repositories/company_repo.dart';
 import '../../injection_container.dart';
 import '../datasources/remote/firebase_authentication.dart';
 
 class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   final AuthenticationRemote authenticationRemote;
+  final CompanyRepo companyRepo;
+  late StreamSubscription _stream;
 
   AuthenticationUsingTwoSteps()
-      : authenticationRemote = sl();
+      : authenticationRemote = sl(),
+        companyRepo = sl();
 
   late String? _company;
+  late Company? _companyInstance;
 
   @override
   Future<Either<Failure, void>> logOut() async {
@@ -75,5 +84,23 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   String? get connectedCompany => _company;
 
   @override
-  set connectedCompany(String? company) => _company = company;
+  set connectedCompany(String? company) {
+    _stream.cancel();
+    _company = company;
+    if (_company != null) {
+      _update();
+      _stream = FirebaseFirestore.instance
+          .collection('company')
+          .doc(_company)
+          .snapshots()
+          .listen((event) => _update());
+    }
+  }
+
+  void _update() => companyRepo
+      .getCompany(company: _company!)
+      .then((value) => _companyInstance = value);
+
+  @override
+  Company? get connectedCompanyInstance => _companyInstance;
 }
