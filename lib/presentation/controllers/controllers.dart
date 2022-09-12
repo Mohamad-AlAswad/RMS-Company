@@ -5,6 +5,7 @@ export 'exp_controllers.dart';
 export 'lang_controllers.dart';
 export 'personal_controllers.dart';
 export 'skills_controllers.dart';
+export 'company_controller.dart';
 export 'user_controller.dart';
 
 class Controllers {
