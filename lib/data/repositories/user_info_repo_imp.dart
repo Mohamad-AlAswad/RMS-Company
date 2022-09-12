@@ -1,17 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:rms_company/domain/repositories/authentication_repo.dart';
 
 import '../../core/errors/failures/failure.dart';
 import '../../domain/entities/user/user_info.dart';
 import '../../domain/repositories/user_info_repo.dart';
-import '../../injection_container.dart';
 import '../models/user/user_info_model.dart';
 
 class UserInfoRepoImp implements UserInfoRepo {
   final FirebaseFirestore firebaseFirestore;
   final CollectionReference<Map<String, dynamic>> collection;
-  AuthenticationRepo? authenticationRepo;
 
   UserInfoRepoImp({
     required this.firebaseFirestore,
@@ -36,8 +33,7 @@ class UserInfoRepoImp implements UserInfoRepo {
   Future<Either<Failure, bool>> updateUserInfo(
       {required UserInfo newUserInfo}) async {
     try {
-      authenticationRepo ??= sl();
-      await collection.doc(authenticationRepo!.userId!).update(
+      await collection.doc(newUserInfo.id).update(
             UserInfoModel.toSnapshot(newUserInfo),
           );
       return Future.value(const Right(true));
