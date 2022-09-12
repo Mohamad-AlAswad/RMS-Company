@@ -130,12 +130,18 @@ class AppliedRepoImp implements AppliedRepo {
       (r) => user = r,
     );
     if (user != null) {
+      print(user);
       num counter = user!.ratingCounter!;
       num oldRating = user!.rating! * counter;
+      print(oldRating);
       oldRating += rating - appliedJob.rating;
+      print(oldRating);
       if (appliedJob.rating == 0 && rating > 0) counter += 1;
       if (rating == 0 && appliedJob.rating > 0) counter -= 1;
+      print(counter);
       num newRating = counter > 0 ? oldRating / counter : 0;
+      print(newRating);
+
       userInfoRepo.updateRate(
         userId: appliedJob.jobSeekerId,
         rate: newRating,

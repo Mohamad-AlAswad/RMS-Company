@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../domain/entities/job/job.dart';
 import '../../../components/components.dart';
@@ -317,7 +318,15 @@ class _InfoPageState extends State<InfoPage> {
             shrinkWrap: true,
             primary: false,
             itemBuilder: (context, index) => ListTile(
-              title: Text(job.inquiries[index].inquiry),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    DateFormat.yMMMd()
+                        .format(job.inquiries[index].inquiryDate.toDate()),
+                  ),
+                ],
+              ),
               subtitle: job.inquiries[index].answer != null
                   ? Text(job.inquiries[index].answer!)
                   : null,

@@ -22,6 +22,7 @@ class PersonalInformation extends StatefulWidget {
 
 class _PersonalInformationState extends State<PersonalInformation> {
   late List<TextEditingController> phones;
+  late List<TextEditingController> emails;
   late List<String> genders;
   late String gender;
   late double rating;
@@ -55,6 +56,19 @@ class _PersonalInformationState extends State<PersonalInformation> {
     });
   }
 
+  addEmail() {
+    setState(() {
+      emails.insert(emails.length, TextEditingController());
+    });
+  }
+
+  removeEmail(index) {
+    setState(() {
+      emails.removeAt(index);
+    });
+  }
+
+
   chVal(value) {
     setState(() {
       gender = value;
@@ -66,6 +80,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
     super.initState();
     personalControllers = widget.personalControllers;
     phones = personalControllers.phones;
+    emails = personalControllers.emails;
+
     genders = const ['Male', 'Female'];
     gender = 'Male';
     rating =  double.parse(personalControllers.rating);
@@ -77,7 +93,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
     return SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints.tightFor(
-          height: mq.size.height,
+          height: mq.size.height*1.5,
         ),
         child: Container(
           height: double.infinity,
@@ -106,9 +122,10 @@ class _PersonalInformationState extends State<PersonalInformation> {
               MiddleNameBuilder(personalControllers: personalControllers),
               LastNameBuilder(personalControllers: personalControllers),
               EmailBuilder(personalControllers: personalControllers),
-              PhoneList(phones: phones, add: addPhone, remove: removePhone),
               GenderBuilder(genders: genders, gender: gender, chVal: chVal),
               FreeSpaceBuilder(personalControllers: personalControllers),
+              EmailList(emails: emails, add: addEmail, remove: removeEmail),
+              PhoneList(phones: phones, add: addPhone, remove: removePhone),
             ],
           ),
         ),

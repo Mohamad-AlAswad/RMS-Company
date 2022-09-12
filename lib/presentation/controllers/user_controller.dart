@@ -36,6 +36,8 @@ class TransformerUserController {
       tempGender: userInfo.gender,
       tempPhones:
           userInfo.phones.map((e) => TextEditingController(text: e)).toList(),
+      tempEmails:
+          userInfo.emails.map((e) => TextEditingController(text: e)).toList(),
     );
   }
 
@@ -66,7 +68,8 @@ class TransformerUserController {
     userInfo.middleName = userController.personalControllers.mName.text;
     userInfo.phones =
         userController.personalControllers.phones.map((c) => c.text).toList();
-
+    userInfo.emails =
+        userController.personalControllers.emails.map((c) => c.text).toList();
     return userInfo;
   }
 

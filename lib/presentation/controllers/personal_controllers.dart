@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PersonalControllers {
   final TextEditingController fName, mName, lName, email, freeSpace;
 
-  late final List<TextEditingController> phones;
+  late final List<TextEditingController> phones,emails;
 
   late final String gender,rating;
 
@@ -15,7 +15,9 @@ class PersonalControllers {
     required this.rating,
     required this.freeSpace,
     required List<TextEditingController>? tempPhones,
+    required List<TextEditingController>? tempEmails,
     required String? tempGender,
   })  : gender = tempGender ?? '',
-        phones = tempPhones ?? [];
+        phones = tempPhones ?? [],
+        emails = tempEmails ?? [];
 }

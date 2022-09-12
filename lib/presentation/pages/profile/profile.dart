@@ -10,7 +10,6 @@ import '../../../domain/usecases/authentication/get_connected_user.dart';
 import '../../../domain/usecases/user/update_profile_user.dart';
 import '../../../provider/update_action_bar_actions_notification.dart';
 import '../../components/components.dart';
-import '../../controllers/user_controller.dart';
 import 'profile_navigator.dart';
 
 class Profile extends StatefulWidget {
@@ -97,6 +96,8 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
+    updateProfileUser = UpdateProfileUser();
+    updateCompany = UpdateCompany();
     isLoading = false;
     actions2 = [
       Padding(

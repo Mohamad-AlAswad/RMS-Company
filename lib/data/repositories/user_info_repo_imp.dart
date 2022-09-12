@@ -49,7 +49,7 @@ class UserInfoRepoImp implements UserInfoRepo {
     required num counter,
   }) =>
       collection.doc(userId).update({
-        'rate': rate,
+        'rating': rate,
         '--rating-counter': counter,
       });
 }
