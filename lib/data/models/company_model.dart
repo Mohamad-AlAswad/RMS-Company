@@ -1,3 +1,5 @@
+import 'package:rms_company/core/utils/custom_converter.dart';
+
 import '../../domain/entities/company.dart';
 
 class CompanyModel extends Company {
@@ -19,8 +21,8 @@ class CompanyModel extends Company {
       name: documentSnapshot['company-name'],
       address: documentSnapshot['address'],
       creationDate: documentSnapshot['creation-date'],
-      phones: const [],
-      emails: const [],
+      phones: CustomConverter().toListString(list: documentSnapshot['phones']),
+      emails: CustomConverter().toListString(list: documentSnapshot['emails']),
     );
   }
 
@@ -30,7 +32,8 @@ class CompanyModel extends Company {
       'company-name': company.name,
       'address': company.address,
       'creation-date': company.creationDate,
-      'contact-info': {},
+      'emails': company.emails,
+      'phones': company.phones,
     };
   }
 }
