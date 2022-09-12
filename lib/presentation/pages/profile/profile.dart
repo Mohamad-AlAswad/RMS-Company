@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:rms_company/domain/usecases/%20company/update_company.dart';
+import 'package:rms_company/presentation/controllers/controllers.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../../domain/usecases/authentication/get_connected_user.dart';
@@ -36,7 +39,8 @@ class _ProfileState extends State<Profile> {
     'company': GlobalKey<NavigatorState>(),
   };
 
-  UpdateProfileUser updateProfileUser = UpdateProfileUser();
+  late UpdateProfileUser updateProfileUser;
+  late UpdateCompany updateCompany;
 
   saveChanges() async {
     setState(() {
@@ -44,16 +48,36 @@ class _ProfileState extends State<Profile> {
     });
     UserInfo userInfo =
         TransformerUserController.fromUserController(userController);
+    Company company = TransformerUserController.fromController(userController);
 
-    UserController? newUserController;
+    PersonalControllers? newPerController;
+    CompanyController? newCompController;
     await updateProfileUser(newUserInfo: userInfo).then((value) {
-      newUserController = TransformerUserController.fromUserInfo(
-          GetConnectedUser().connectedUser);
+      newPerController = TransformerUserController.fromUserInfo(
+              GetConnectedUser().connectedUser)
+          .personalControllers;
+    }).timeout(const Duration(seconds: 5),onTimeout: (){
+        isLoading = false;
+        Fluttertoast.cancel();
+        Fluttertoast.showToast(msg: 'Connection Error');
+    });
+
+    await updateCompany(newCompany: company).then((value) {
+      newCompController = TransformerUserController.fromUserInfo(
+              GetConnectedUser().connectedUser)
+          .companyController;
+    }).timeout(const Duration(seconds: 5),onTimeout: (){
+      isLoading = false;
+      Fluttertoast.cancel();
+      Fluttertoast.showToast(msg: 'Connection Error');
     });
 
     setState(() {
-      if (newUserController != null) {
-        userController = newUserController!;
+      if (newPerController != null && newCompController != null) {
+        userController = UserController(
+          personalControllers: newPerController!,
+          companyController: newCompController!,
+        );
       }
       isLoading = false;
     });

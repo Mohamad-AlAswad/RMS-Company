@@ -68,7 +68,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
     phones = personalControllers.phones;
     genders = const ['Male', 'Female'];
     gender = 'Male';
-    rating = 3.8;
+    rating =  double.parse(personalControllers.rating);
   }
 
   @override
