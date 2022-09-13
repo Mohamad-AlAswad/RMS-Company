@@ -17,15 +17,7 @@ abstract class AutocompleteSubstringApi {
 }
 
 class AutocompleteSubstringApiImp implements AutocompleteSubstringApi {
-  static const List<String> _uriApiPossible = [
-    'http://192.168.97.229:5000/',
-  ];
-
-  static final DetectUriApi _detectUriApi = DetectUriApi(
-    uriApiPossible: _uriApiPossible,
-  );
-
-  static Future<String> get uriApi async => _detectUriApi.uriApi;
+  static Future<String> get uriApi async => DetectUriApi.uriApi;
 
   static Map<String, String> headers = {
     HttpHeaders.contentTypeHeader: "application/json",
@@ -41,12 +33,15 @@ class AutocompleteSubstringApiImp implements AutocompleteSubstringApi {
     bool? exact,
   }) async {
     try {
+
       final query1 = exact != null && exact == true ? 'exact=true' : '';
       final query2 = limit != null ? 'limit=$limit' : '';
       final query = (query1.isNotEmpty || query2.isNotEmpty ? '?' : '') +
           (query1.isNotEmpty ? query1 : '') +
           (query1.isNotEmpty && query2.isNotEmpty ? '&' : '') +
           (query2.isNotEmpty ? query2 : '');
+
+      print('${await uriApi}/$type/$word$query');
       final response = await http.get(
         EncodeUri.encode('${await uriApi}/$type/$word$query'),
         headers: AutocompleteSubstringApiImp.headers,

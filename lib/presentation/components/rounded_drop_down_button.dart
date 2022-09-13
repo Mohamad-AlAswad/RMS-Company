@@ -56,6 +56,7 @@ class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
           )
           .toList();
     }
+    print(value);
     return Container(
       decoration: BoxDecoration(
         color: (value == 'paused') ? Colors.red : widget.color,

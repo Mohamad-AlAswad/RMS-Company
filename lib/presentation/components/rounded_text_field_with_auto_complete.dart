@@ -32,7 +32,7 @@ class RoundedTextFieldWithAutoComplete extends StatefulWidget {
 
 class _RoundedTextFieldWithAutoCompleteState
     extends State<RoundedTextFieldWithAutoComplete> {
-  late StreamSubscription? subscription;
+   StreamSubscription? subscription;
 
   waitBeforeSending() {
     widget.callFather();

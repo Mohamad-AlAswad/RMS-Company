@@ -83,7 +83,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
     emails = personalControllers.emails;
 
     genders = const ['Male', 'Female'];
-    gender = 'Male';
+    gender = personalControllers.gender;
     rating =  double.parse(personalControllers.rating);
   }
 
@@ -122,7 +122,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
               MiddleNameBuilder(personalControllers: personalControllers),
               LastNameBuilder(personalControllers: personalControllers),
               EmailBuilder(personalControllers: personalControllers),
-              GenderBuilder(genders: genders, gender: gender, chVal: chVal),
+              // GenderBuilder(genders: genders, gender: gender, chVal: chVal),
               FreeSpaceBuilder(personalControllers: personalControllers),
               EmailList(emails: emails, add: addEmail, remove: removeEmail),
               PhoneList(phones: phones, add: addPhone, remove: removePhone),

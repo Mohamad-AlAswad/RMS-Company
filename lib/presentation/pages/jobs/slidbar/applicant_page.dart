@@ -181,9 +181,9 @@ class _ApplicantPageState extends State<ApplicantPage>
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      contentPadding: const EdgeInsets.all(20),
-                                      actionsPadding: const EdgeInsets.all(10),
-                                      buttonPadding: const EdgeInsets.all(10),
+                                      contentPadding: const EdgeInsets.all(0),
+                                      actionsPadding: const EdgeInsets.all(0),
+                                      buttonPadding: const EdgeInsets.all(0),
                                       actions: [
                                         DialogButton(
                                           onPress: () async {

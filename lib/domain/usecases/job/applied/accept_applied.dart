@@ -27,7 +27,7 @@ class AcceptApplied {
   ApplicationStates _getNext(String state) {
     if (state == 'screening') return ApplicationStates.reviewing;
     if (state == 'reviewing') return ApplicationStates.interviewing;
-    if (state == 'interviewing') return ApplicationStates.hired;
-    return ApplicationStates.rejected;
+    if (state == 'rejected') return ApplicationStates.rejected;
+    return ApplicationStates.hired;
   }
 }

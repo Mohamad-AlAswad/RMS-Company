@@ -45,6 +45,7 @@ import 'domain/usecases/user/get_profile_user.dart';
 import 'domain/usecases/user/update_profile_user.dart';
 
 final sl = GetIt.instance;
+
 void reset () {
   sl.resetLazySingleton();
 }
