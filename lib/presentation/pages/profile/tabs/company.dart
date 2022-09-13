@@ -14,6 +14,7 @@ class CompanyInformation extends StatefulWidget {
   }) : super(key: key);
 
   final CompanyController companyController;
+
   @override
   State<CompanyInformation> createState() => _CompanyInformationState();
 }
@@ -21,8 +22,9 @@ class CompanyInformation extends StatefulWidget {
 class _CompanyInformationState extends State<CompanyInformation> {
   late List<TextEditingController> phones;
   late List<TextEditingController> emails;
-  late CompanyController companyController ;
-  late DateTime date ;
+  late CompanyController companyController;
+
+  late DateTime date;
 
   addPhone() {
     setState(() {
@@ -110,8 +112,8 @@ class _CompanyInformationState extends State<CompanyInformation> {
                           firstDate: DateTime(2015),
                           lastDate: DateTime(2050),
                         ).then(
-                              (value) => setState(
-                                () {
+                          (value) => setState(
+                            () {
                               if (value != null && value != date) {
                                 date = value;
                                 companyController.creationDate.text =

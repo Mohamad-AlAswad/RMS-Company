@@ -21,7 +21,6 @@ class JobRepoImp implements JobRepo {
   JobRepoImp()
       : firebaseFirestore = sl(),
         authenticationRepo = sl() {
-    print(authenticationRepo.connectedCompany);
     collection = firebaseFirestore.collection('jobs');
     collection2 = firebaseFirestore.collection('jobs-applications');
     paginaterFirestore = PaginaterFirestore(

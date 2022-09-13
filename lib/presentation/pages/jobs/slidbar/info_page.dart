@@ -336,8 +336,8 @@ class _InfoPageState extends State<InfoPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            DateFormat.yMMMd()
-                                .format(job.inquiries[index].inquiryDate.toDate()),
+                            DateFormat.yMMMd().format(
+                                job.inquiries[index].inquiryDate.toDate()),
                             style: const TextStyle(fontSize: 16),
                           ),
                         ],
@@ -370,9 +370,9 @@ class _InfoPageState extends State<InfoPage> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          (job.inquiries[index].answer != null)?
-                          job.inquiries[index].answer!:
-                          answersVal[index]!.left,
+                          (job.inquiries[index].answer != null)
+                              ? job.inquiries[index].answer!
+                              : answersVal[index]!.left,
                           style: const TextStyle(fontSize: 18),
                         ),
                       ],

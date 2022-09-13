@@ -47,15 +47,12 @@ class FirebaseAuthentication extends AuthenticationRemote {
           );
           if (userId != null) _update(userId!);
           if (_userInfo != null) {
-            print('listen to: ${_userInfo!.id!}');
             FirebaseFirestore.instance
                 .collection('user-info')
                 .doc(_userInfo!.id)
                 .snapshots()
                 .listen((event) async {
-              print(event);
               _update(event.id);
-              print(_userInfo);
             });
           }
         }

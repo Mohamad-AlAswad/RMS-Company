@@ -33,7 +33,6 @@ class AutocompleteSubstringApiImp implements AutocompleteSubstringApi {
     bool? exact,
   }) async {
     try {
-
       final query1 = exact != null && exact == true ? 'exact=true' : '';
       final query2 = limit != null ? 'limit=$limit' : '';
       final query = (query1.isNotEmpty || query2.isNotEmpty ? '?' : '') +
@@ -41,7 +40,6 @@ class AutocompleteSubstringApiImp implements AutocompleteSubstringApi {
           (query1.isNotEmpty && query2.isNotEmpty ? '&' : '') +
           (query2.isNotEmpty ? query2 : '');
 
-      print('${await uriApi}/$type/$word$query');
       final response = await http.get(
         EncodeUri.encode('${await uriApi}/$type/$word$query'),
         headers: AutocompleteSubstringApiImp.headers,

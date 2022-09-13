@@ -1,4 +1,3 @@
-
 import '../../../domain/entities/job/applied/full_applied_job.dart';
 import 'applied_job_model.dart';
 
@@ -13,11 +12,9 @@ class FullAppliedJobModel extends FullAppliedJob {
     required Map<String, dynamic>? documentSnapshot,
   }) =>
       FullAppliedJob(
-        appliedJob: AppliedJobModel.fromSnapshot(
-          id: id,
-          documentSnapshot: documentSnapshot,
-        )!,
-        notes: []
-      );
-
+          appliedJob: AppliedJobModel.fromSnapshot(
+            id: id,
+            documentSnapshot: documentSnapshot,
+          )!,
+          notes: const []);
 }

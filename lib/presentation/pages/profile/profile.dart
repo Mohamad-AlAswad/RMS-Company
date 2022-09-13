@@ -55,17 +55,17 @@ class _ProfileState extends State<Profile> {
       newPerController = TransformerUserController.fromUserInfo(
               GetConnectedUser().connectedUser)
           .personalControllers;
-    }).timeout(const Duration(seconds: 5),onTimeout: (){
-        isLoading = false;
-        Fluttertoast.cancel();
-        Fluttertoast.showToast(msg: 'Connection Error');
+    }).timeout(const Duration(seconds: 5), onTimeout: () {
+      isLoading = false;
+      Fluttertoast.cancel();
+      Fluttertoast.showToast(msg: 'Connection Error');
     });
 
     await updateCompany(newCompany: company).then((value) {
       newCompController = TransformerUserController.fromUserInfo(
               GetConnectedUser().connectedUser)
           .companyController;
-    }).timeout(const Duration(seconds: 5),onTimeout: (){
+    }).timeout(const Duration(seconds: 5), onTimeout: () {
       isLoading = false;
       Fluttertoast.cancel();
       Fluttertoast.showToast(msg: 'Connection Error');

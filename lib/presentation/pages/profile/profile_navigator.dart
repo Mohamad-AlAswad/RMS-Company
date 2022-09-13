@@ -8,7 +8,6 @@ class ProfileNavigator extends StatelessWidget {
   final String tabItem;
   final UserController userController;
 
-
   const ProfileNavigator({
     Key? key,
     required this.navigatorState,
@@ -21,7 +20,9 @@ class ProfileNavigator extends StatelessWidget {
     Widget child;
     switch (tabItem) {
       case 'personal':
-        child = PersonalInformation(personalControllers: userController.personalControllers,);
+        child = PersonalInformation(
+          personalControllers: userController.personalControllers,
+        );
         break;
       case 'edu':
         child = const EducationalQualifications();
@@ -36,7 +37,9 @@ class ProfileNavigator extends StatelessWidget {
         child = const Languages();
         break;
       case 'company':
-        child = CompanyInformation(companyController: userController.companyController,);
+        child = CompanyInformation(
+          companyController: userController.companyController,
+        );
         break;
       default:
         child = const ErrorPage();

@@ -13,9 +13,9 @@ class PersonalInformation extends StatefulWidget {
   const PersonalInformation({
     Key? key,
     required this.personalControllers,
-
   }) : super(key: key);
   final PersonalControllers personalControllers;
+
   @override
   State<PersonalInformation> createState() => _PersonalInformationState();
 }
@@ -68,7 +68,6 @@ class _PersonalInformationState extends State<PersonalInformation> {
     });
   }
 
-
   chVal(value) {
     setState(() {
       gender = value;
@@ -84,7 +83,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
 
     genders = const ['Male', 'Female'];
     gender = personalControllers.gender;
-    rating =  double.parse(personalControllers.rating);
+    rating = double.parse(personalControllers.rating);
   }
 
   @override
@@ -93,7 +92,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
     return SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints.tightFor(
-          height: mq.size.height*1.5,
+          height: mq.size.height * 1.5,
         ),
         child: Container(
           height: double.infinity,

@@ -14,7 +14,7 @@ class ShowNotesButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.30,
       height: MediaQuery.of(context).size.height * 0.06,
       child: TextButton(
-        onPressed:onPressed,
+        onPressed: onPressed,
         child: const Text(
           'show notes',
           textAlign: TextAlign.center,

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class PersonalControllers {
   final TextEditingController fName, mName, lName, email, freeSpace;
 
-  late final List<TextEditingController> phones,emails;
+  late final List<TextEditingController> phones, emails;
 
-  late final String gender,rating;
+  late final String gender, rating;
 
   PersonalControllers({
     required this.fName,

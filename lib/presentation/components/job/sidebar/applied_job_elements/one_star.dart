@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class OneStar extends StatefulWidget {
@@ -46,8 +45,8 @@ class _OneStarState extends State<OneStar> {
           widget.iconData != Icons.star
               ? widget.iconData
               : filled
-              ? Icons.star
-              : Icons.star_border_outlined,
+                  ? Icons.star
+                  : Icons.star_border_outlined,
           size: 30,
           shadows: [
             Shadow(

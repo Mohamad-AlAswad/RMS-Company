@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 
-import 'applied_job-elements.dart';
-
+import 'applied_job_elements.dart';
 
 class StatusRow extends StatelessWidget {
   const StatusRow({

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import 'applied_note.dart';
 import 'applied_job.dart';
+import 'applied_note.dart';
 
 class FullAppliedJob extends Equatable {
   final AppliedJob appliedJob;
@@ -18,4 +18,3 @@ class FullAppliedJob extends Equatable {
         notes,
       ];
 }
-

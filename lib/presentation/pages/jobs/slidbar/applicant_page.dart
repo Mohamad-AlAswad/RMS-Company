@@ -45,7 +45,6 @@ class _ApplicantPageState extends State<ApplicantPage>
     allLoaded = false;
     isLoading = false;
     job = widget.job;
-    print(job.id);
     acceptApplied = AcceptApplied(jobId: job.id);
     rejectApplied = RejectApplied(jobId: job.id);
     ajob = [];

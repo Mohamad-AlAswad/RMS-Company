@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../../provider/theme.dart';
-import 'applied_job-elements.dart';
+import 'applied_job_elements.dart';
 
 class ApplicantSummary extends StatelessWidget {
   const ApplicantSummary({

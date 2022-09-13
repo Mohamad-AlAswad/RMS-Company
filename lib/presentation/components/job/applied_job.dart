@@ -5,7 +5,7 @@ import '../../../provider/theme.dart';
 import '../components.dart';
 import '../dialog_button.dart';
 import 'custome_expansion_tile_applied.dart';
-import 'sidebar/applied_job_elements/applied_job-elements.dart';
+import 'sidebar/applied_job_elements/applied_job_elements.dart';
 
 export 'costume_expansion_tile.dart';
 export 'job_offer_widget.dart';

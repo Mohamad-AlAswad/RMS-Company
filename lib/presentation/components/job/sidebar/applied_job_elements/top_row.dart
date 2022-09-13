@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../domain/usecases/job/applied/rate_application.dart';
-import 'applied_job-elements.dart';
+import 'applied_job_elements.dart';
 
 class TopRow extends StatefulWidget {
   const TopRow({
@@ -45,9 +45,6 @@ class _TopRowState extends State<TopRow> {
   }
 
   checkForSave() {
-    print(rate);
-    print(newRate);
-    print('--------');
     if (newRate != rate) {
       RateApplication()(appliedJob: widget.aJob, rating: newRate).then(
         (value) {

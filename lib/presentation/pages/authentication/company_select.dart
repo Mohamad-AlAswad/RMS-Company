@@ -6,7 +6,6 @@ import 'package:rms_company/domain/usecases/%20company/register_company.dart';
 import 'package:rms_company/domain/usecases/authentication/get_connected_user.dart';
 import 'package:rms_company/presentation/components/components.dart';
 
-
 class CompanySelect extends StatefulWidget {
   const CompanySelect({Key? key}) : super(key: key);
 
@@ -83,7 +82,7 @@ class _CompanySelectState extends State<CompanySelect> {
             },
             value: value,
             label: 'your Companies',
-            onRefresh: (){
+            onRefresh: () {
               return GetConnectedUser().companies;
             },
           ),

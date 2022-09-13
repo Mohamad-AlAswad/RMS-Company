@@ -18,7 +18,8 @@ class JobModel extends Job {
     required super.inquiries,
   });
 
-  static Job? fromSnapshot({String? id, Map<String, dynamic>? documentSnapshot}) {
+  static Job? fromSnapshot(
+      {String? id, Map<String, dynamic>? documentSnapshot}) {
     try {
       return Job(
         id: id!,

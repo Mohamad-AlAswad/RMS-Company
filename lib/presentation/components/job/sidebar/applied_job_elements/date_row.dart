@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'applied_job-elements.dart';
+import 'applied_job_elements.dart';
 
 class DateRow extends StatelessWidget {
   const DateRow({
@@ -19,7 +19,6 @@ class DateRow extends StatelessWidget {
         IconButton(
           onPressed: () {
             throw UnimplementedError();
-
           },
           tooltip: 'Download CV',
           icon: Icon(

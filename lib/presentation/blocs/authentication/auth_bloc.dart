@@ -71,8 +71,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (failure) => authState = SignInErrorState(message: failure.message),
         (user) => authState = const SignedInState(),
       );
-      emit(
-          await Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+      emit(await Future.delayed(const Duration(milliseconds: 2000))
+          .then((value) {
         return authState;
       }));
     }

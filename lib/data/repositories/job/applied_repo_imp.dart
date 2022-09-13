@@ -71,16 +71,8 @@ class AppliedRepoImp implements AppliedRepo {
   @override
   Future<Either<Failure, List<AppliedJob>>> fetch({required int limit}) async {
     var response = await paginaterFirestore.fetch(limit: limit);
-    return Future.value(Right(
-      response!.docs
-          .map((e) => AppliedJobModel.fromSnapshot(
-        id: e.id,
-        documentSnapshot: e.data() as Map<String, dynamic>,
-      )!)
-          .toList(),
-    ));
+
     try {
-      var response = await paginaterFirestore.fetch(limit: limit);
       return Future.value(Right(
         response!.docs
             .map((e) => AppliedJobModel.fromSnapshot(
@@ -130,17 +122,12 @@ class AppliedRepoImp implements AppliedRepo {
       (r) => user = r,
     );
     if (user != null) {
-      print(user);
       num counter = user!.ratingCounter!;
       num oldRating = user!.rating! * counter;
-      print(oldRating);
       oldRating += rating - appliedJob.rating;
-      print(oldRating);
       if (appliedJob.rating == 0 && rating > 0) counter += 1;
       if (rating == 0 && appliedJob.rating > 0) counter -= 1;
-      print(counter);
       num newRating = counter > 0 ? oldRating / counter : 0;
-      print(newRating);
 
       userInfoRepo.updateRate(
         userId: appliedJob.jobSeekerId,

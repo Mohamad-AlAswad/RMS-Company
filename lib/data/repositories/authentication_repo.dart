@@ -15,7 +15,7 @@ import '../datasources/remote/firebase_authentication.dart';
 class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   final AuthenticationRemote authenticationRemote;
   CompanyRepo? companyRepo;
-   StreamSubscription? _stream;
+  StreamSubscription? _stream;
 
   AuthenticationUsingTwoSteps() : authenticationRemote = sl();
 
@@ -34,7 +34,8 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, void>> signInEmailAndPassword({required String email, required String password}) {
+  Future<Either<Failure, void>> signInEmailAndPassword(
+      {required String email, required String password}) {
     return _signInUp(
       email: email,
       password: password,
@@ -43,7 +44,8 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, void>> signUpEmailAndPassword({required String email, required String password}) {
+  Future<Either<Failure, void>> signUpEmailAndPassword(
+      {required String email, required String password}) {
     return _signInUp(
       email: email,
       password: password,
@@ -97,13 +99,10 @@ class AuthenticationUsingTwoSteps extends AuthenticationRepo {
   }
 
   void _update() {
-    print('new update!');
-
     companyRepo!
         .getCompany(company: _company!)
         .then((value) => _companyInstance = value)
         .then((value) {
-      print(_companyInstance);
     });
   }
 
